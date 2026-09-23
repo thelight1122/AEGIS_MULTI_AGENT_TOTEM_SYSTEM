@@ -82,6 +82,22 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-23 | codex-lumin | mcp-agent-integration-qa-package
+
+Implemented Package 3: Agent Integration QA for the MCP path.
+
+Evidence:
+
+- Added `scripts/mcp-qa.mjs` to launch the built MCP server over stdio against a temporary AEGIS repository.
+- Added `npm run mcp:qa`.
+- MCP QA verifies tool listing, Root Totem read, Folder Totem read, lane read, lane message append, Folder Totem append, status, and validation.
+- Updated CI, `alpha:check`, README development commands, and the release checklist to include MCP QA.
+
+Distilled understanding:
+
+- Agent integration needs protocol-level proof, not only server startup.
+- The MCP adapter remains stateless over repo-native files while giving agents the full read/append/status/validate loop.
+
 ### 2026-09-23 | codex-lumin | local-install-qa-package
 
 Implemented Package 2: Local Install QA for the CLI path.

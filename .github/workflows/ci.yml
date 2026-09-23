@@ -39,5 +39,8 @@ jobs:
       - name: Local install QA
         run: npm run local-install:qa
 
+      - name: MCP QA
+        run: npm run mcp:qa
+
       - name: Package VS Code extension
         run: npm run package:vscode

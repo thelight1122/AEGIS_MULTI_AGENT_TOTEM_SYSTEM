@@ -65,6 +65,7 @@ npm test
 npm run typecheck
 npm run build
 npm run local-install:qa
+npm run mcp:qa
 npm run alpha:check
 ```
 

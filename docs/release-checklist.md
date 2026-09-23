@@ -10,6 +10,7 @@ Use this checklist before a public alpha, npm publication, or IDE marketplace pu
 - [ ] `npm run build` passes.
 - [ ] `npm pack --dry-run` shows only intended npm package files.
 - [ ] `npm run local-install:qa` passes.
+- [ ] `npm run mcp:qa` passes.
 - [ ] `npm run package:vscode` produces `dist/aegis-totem-vscode-0.1.0.vsix`.
 - [ ] GitHub Actions CI passes on `main`.
 - [ ] `README.md`, `docs/quickstart.md`, `CHANGELOG.md`, and `SECURITY.md` are current.
@@ -45,15 +46,22 @@ npm run local-install:qa
 
 ## Package 3: Agent Integration QA
 
-- [ ] Build the repo.
-- [ ] Configure an MCP client to run `dist/src/mcp-server.js`.
-- [ ] Set `AEGIS_REPO_ROOT` to a test repository.
-- [ ] Read Root Totem through MCP.
-- [ ] Read a Folder Totem through MCP.
-- [ ] Read an agent lane through MCP.
-- [ ] Send a lane message through MCP.
-- [ ] Append a Folder Totem update through MCP.
-- [ ] Run status and validation through MCP.
+- [ ] Run the automated MCP QA.
+- [ ] Confirm the MCP server starts through stdio.
+- [ ] Confirm `AEGIS_REPO_ROOT` points to a temporary test repository.
+- [ ] Confirm the expected MCP tools are listed.
+- [ ] Confirm Root Totem can be read through MCP.
+- [ ] Confirm a Folder Totem can be read through MCP.
+- [ ] Confirm an agent lane can be read through MCP.
+- [ ] Confirm a lane message can be sent through MCP.
+- [ ] Confirm a Folder Totem update can be appended through MCP.
+- [ ] Confirm status and validation run through MCP.
+
+Shortcut:
+
+```bash
+npm run mcp:qa
+```
 
 ## Package 4: Publication Gates
 
