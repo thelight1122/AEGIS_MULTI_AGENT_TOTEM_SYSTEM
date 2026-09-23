@@ -85,6 +85,22 @@ aegis-totem validate
 
 `status` is read-only. `validate` checks the required Root Totem and append-log structure.
 
+## 8. Use VS Code
+
+Build and install the local VS Code extension package:
+
+```bash
+npm run vscode:qa
+code --install-extension dist/aegis-totem-vscode-0.1.0.vsix
+```
+
+Open a repository that already has AEGIS Totem initialized. The AEGIS Totem Explorer view shows the Root Totem, Folder Totems, and lane files. Use the command palette for:
+
+- `AEGIS: Show Status`
+- `AEGIS: Validate`
+- `AEGIS: Send Lane Message`
+- `AEGIS: Append Folder Update`
+
 ## Suggested Agent Loop
 
 1. Read `ROOT_TOTEM.md`.

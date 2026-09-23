@@ -66,6 +66,7 @@ npm run typecheck
 npm run build
 npm run local-install:qa
 npm run mcp:qa
+npm run vscode:qa
 npm run alpha:check
 ```
 
@@ -83,6 +84,14 @@ code --install-extension dist/aegis-totem-vscode-0.1.0.vsix
 ```
 
 Install the CLI first so the extension can call `aegis-totem` from opened repositories.
+
+To verify the packaged extension before sharing it, run:
+
+```bash
+npm run vscode:qa
+```
+
+The QA packages the extension, inspects the `.vsix`, confirms required files are present, and verifies the expected AEGIS commands and Explorer view are declared.
 
 ## MCP
 

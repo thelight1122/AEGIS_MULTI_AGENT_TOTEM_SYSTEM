@@ -11,7 +11,7 @@ Use this checklist before a public alpha, npm publication, or IDE marketplace pu
 - [ ] `npm pack --dry-run` shows only intended npm package files.
 - [ ] `npm run local-install:qa` passes.
 - [ ] `npm run mcp:qa` passes.
-- [ ] `npm run package:vscode` produces `dist/aegis-totem-vscode-0.1.0.vsix`.
+- [ ] `npm run vscode:qa` passes and produces `dist/aegis-totem-vscode-0.1.0.vsix`.
 - [ ] GitHub Actions CI passes on `main`.
 - [ ] `README.md`, `docs/quickstart.md`, `CHANGELOG.md`, and `SECURITY.md` are current.
 
@@ -33,10 +33,6 @@ npm run alpha:check
 - [ ] Confirm one Folder Totem update is appended.
 - [ ] Confirm `aegis-totem status` reports the expected counts.
 - [ ] Confirm `aegis-totem validate` passes.
-- [ ] Install the VS Code `.vsix`.
-- [ ] Open the temporary repository in VS Code.
-- [ ] Confirm Root Totem, Folder Totem, and lanes appear in the AEGIS Totem view.
-- [ ] Confirm VS Code lane-message and Folder Totem append commands work.
 
 Shortcut:
 
@@ -63,7 +59,24 @@ Shortcut:
 npm run mcp:qa
 ```
 
-## Package 4: Publication Gates
+## Package 4: VS Code Adapter QA
+
+- [ ] Run the automated VS Code package QA.
+- [ ] Confirm the `.vsix` contains the extension manifest, runtime file, README, and license.
+- [ ] Confirm the extension manifest declares the AEGIS Explorer view.
+- [ ] Confirm the extension manifest declares refresh, Root Totem, status, validation, lane-message, and Folder Totem append commands.
+- [ ] Install the VS Code `.vsix`.
+- [ ] Open a temporary repository in VS Code.
+- [ ] Confirm Root Totem, Folder Totem, and lanes appear in the AEGIS Totem view.
+- [ ] Confirm VS Code lane-message and Folder Totem append commands work.
+
+Shortcut:
+
+```bash
+npm run vscode:qa
+```
+
+## Package 5: Publication Gates
 
 - [ ] Confirm npm package name and ownership.
 - [ ] Publish npm only after explicit authorization.
@@ -71,7 +84,7 @@ npm run mcp:qa
 - [ ] Attach the generated `.vsix` if using GitHub Releases for alpha distribution.
 - [ ] Publish to VS Code Marketplace or Open VSX only after explicit authorization.
 
-## Package 5: Post-Alpha Improvements
+## Package 6: Post-Alpha Improvements
 
 - [ ] Improve VS Code command prompts and error messages.
 - [ ] Add richer tree grouping for Root Totem, Folder Totems, and lanes.

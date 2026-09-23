@@ -82,6 +82,22 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-23 | codex-lumin | vscode-adapter-qa-package
+
+Implemented Package 4: VS Code Adapter QA.
+
+Evidence:
+
+- Added `scripts/vscode-qa.mjs` to verify the packaged `.vsix` contains the manifest, runtime file, README, and license.
+- Added `npm run vscode:qa`.
+- Updated `alpha:check` so the public alpha check now covers VS Code packaging QA instead of only packaging.
+- Updated README, quickstart, and release checklist with VS Code installation and QA guidance.
+
+Distilled understanding:
+
+- IDE readiness needs a repeatable artifact inspection gate before marketplace or GitHub Release distribution.
+- The VS Code adapter remains a thin interface over the canonical CLI and append-only repo files.
+
 ### 2026-09-23 | codex-lumin | mcp-agent-integration-qa-package
 
 Implemented Package 3: Agent Integration QA for the MCP path.
