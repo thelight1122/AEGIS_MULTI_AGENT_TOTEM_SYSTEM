@@ -82,6 +82,23 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-23 | codex-lumin | expand-vscode-coordination-surface
+
+Expanded the VS Code adapter from inspection into active coordination.
+
+Evidence:
+
+- Folder Totems and lane Markdown files are now discovered recursively instead of relying on fixed `src`, `tests`, and `codex` paths.
+- Added `AEGIS: Send Lane Message` with lane, message, and optional recipient prompts.
+- Added `AEGIS: Append Folder Update` with folder, actor, kind, and message prompts.
+- Existing status, validation, Root Totem, and refresh commands remain available.
+- `npm test` passes with 14 tests; typecheck, build, JavaScript syntax, and VS Code manifest checks pass.
+
+Distilled understanding:
+
+- The VS Code adapter is now useful for repeated coordination work, not only browsing.
+- All writes still pass through the canonical CLI and append-only storage boundary, preserving cross-IDE continuity.
+
 ### 2026-09-23 | codex-lumin | add-vscode-and-mcp-adapters
 
 Implemented the first VS Code and MCP integration surfaces.
