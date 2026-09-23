@@ -70,7 +70,16 @@ The first release is intentionally a local CLI. VS Code, MCP, JetBrains, and oth
 
 ## VS Code
 
-The first extension adapter lives in `vscode-extension`. It adds an AEGIS Totem view to the Explorer, opens the Root and common Folder Totems, and invokes the CLI for status and validation. Install the CLI first, then package the extension from that folder with the VS Code extension tooling.
+The first extension adapter lives in `vscode-extension`. It adds an AEGIS Totem view to the Explorer, discovers the Root Totem, Folder Totems, and agent lanes, and invokes the CLI for status, validation, lane messages, and Folder Totem updates.
+
+Build an installable VS Code package locally:
+
+```bash
+npm run package:vscode
+code --install-extension dist/aegis-totem-vscode-0.1.0.vsix
+```
+
+Install the CLI first so the extension can call `aegis-totem` from opened repositories.
 
 ## MCP
 

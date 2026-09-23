@@ -11,13 +11,14 @@ function run(command, args) {
     cp.execFile(command, args, { cwd: root }, (error, stdout, stderr) => error ? reject(new Error(stderr || error.message)) : resolve(stdout.trim()));
   });
 }
-function findFiles(root, filename, relative = "") {
+function findFiles(root, filename, relative = "", options = {}) {
+  const skipAegis = options.skipAegis !== false;
   const directory = path.join(root, relative);
   if (!fs.existsSync(directory)) return [];
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
-    if (entry.name === ".git" || entry.name === "node_modules" || entry.name === "dist" || entry.name === ".aegis") return [];
+    if (entry.name === ".git" || entry.name === "node_modules" || entry.name === "dist" || (skipAegis && entry.name === ".aegis")) return [];
     const child = path.join(relative, entry.name);
-    return entry.isDirectory() ? findFiles(root, filename, child) : entry.name === filename ? [child] : [];
+    return entry.isDirectory() ? findFiles(root, filename, child, options) : entry.name === filename ? [child] : [];
   });
 }
 class TotemProvider {
@@ -27,7 +28,7 @@ class TotemProvider {
   getChildren() {
     const root = repoRoot();
     if (!root) return Promise.resolve([]);
-    const paths = ["ROOT_TOTEM.md", ...findFiles(root, "TOTEM.md"), ...findFiles(root, ".md", ".aegis/lanes")];
+    const paths = ["ROOT_TOTEM.md", ...findFiles(root, "TOTEM.md"), ...findFiles(root, ".md", ".aegis/lanes", { skipAegis: false })];
     return Promise.resolve(paths.filter((value, index, all) => all.indexOf(value) === index).filter((value) => fs.existsSync(path.join(root, value))).map((relativePath) => {
       const item = new vscode.TreeItem(relativePath === "ROOT_TOTEM.md" ? "Root Totem" : relativePath, vscode.TreeItemCollapsibleState.None);
       item.resourceUri = vscode.Uri.file(path.join(root, relativePath));

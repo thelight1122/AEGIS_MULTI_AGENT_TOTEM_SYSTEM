@@ -82,6 +82,21 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-23 | codex-lumin | package-vscode-installable-slice
+
+Advanced the VS Code adapter toward installable developer use.
+
+Evidence:
+
+- Fixed lane discovery so `.aegis/lanes/*.md` can appear in the AEGIS Totem Explorer view.
+- Added `npm run package:vscode` to build the TypeScript CLI/MCP output and package `vscode-extension/` into `dist/aegis-totem-vscode-0.1.0.vsix`.
+- Added VS Code extension repository metadata, package include boundaries, license packaging, and local install instructions.
+
+Distilled understanding:
+
+- The extension remains an adapter over the canonical CLI and repo-native Markdown files.
+- Installability starts with a reproducible local package path before any Marketplace or Open VSX publication gate.
+
 ### 2026-09-23 | codex-lumin | expand-vscode-coordination-surface
 
 Expanded the VS Code adapter from inspection into active coordination.

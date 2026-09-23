@@ -5,8 +5,14 @@
   "version": "0.1.0",
   "publisher": "thelight1122",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thelight1122/AEGIS_MULTI_AGENT_TOTEM_SYSTEM.git",
+    "directory": "vscode-extension"
+  },
   "engines": { "vscode": "^1.85.0" },
   "main": "./extension.js",
+  "files": ["extension.js", "README.md", "LICENSE"],
   "activationEvents": ["onStartupFinished"],
   "categories": ["Other"],
   "contributes": {
