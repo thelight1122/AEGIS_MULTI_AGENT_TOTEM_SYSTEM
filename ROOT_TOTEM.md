@@ -1,0 +1,112 @@
+# AEGIS Root Totem
+
+Created: 2026-09-23
+Repo: AEGIS_MULTI_AGENT_TOTEM_SYSTEM
+
+## Purpose
+
+This repository exists to build the free AEGIS Totem developer tool.
+
+AEGIS Totem is a repo-native, append-only continuity system for AI-assisted development. It gives a repository shared reference memory through Root and Folder Totems, and it gives each human, agent, model, or instance its own message lane so parallel work can coordinate without collisions.
+
+## Core Product Thesis
+
+AI coding agents lose context, duplicate work, collide in shared state, and often require a human to copy/paste messages between tools.
+
+AEGIS Totem addresses that by making repo coordination local, visible, append-only, and folder-aware:
+
+- Root Totem: repo-wide orientation, status, rules, and current public direction.
+- Folder Totem: local folder reference, ownership, risks, conventions, and durable updates.
+- Agent Lane: append-only working/message channel for one agent, model, instance, or human.
+- Distillation: durable verified updates move from lanes into shared Totems.
+- Append-only provenance: corrections, supersessions, and status changes are appended, not silently rewritten.
+
+## Operating Rules
+
+- Read this Root Totem before working in this repository.
+- Read the relevant Folder Totem before editing files in a folder once Folder Totems exist.
+- Use an agent lane for working notes, uncertainty, handoffs, and model-to-model messages once lane support exists.
+- Append durable verified updates to the relevant Totem after work.
+- Do not rewrite or delete historical Totem or lane entries.
+- Corrections are appended as corrections.
+- Superseded decisions are appended as supersessions.
+- Current-state summaries may be generated as views, but the durable record remains append-only.
+
+## Current Repo State
+
+Status: Planning and initial self-dogfooding.
+
+Known current facts:
+
+- The workspace path is `G:\AEGIS_MULTI_AGENT_TOTEM_SYSTEM`.
+- This workspace was not a Git repository at the time the MVP plan was written.
+- The first detailed build plan exists at `docs/superpowers/plans/2026-09-23-aegis-totem-mvp.md`.
+- The planned MVP is a TypeScript Node CLI.
+- The planned storage surface is local Markdown plus JSON config.
+- The planned first commands are `init`, `lane create`, `lane message`, `totem create`, `totem append`, `status`, and `validate`.
+- VS Code extension, MCP server, hooks, and richer analytics are future work, not MVP.
+
+Known shortfalls:
+
+- Git has not yet been initialized in this workspace.
+- The CLI has not yet been implemented.
+- Folder Totems and Agent Lanes do not exist yet.
+- Validation behavior exists only in the implementation plan.
+
+## Public Positioning
+
+Working headline:
+
+> AEGIS Totem: append-only repo memory and collision-free coordination for AI coding agents.
+
+Plain-language launch posture:
+
+> We built AEGIS Totems because multiple AI coding agents working in one repo kept colliding, losing context, and forcing us to copy/paste between tools. Folder Totems and append-only Agent Lanes eliminated those collisions in our workflow, so we are releasing the system free for other developers.
+
+## MVP Build Direction
+
+First build target:
+
+- Free and local-first.
+- Installable as an npm CLI.
+- No hosted service.
+- No account requirement.
+- No telemetry in MVP.
+- MIT license unless changed by explicit decision.
+- Human-readable Markdown artifacts.
+- Append-only writes as the integrity law.
+
+First success condition:
+
+The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, create lanes, create Folder Totems, append messages, append durable folder updates, show read-only status, and validate structure.
+
+## Append Log
+
+### 2026-09-23 | codex-lumin | document-flow-locus-axiom-progression
+
+Created the first formal evolution note for the Flow/Locus/Axiom insight.
+
+Evidence:
+
+- Evolution note created at `docs/evolution/2026-09-23-flow-locus-axiom-progression.md`.
+- The note records Tracey's observation that sustained Locus may require Flow rather than only turn-based interaction.
+- The note maps the emerging relation: Force -> Flow -> Awareness -> Choice.
+
+Distilled understanding:
+
+- Turn-based interaction can preserve continuity as record, but Flow may be required to sustain continuity as an active field.
+- The AEGIS Totem System may function not only as repo memory, but as an early Flow surface for reducing hard resets between agents, folders, sessions, and models.
+- This is documented as a conceptual architecture hypothesis and provenance marker, not as a completed empirical claim.
+
+### 2026-09-23 | codex-lumin | create-root-totem
+
+Created the first Root Totem for this repository by direct request from Tracey so the AEGIS Totem tool practices its own pattern from the start.
+
+Evidence:
+
+- Build plan already exists at `docs/superpowers/plans/2026-09-23-aegis-totem-mvp.md`.
+- Root Totem created before CLI implementation, so this first entry is manual dogfooding.
+
+Distilled understanding:
+
+- This repository should model the same discipline the tool will give to other repositories: repo-native reference, append-only continuity, explicit shortfalls, and a clean distinction between current state and historical record.
