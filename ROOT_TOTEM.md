@@ -82,6 +82,22 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-23 | codex-lumin | public-alpha-foundation-package
+
+Grouped remaining release work into serial packages and implemented the first package.
+
+Evidence:
+
+- Added GitHub Actions CI for tests, typecheck, build, npm package dry-run, and VS Code extension packaging.
+- Added `npm run alpha:check` as a local public-alpha validation command.
+- Added `CHANGELOG.md`, `SECURITY.md`, `docs/quickstart.md`, and `docs/release-checklist.md`.
+- Updated README project records and development checks.
+
+Distilled understanding:
+
+- Public readiness is clearer when grouped into packages: foundation, local install QA, agent integration QA, publication gates, and post-alpha improvements.
+- Package 1 creates the repeatable evidence surface needed before inviting outside developers to try AEGIS Totem.
+
 ### 2026-09-23 | codex-lumin | package-vscode-installable-slice
 
 Advanced the VS Code adapter toward installable developer use.

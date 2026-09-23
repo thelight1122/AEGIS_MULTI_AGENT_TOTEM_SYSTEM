@@ -64,6 +64,7 @@ Read the relevant Totem before editing a folder. Use a lane for coordination, un
 npm test
 npm run typecheck
 npm run build
+npm run alpha:check
 ```
 
 The first release is intentionally a local CLI. VS Code, MCP, JetBrains, and other IDE integrations will build on the same CLI and repository artifacts rather than creating a second source of truth.
@@ -102,6 +103,10 @@ The server provides tools to read the Root Totem, read Folder Totems and lanes, 
 ## Project Records
 
 - [Root Totem](ROOT_TOTEM.md)
+- [Quickstart](docs/quickstart.md)
+- [Release checklist](docs/release-checklist.md)
+- [Changelog](CHANGELOG.md)
+- [Security policy](SECURITY.md)
 - [MVP implementation plan](docs/superpowers/plans/2026-09-23-aegis-totem-mvp.md)
 - [Flow, Locus, and Axiom evolution note](docs/evolution/2026-09-23-flow-locus-axiom-progression.md)
 
