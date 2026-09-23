@@ -1,0 +1,8 @@
+.aegis/
+.git/
+docs/
+src/
+tests/
+ROOT_TOTEM.md
+coverage/
+*.ts

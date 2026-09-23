@@ -1,5 +1,6 @@
-import { appendFile, writeFile } from "node:fs/promises";
+import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import { appendLocked } from "../fs/append.js";
 import { ensureInsideRoot } from "../fs/repo.js";
 import { sanitizeLaneName } from "./schema.js";
 import { folderTotemTemplate } from "./templates.js";
@@ -16,6 +17,6 @@ export async function appendFolderTotem(rootDir: string, folderPath: string, act
   const totemPath = join(targetFolder, "TOTEM.md");
   const safeKind = kind.trim().toLowerCase().replace(/[^a-z0-9_-]+/g, "-");
   if (!safeKind) throw new Error("Append kind is required");
-  await appendFile(totemPath, `\n### ${new Date().toISOString()} | ${sanitizeLaneName(actor)} | ${safeKind}\n\n${body.trim()}\n`, "utf8");
+  await appendLocked(totemPath, `\n### ${new Date().toISOString()} | ${sanitizeLaneName(actor)} | ${safeKind}\n\n${body.trim()}\n`);
   return totemPath;
 }

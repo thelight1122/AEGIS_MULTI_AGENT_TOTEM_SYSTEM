@@ -1,43 +1,79 @@
-# AEGIS Multi-Agent Totem System
+# AEGIS Totem
 
-AEGIS Totem is a repo-native, append-only continuity system for AI-assisted development.
+Append-only repo memory and collision-resistant coordination for AI coding agents.
 
-The goal is simple: help developers coordinate multiple AI coding agents in one repository without collisions, lost context, or human copy/paste mediation between tools.
+AEGIS Totem gives a repository a shared Root Totem, Folder Totems for local reference, and separate append-only lanes for agents, models, instances, and humans. The records stay in the repository as readable Markdown, so every tool can work from the same continuity surface.
 
-## Core Idea
+## Why It Exists
 
-Every repository gets a Root Totem.
-Every important folder can get a Folder Totem.
-Every agent, model, instance, or human can work through its own append-only lane.
+Multiple coding agents can lose context, duplicate work, or collide in shared files. AEGIS Totem gives each participant a lane for messages and working notes while preserving durable folder knowledge in Totems. In our workflow, this removed the need to copy/paste messages between parallel desktop coding models and eliminated observed collisions.
 
-Agents read the relevant Totem before working, coordinate through lanes while working, and append durable updates afterward. Current-state summaries can be generated as views, but the durable record remains append-only.
+The tool is free, local-first, and has no account, hosted service, or telemetry requirement.
 
-## Current State
+## Install
 
-This repository is in planning and early self-dogfooding.
+The package is being prepared for its first npm release. During development, clone the repository and run:
 
-Start here:
+```bash
+npm install
+npm run build
+node dist/src/cli.js --help
+```
 
-- `ROOT_TOTEM.md` - repo-wide orientation and append log.
-- `docs/superpowers/plans/2026-09-23-aegis-totem-mvp.md` - MVP implementation plan.
-- `docs/evolution/2026-09-23-flow-locus-axiom-progression.md` - evolution note on Flow, Locus, and the Force -> Flow -> Awareness -> Choice progression.
+## Quick Start
 
-## Planned MVP
+Run these commands from the root of a repository:
 
-The first build target is a local-first TypeScript Node CLI with human-readable Markdown artifacts.
+```bash
+aegis-totem init
+aegis-totem lane create codex
+aegis-totem lane create claude
+aegis-totem totem create src
+aegis-totem lane message codex --to claude -m "I inspected src. Please review the parser boundary before editing."
+aegis-totem totem append src --actor codex --kind verified-change -m "Added parser tests. Verification: npm test passed."
+aegis-totem status
+aegis-totem validate
+```
 
-Planned commands:
+## Generated Structure
 
-- `init`
-- `lane create`
-- `lane message`
-- `totem create`
-- `totem append`
-- `status`
-- `validate`
+```text
+ROOT_TOTEM.md                 repo-wide orientation and append log
+.aegis/config.json            local configuration
+.aegis/lanes/<agent>.md       one append-only lane per participant
+<folder>/TOTEM.md             folder reference and durable append log
+```
 
-## Integrity Rule
+Read the relevant Totem before editing a folder. Use a lane for coordination, uncertainty, handoffs, and direct model-to-model messages. Append verified updates after work. Corrections and supersessions are appended as new records; historical entries are not silently rewritten or deleted.
 
-Append-only is the law.
+## Commands
 
-Corrections, supersessions, status changes, and distillations are appended as new entries. Historical Totem and lane entries are not silently rewritten or deleted.
+| Command | Purpose |
+| --- | --- |
+| `init` | Create the local AEGIS structure without overwriting existing Totems. |
+| `lane create <name>` | Create an agent lane. |
+| `lane message <lane> -m <text>` | Append a message, optionally addressed with `--to <lane>`. |
+| `totem create <folder>` | Create a Folder Totem. |
+| `totem append <folder>` | Append a durable update with `--actor`, `--kind`, and `--message`. |
+| `status` | Show a read-only inventory. |
+| `validate` | Check required Totem and append-log structure. |
+
+## Development
+
+```bash
+npm test
+npm run typecheck
+npm run build
+```
+
+The first release is intentionally a local CLI. VS Code, MCP, JetBrains, and other IDE integrations will build on the same CLI and repository artifacts rather than creating a second source of truth.
+
+## Project Records
+
+- [Root Totem](ROOT_TOTEM.md)
+- [MVP implementation plan](docs/superpowers/plans/2026-09-23-aegis-totem-mvp.md)
+- [Flow, Locus, and Axiom evolution note](docs/evolution/2026-09-23-flow-locus-axiom-progression.md)
+
+## License
+
+MIT. See [LICENSE](LICENSE).

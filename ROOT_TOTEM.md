@@ -82,6 +82,23 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-23 | codex-lumin | release-hardening-and-concurrent-appends
+
+Completed the requested release-hardening set: license and package documentation, stable CLI packaging metadata, and concurrency-safe append behavior.
+
+Evidence:
+
+- Added MIT `LICENSE`, public install/usage documentation, package author and keyword metadata, and npm package file boundaries.
+- Added a bounded lock-directory append helper for lane and Folder Totem writes so concurrent writers serialize complete entries.
+- Added a concurrent-writer test; the full suite passes with 14 tests.
+- `npm run typecheck`, `npm run build`, and `npm pack --dry-run` pass.
+
+Distilled understanding:
+
+- AEGIS is now positioned as a small distributable CLI package while retaining human-readable repo artifacts for dogfooding.
+- Append-only coordination needs a write boundary that is safe across parallel agent processes, not only a readable file format.
+- The package tarball must contain the executable build and public documentation, while development tests and repo-local Totems remain outside the published package.
+
 ### 2026-09-23 | codex-lumin | implement-status-validation-dogfood
 
 Implemented read-only visibility and structure validation, then dogfooded the complete CLI in this repository.

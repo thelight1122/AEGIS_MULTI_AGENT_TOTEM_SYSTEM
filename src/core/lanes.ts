@@ -1,5 +1,6 @@
-import { appendFile, mkdir, writeFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import { appendLocked } from "../fs/append.js";
 import { sanitizeLaneName } from "./schema.js";
 import { laneTemplate } from "./templates.js";
 
@@ -16,6 +17,6 @@ export async function appendLaneMessage(rootDir: string, laneName: string, messa
   const safeName = sanitizeLaneName(laneName);
   const lanePath = join(rootDir, ".aegis", "lanes", `${safeName}.md`);
   const addressed = to ? `\nTo: ${sanitizeLaneName(to)}\n` : "";
-  await appendFile(lanePath, `\n### ${new Date().toISOString()} | ${safeName} | message${addressed}\n${message.trim()}\n`, "utf8");
+  await appendLocked(lanePath, `\n### ${new Date().toISOString()} | ${safeName} | message${addressed}\n${message.trim()}\n`);
   return lanePath;
 }

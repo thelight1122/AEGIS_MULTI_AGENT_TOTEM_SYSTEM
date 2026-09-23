@@ -2,6 +2,9 @@
   "name": "aegis-totem",
   "version": "0.1.0",
   "description": "Append-only repo memory and agent lanes for AI-assisted development.",
+  "keywords": ["aegis", "ai-coding", "agents", "repo-memory", "developer-tools", "cli"],
+  "author": "Tracey Prutch",
+  "files": ["dist/src", "README.md", "LICENSE"],
   "type": "module",
   "bin": { "aegis-totem": "./dist/src/cli.js" },
   "scripts": {
