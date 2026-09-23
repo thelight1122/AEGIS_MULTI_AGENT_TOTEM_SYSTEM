@@ -82,6 +82,25 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-23 | codex-lumin | add-vscode-and-mcp-adapters
+
+Implemented the first VS Code and MCP integration surfaces.
+
+Evidence:
+
+- Added `vscode-extension/` with an Explorer Totem view, Root Totem opening, refresh, status, and validation commands.
+- Added `src/mcp-server.ts` with tools to read the Root Totem, Folder Totems, and lanes; send lane messages; append Folder Totem updates; show status; and validate structure.
+- MCP reads use repository-boundary and lane-name safety helpers before accessing files.
+- Added local setup documentation for both adapters.
+- `npm test` passes with 14 tests; typecheck, build, and both package-manifest JSON checks pass.
+- MCP server startup was verified as a live stdio process.
+
+Distilled understanding:
+
+- The IDE and agent integrations are adapters over the same canonical CLI and repo files, not competing storage systems.
+- VS Code currently provides discovery and inspection; MCP provides structured agent access to the complete first workflow.
+- The next integration refinement is richer Folder Totem and lane discovery plus append forms in the VS Code view.
+
 ### 2026-09-23 | codex-lumin | release-hardening-and-concurrent-appends
 
 Completed the requested release-hardening set: license and package documentation, stable CLI packaging metadata, and concurrency-safe append behavior.

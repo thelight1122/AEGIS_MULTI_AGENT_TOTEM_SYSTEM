@@ -1,0 +1,22 @@
+{
+  "name": "aegis-totem-vscode",
+  "displayName": "AEGIS Totem",
+  "description": "Browse repo Totems and agent lanes from VS Code.",
+  "version": "0.1.0",
+  "publisher": "thelight1122",
+  "license": "MIT",
+  "engines": { "vscode": "^1.85.0" },
+  "main": "./extension.js",
+  "activationEvents": ["onStartupFinished"],
+  "categories": ["Other"],
+  "contributes": {
+    "commands": [
+      { "command": "aegisTotem.refresh", "title": "AEGIS: Refresh" },
+      { "command": "aegisTotem.openRoot", "title": "AEGIS: Open Root Totem" },
+      { "command": "aegisTotem.status", "title": "AEGIS: Show Status" },
+      { "command": "aegisTotem.validate", "title": "AEGIS: Validate" }
+    ],
+    "views": { "explorer": [{ "id": "aegisTotemView", "name": "AEGIS Totem" }] },
+    "menus": { "view/title": [{ "command": "aegisTotem.refresh", "when": "view == aegisTotemView", "group": "navigation" }] }
+  }
+}

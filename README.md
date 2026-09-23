@@ -68,6 +68,28 @@ npm run build
 
 The first release is intentionally a local CLI. VS Code, MCP, JetBrains, and other IDE integrations will build on the same CLI and repository artifacts rather than creating a second source of truth.
 
+## VS Code
+
+The first extension adapter lives in `vscode-extension`. It adds an AEGIS Totem view to the Explorer, opens the Root and common Folder Totems, and invokes the CLI for status and validation. Install the CLI first, then package the extension from that folder with the VS Code extension tooling.
+
+## MCP
+
+The local MCP adapter exposes the same canonical repo surface to AI coding agents. Set `AEGIS_REPO_ROOT` to the repository path and run `npm run build`, then configure the MCP client to launch:
+
+```json
+{
+  "mcpServers": {
+    "aegis-totem": {
+      "command": "node",
+      "args": ["/absolute/path/to/aegis-totem/dist/src/mcp-server.js"],
+      "env": { "AEGIS_REPO_ROOT": "/absolute/path/to/your/repo" }
+    }
+  }
+}
+```
+
+The server provides tools to read the Root Totem, read Folder Totems and lanes, send lane messages, append Folder Totem updates, show status, and validate structure. It is local and stateless; the repository files remain authoritative.
+
 ## Project Records
 
 - [Root Totem](ROOT_TOTEM.md)
