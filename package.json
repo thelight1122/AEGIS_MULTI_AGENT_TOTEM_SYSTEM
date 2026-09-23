@@ -1,0 +1,21 @@
+{
+  "name": "aegis-totem",
+  "version": "0.1.0",
+  "description": "Append-only repo memory and agent lanes for AI-assisted development.",
+  "type": "module",
+  "bin": { "aegis-totem": "./dist/cli.js" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": { "commander": "^12.1.0", "zod": "^3.23.8" },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3",
+    "vitest": "^2.0.3"
+  },
+  "license": "MIT"
+}

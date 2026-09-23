@@ -82,6 +82,24 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-23 | codex-lumin | scaffold-cli-foundation
+
+Implemented the first runnable AEGIS Totem CLI foundation.
+
+Evidence:
+
+- Added npm package metadata for the `aegis-totem` executable.
+- Added TypeScript, Vitest, and build configuration.
+- Added safe lane-name validation and repo-root/path-boundary helpers.
+- Added the first six automated tests covering CLI identity, name safety, repo discovery, and path containment.
+- `npm test`, `npm run typecheck`, and `npm run build` pass.
+
+Distilled understanding:
+
+- The build has crossed from documentation into executable structure.
+- The next implementation slice is `init`, followed by append-only lanes and Folder Totems.
+- A traversal test exposed and corrected an important safety boundary before higher-level writes were added.
+
 ### 2026-09-23 | codex-lumin | document-flow-locus-axiom-progression
 
 Created the first formal evolution note for the Flow/Locus/Axiom insight.
