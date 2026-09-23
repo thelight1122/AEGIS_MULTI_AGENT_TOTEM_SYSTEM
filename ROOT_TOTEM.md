@@ -82,6 +82,22 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-23 | codex-lumin | vscode-post-alpha-usability
+
+Implemented the first Package 6 post-alpha improvement for the VS Code adapter.
+
+Evidence:
+
+- Grouped the VS Code Explorer view into Root, Folder Totems, and Agent Lanes sections.
+- Added safer Root Totem opening when no workspace or Root Totem exists.
+- Added clearer prompt placeholders for lane messages and Folder Totem updates.
+- Added success messages after append commands.
+- Updated VS Code QA to verify grouped view source markers and prompt placeholders.
+
+Distilled understanding:
+
+- The IDE adapter should make the Totem structure legible at a glance while keeping all writes routed through the canonical CLI.
+
 ### 2026-09-23 | codex-lumin | publication-gates-package
 
 Implemented Package 5: Publication Gates preparation.

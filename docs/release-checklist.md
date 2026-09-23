@@ -99,6 +99,8 @@ npm run release:preflight
 
 - [ ] Improve VS Code command prompts and error messages.
 - [ ] Add richer tree grouping for Root Totem, Folder Totems, and lanes.
+- [ ] Re-run `npm run vscode:qa`.
+- [ ] Re-run `npm run alpha:check`.
 - [ ] Add more MCP client examples.
 - [ ] Add JetBrains or other IDE adapters if demand appears.
 - [ ] Add optional analytics over append logs without changing append-only storage.

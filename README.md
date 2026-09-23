@@ -75,7 +75,7 @@ The first release is intentionally a local CLI. VS Code, MCP, JetBrains, and oth
 
 ## VS Code
 
-The first extension adapter lives in `vscode-extension`. It adds an AEGIS Totem view to the Explorer, discovers the Root Totem, Folder Totems, and agent lanes, and invokes the CLI for status, validation, lane messages, and Folder Totem updates.
+The first extension adapter lives in `vscode-extension`. It adds an AEGIS Totem view to the Explorer, groups the Root Totem, Folder Totems, and agent lanes, and invokes the CLI for status, validation, lane messages, and Folder Totem updates.
 
 Build an installable VS Code package locally:
 

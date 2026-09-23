@@ -78,6 +78,9 @@ requireCommands(manifest, [
 const source = readFileSync(extensionSourcePath, "utf8");
 requireSourceContains(source, [
   "aegis-totem",
+  "Folder Totems",
+  "Agent Lanes",
+  "placeHolder",
   "lane",
   "message",
   "totem",
