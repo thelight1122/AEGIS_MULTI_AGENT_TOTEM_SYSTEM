@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 import { Command } from "commander";
+import { fileURLToPath } from "node:url";
 import { initTotemRepo } from "./core/init.js";
 import { appendLaneMessage, createLane } from "./core/lanes.js";
 import { appendFolderTotem, createFolderTotem } from "./core/totems.js";
+import { formatStatus, getStatus } from "./core/status.js";
+import { formatValidation, validateRepo } from "./core/validate.js";
 
 export function buildProgram(): Command {
   const program = new Command()
@@ -29,9 +32,18 @@ export function buildProgram(): Command {
       console.log(`Appended to folder Totem: ${await appendFolderTotem(process.cwd(), folder, options.actor, options.kind, options.message)}`);
     });
 
+  program.command("status").description("Show a read-only current view of AEGIS Totem files.")
+    .action(async () => console.log(formatStatus(await getStatus(process.cwd()))));
+  program.command("validate").description("Validate AEGIS Totem structure.")
+    .action(async () => {
+      const result = await validateRepo(process.cwd());
+      console.log(formatValidation(result));
+      if (!result.ok) process.exitCode = 1;
+    });
+
   return program;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   buildProgram().parse(process.argv);
 }
