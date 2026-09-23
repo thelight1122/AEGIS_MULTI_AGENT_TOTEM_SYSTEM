@@ -11,7 +11,8 @@ Public alpha foundation for AEGIS Totem.
 - MCP stdio adapter exposing Root Totem, Folder Totem, lane, append, status, and validation tools.
 - VS Code adapter for browsing Totems and lanes, sending lane messages, and appending Folder Totem updates.
 - Local VS Code `.vsix` packaging with `npm run package:vscode`.
-- CI workflow for tests, typecheck, build, npm pack dry-run, and VS Code packaging.
+- Local install QA, MCP QA, VS Code package QA, and release preflight checks.
+- CI workflow for tests, typecheck, build, npm pack dry-run, install QA, MCP QA, VS Code QA, and release preflight.
 
 ### Notes
 

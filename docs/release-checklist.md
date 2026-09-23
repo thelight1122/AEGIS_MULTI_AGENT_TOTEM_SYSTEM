@@ -12,6 +12,7 @@ Use this checklist before a public alpha, npm publication, or IDE marketplace pu
 - [ ] `npm run local-install:qa` passes.
 - [ ] `npm run mcp:qa` passes.
 - [ ] `npm run vscode:qa` passes and produces `dist/aegis-totem-vscode-0.1.0.vsix`.
+- [ ] `npm run release:preflight` passes.
 - [ ] GitHub Actions CI passes on `main`.
 - [ ] `README.md`, `docs/quickstart.md`, `CHANGELOG.md`, and `SECURITY.md` are current.
 
@@ -78,11 +79,21 @@ npm run vscode:qa
 
 ## Package 5: Publication Gates
 
+- [ ] Run the automated release preflight.
 - [ ] Confirm npm package name and ownership.
+- [ ] Re-check whether `aegis-totem` exists in the npm registry immediately before publication.
+- [ ] Re-check whether `v0.1.0-alpha.1` exists as a GitHub Release immediately before publication.
+- [ ] Review `docs/releases/v0.1.0-alpha.1.md`.
 - [ ] Publish npm only after explicit authorization.
 - [ ] Create a GitHub Release with release notes.
 - [ ] Attach the generated `.vsix` if using GitHub Releases for alpha distribution.
 - [ ] Publish to VS Code Marketplace or Open VSX only after explicit authorization.
+
+Shortcut:
+
+```bash
+npm run release:preflight
+```
 
 ## Package 6: Post-Alpha Improvements
 

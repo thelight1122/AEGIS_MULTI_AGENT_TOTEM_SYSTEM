@@ -82,6 +82,24 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-23 | codex-lumin | publication-gates-package
+
+Implemented Package 5: Publication Gates preparation.
+
+Evidence:
+
+- Added `scripts/release-preflight.mjs` to verify release metadata, expected npm package boundaries, built CLI/MCP outputs, generated VSIX artifact, release notes, and required scripts.
+- Added `npm run release:preflight`.
+- Updated `alpha:check` and CI so release preflight runs after CLI, MCP, and VS Code QA.
+- Added draft release notes at `docs/releases/v0.1.0-alpha.1.md`.
+- Updated README, quickstart, changelog, and release checklist with publication gate guidance.
+- Preflight observations on 2026-09-23: npm returned `E404` for `aegis-totem`; GitHub reported `v0.1.0-alpha.1` release not found.
+
+Distilled understanding:
+
+- Publication readiness is not the same as publication.
+- npm publishing, GitHub Release creation, VSIX attachment, and marketplace publication remain separate explicit authorization gates.
+
 ### 2026-09-23 | codex-lumin | vscode-adapter-qa-package
 
 Implemented Package 4: VS Code Adapter QA.

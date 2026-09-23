@@ -21,6 +21,14 @@ npm install -g aegis-totem
 
 If you do not want to link the development build globally, replace `aegis-totem` in the examples below with `node /absolute/path/to/aegis-totem/dist/src/cli.js`.
 
+Before sharing the alpha with another developer, run:
+
+```bash
+npm run alpha:check
+```
+
+This validates the CLI, local install flow, MCP adapter, VS Code package, and release preflight without publishing anything.
+
 ## 2. Initialize A Repository
 
 Run from the root of the repository you want to coordinate:

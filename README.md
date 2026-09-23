@@ -67,6 +67,7 @@ npm run build
 npm run local-install:qa
 npm run mcp:qa
 npm run vscode:qa
+npm run release:preflight
 npm run alpha:check
 ```
 
@@ -116,6 +117,7 @@ The server provides tools to read the Root Totem, read Folder Totems and lanes, 
 - [Root Totem](ROOT_TOTEM.md)
 - [Quickstart](docs/quickstart.md)
 - [Release checklist](docs/release-checklist.md)
+- [Draft release notes](docs/releases/v0.1.0-alpha.1.md)
 - [Changelog](CHANGELOG.md)
 - [Security policy](SECURITY.md)
 - [MVP implementation plan](docs/superpowers/plans/2026-09-23-aegis-totem-mvp.md)

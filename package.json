@@ -8,13 +8,14 @@
   "type": "module",
   "bin": { "aegis-totem": "./dist/src/cli.js" },
   "scripts": {
-    "alpha:check": "npm test && npm run typecheck && npm run build && npm pack --dry-run && npm run local-install:qa && npm run mcp:qa && npm run vscode:qa",
+    "alpha:check": "npm test && npm run typecheck && npm run build && npm pack --dry-run && npm run local-install:qa && npm run mcp:qa && npm run vscode:qa && npm run release:preflight",
     "build": "tsc -p tsconfig.json",
     "dev": "tsx src/cli.ts",
     "local-install:qa": "npm run build && node scripts/local-install-qa.mjs",
     "mcp": "node dist/src/mcp-server.js",
     "mcp:qa": "npm run build && node scripts/mcp-qa.mjs",
     "package:vscode": "npm run build && node scripts/package-vscode.mjs",
+    "release:preflight": "node scripts/release-preflight.mjs",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "vscode:qa": "npm run package:vscode && node scripts/vscode-qa.mjs"
