@@ -82,6 +82,22 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-23 | codex-lumin | local-install-qa-package
+
+Implemented Package 2: Local Install QA for the CLI path.
+
+Evidence:
+
+- Added `scripts/local-install-qa.mjs` to build, pack, install, and exercise the CLI in a temporary sandbox.
+- Added `npm run local-install:qa`.
+- Updated the release checklist with automated local install QA evidence and remaining manual VS Code install checks.
+- Updated README development commands.
+
+Distilled understanding:
+
+- Local install QA should verify the built package as a user would receive it, not only the source-tree CLI.
+- VS Code installation still needs a manual UI check, but the core CLI install and append workflow now has a repeatable proof path.
+
 ### 2026-09-23 | codex-lumin | public-alpha-foundation-package
 
 Grouped remaining release work into serial packages and implemented the first package.

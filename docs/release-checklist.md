@@ -9,6 +9,7 @@ Use this checklist before a public alpha, npm publication, or IDE marketplace pu
 - [ ] `npm run typecheck` passes.
 - [ ] `npm run build` passes.
 - [ ] `npm pack --dry-run` shows only intended npm package files.
+- [ ] `npm run local-install:qa` passes.
 - [ ] `npm run package:vscode` produces `dist/aegis-totem-vscode-0.1.0.vsix`.
 - [ ] GitHub Actions CI passes on `main`.
 - [ ] `README.md`, `docs/quickstart.md`, `CHANGELOG.md`, and `SECURITY.md` are current.
@@ -21,19 +22,26 @@ npm run alpha:check
 
 ## Package 2: Local Install QA
 
-- [ ] Install the CLI locally or globally.
-- [ ] Create a temporary repository.
-- [ ] Run `aegis-totem init`.
-- [ ] Create two lanes.
-- [ ] Create at least one Folder Totem.
-- [ ] Append one lane message.
-- [ ] Append one Folder Totem update.
-- [ ] Run `aegis-totem status`.
-- [ ] Run `aegis-totem validate`.
+- [ ] Run the automated local CLI install QA.
+- [ ] Confirm the packed npm tarball installs into a temporary sandbox.
+- [ ] Confirm the installed `aegis-totem` binary runs in a temporary repository.
+- [ ] Confirm `aegis-totem init` creates the Root Totem and `.aegis` structure.
+- [ ] Confirm two lanes can be created.
+- [ ] Confirm at least one Folder Totem can be created.
+- [ ] Confirm one lane message is appended.
+- [ ] Confirm one Folder Totem update is appended.
+- [ ] Confirm `aegis-totem status` reports the expected counts.
+- [ ] Confirm `aegis-totem validate` passes.
 - [ ] Install the VS Code `.vsix`.
 - [ ] Open the temporary repository in VS Code.
 - [ ] Confirm Root Totem, Folder Totem, and lanes appear in the AEGIS Totem view.
 - [ ] Confirm VS Code lane-message and Folder Totem append commands work.
+
+Shortcut:
+
+```bash
+npm run local-install:qa
+```
 
 ## Package 3: Agent Integration QA
 

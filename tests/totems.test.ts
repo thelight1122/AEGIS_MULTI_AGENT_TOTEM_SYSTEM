@@ -17,4 +17,12 @@ describe("folder Totems", () => {
     expect(after.startsWith(before)).toBe(true);
     expect(after).toContain("codex | verified-change");
   });
+
+  it("creates the target folder when creating a folder Totem", async () => {
+    const root = await createTempRepo();
+    await initTotemRepo(root);
+    const path = await createFolderTotem(root, "src/new-feature");
+    const body = await readFile(path, "utf8");
+    expect(body).toContain("# Folder Totem: src/new-feature");
+  });
 });

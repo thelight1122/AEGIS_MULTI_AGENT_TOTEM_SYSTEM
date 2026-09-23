@@ -64,6 +64,7 @@ Read the relevant Totem before editing a folder. Use a lane for coordination, un
 npm test
 npm run typecheck
 npm run build
+npm run local-install:qa
 npm run alpha:check
 ```
 

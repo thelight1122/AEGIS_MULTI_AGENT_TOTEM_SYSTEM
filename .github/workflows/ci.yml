@@ -36,5 +36,8 @@ jobs:
       - name: Validate npm package
         run: npm pack --dry-run
 
+      - name: Local install QA
+        run: npm run local-install:qa
+
       - name: Package VS Code extension
         run: npm run package:vscode

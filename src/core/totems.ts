@@ -1,4 +1,4 @@
-import { writeFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { appendLocked } from "../fs/append.js";
 import { ensureInsideRoot } from "../fs/repo.js";
@@ -7,6 +7,7 @@ import { folderTotemTemplate } from "./templates.js";
 
 export async function createFolderTotem(rootDir: string, folderPath: string): Promise<string> {
   const targetFolder = ensureInsideRoot(rootDir, join(rootDir, folderPath));
+  await mkdir(targetFolder, { recursive: true });
   const totemPath = join(targetFolder, "TOTEM.md");
   await writeFile(totemPath, folderTotemTemplate(folderPath.replace(/\\/g, "/"), new Date().toISOString()), { flag: "wx" });
   return totemPath;
