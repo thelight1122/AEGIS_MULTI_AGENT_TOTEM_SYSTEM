@@ -7,6 +7,7 @@ import { appendLaneMessage } from "./core/lanes.js";
 import { appendFolderTotem } from "./core/totems.js";
 import { formatStatus, getStatus } from "./core/status.js";
 import { formatValidation, validateRepo } from "./core/validate.js";
+import { formatAnalytics, getAnalytics } from "./core/analytics.js";
 import { ensureInsideRoot } from "./fs/repo.js";
 import { sanitizeLaneName } from "./core/schema.js";
 
@@ -20,5 +21,6 @@ server.tool("aegis_read_lane", "Read an append-only agent lane.", { lane: z.stri
 server.tool("aegis_send_lane_message", "Append a message to an agent lane.", { lane: z.string(), message: z.string(), to: z.string().optional() }, async ({ lane, message, to }) => text(await appendLaneMessage(repoRoot, lane, message, to)));
 server.tool("aegis_append_folder_update", "Append a durable update to a Folder Totem.", { folder: z.string(), actor: z.string(), kind: z.string(), message: z.string() }, async ({ folder, actor, kind, message }) => text(await appendFolderTotem(repoRoot, folder, actor, kind, message)));
 server.tool("aegis_status", "Show the current read-only AEGIS Totem inventory.", {}, async () => text(formatStatus(await getStatus(repoRoot))));
+server.tool("aegis_analytics", "Show read-only append activity counts for Totems and lanes.", {}, async () => text(formatAnalytics(await getAnalytics(repoRoot))));
 server.tool("aegis_validate", "Validate AEGIS Totem structure and append logs.", {}, async () => text(formatValidation(await validateRepo(repoRoot))));
 await server.connect(new StdioServerTransport());

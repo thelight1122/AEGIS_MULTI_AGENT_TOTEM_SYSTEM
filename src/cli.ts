@@ -6,6 +6,7 @@ import { appendLaneMessage, createLane } from "./core/lanes.js";
 import { appendFolderTotem, createFolderTotem } from "./core/totems.js";
 import { formatStatus, getStatus } from "./core/status.js";
 import { formatValidation, validateRepo } from "./core/validate.js";
+import { formatAnalytics, getAnalytics } from "./core/analytics.js";
 
 export function buildProgram(): Command {
   const program = new Command()
@@ -34,6 +35,8 @@ export function buildProgram(): Command {
 
   program.command("status").description("Show a read-only current view of AEGIS Totem files.")
     .action(async () => console.log(formatStatus(await getStatus(process.cwd()))));
+  program.command("analytics").description("Show read-only append activity counts for Totems and lanes.")
+    .action(async () => console.log(formatAnalytics(await getAnalytics(process.cwd()))));
   program.command("validate").description("Validate AEGIS Totem structure.")
     .action(async () => {
       const result = await validateRepo(process.cwd());

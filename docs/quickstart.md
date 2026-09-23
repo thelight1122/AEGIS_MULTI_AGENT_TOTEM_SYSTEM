@@ -88,10 +88,11 @@ Use Folder Totems for durable, reusable folder knowledge. Use lanes for coordina
 
 ```bash
 aegis-totem status
+aegis-totem analytics
 aegis-totem validate
 ```
 
-`status` is read-only. `validate` checks the required Root Totem and append-log structure.
+`status` and `analytics` are read-only. `validate` checks the required Root Totem and append-log structure.
 
 ## 8. Use VS Code
 
@@ -105,6 +106,7 @@ code --install-extension dist/aegis-totem-vscode-0.1.0.vsix
 Open a repository that already has AEGIS Totem initialized. The AEGIS Totem Explorer view shows the Root Totem, Folder Totems, and lane files. Use the command palette for:
 
 - `AEGIS: Show Status`
+- `AEGIS: Show Analytics`
 - `AEGIS: Validate`
 - `AEGIS: Send Lane Message`
 - `AEGIS: Append Folder Update`

@@ -7,6 +7,7 @@ Public alpha foundation for AEGIS Totem.
 ### Added
 
 - TypeScript CLI with `init`, agent lanes, lane messages, Folder Totems, append-only folder updates, `status`, and `validate`.
+- Read-only analytics for append activity across Root Totems, Folder Totems, and agent lanes.
 - Append-only write helper with lock-directory serialization for concurrent agent writes.
 - MCP stdio adapter exposing Root Totem, Folder Totem, lane, append, status, and validation tools.
 - VS Code adapter for browsing Totems and lanes, sending lane messages, and appending Folder Totem updates.

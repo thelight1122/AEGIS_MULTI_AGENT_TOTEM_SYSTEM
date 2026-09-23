@@ -74,6 +74,7 @@ try {
     "aegis_send_lane_message",
     "aegis_append_folder_update",
     "aegis_status",
+    "aegis_analytics",
     "aegis_validate"
   ]) {
     if (!toolNames.has(name)) {
@@ -101,6 +102,8 @@ try {
 
   assertIncludes(text(await client.callTool({ name: "aegis_status", arguments: {} })), "Folder Totems: 1", "MCP status");
   assertIncludes(text(await client.callTool({ name: "aegis_status", arguments: {} })), "Agent lanes: 1", "MCP status");
+  assertIncludes(text(await client.callTool({ name: "aegis_analytics", arguments: {} })), "Lane message entries: 1", "MCP analytics");
+  assertIncludes(text(await client.callTool({ name: "aegis_analytics", arguments: {} })), "Folder append entries: 1", "MCP analytics");
   assertIncludes(text(await client.callTool({ name: "aegis_validate", arguments: {} })), "AEGIS Totem validation passed.", "MCP validate");
 
   await client.close();

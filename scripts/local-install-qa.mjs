@@ -60,6 +60,7 @@ try {
   runCli(["totem", "append", "src", "--actor", "codex", "--kind", "local-install-qa", "-m", "Verified local install QA append path."]);
 
   const status = runCli(["status"]);
+  const analytics = runCli(["analytics"]);
   const validate = runCli(["validate"]);
 
   assertExists(join(targetRepo, "ROOT_TOTEM.md"));
@@ -81,6 +82,10 @@ try {
 
   if (!status.includes("Folder Totems: 1") || !status.includes("Agent lanes: 2")) {
     throw new Error(`Unexpected status output:\n${status}`);
+  }
+
+  if (!analytics.includes("Lane message entries: 1") || !analytics.includes("Folder append entries: 1")) {
+    throw new Error(`Unexpected analytics output:\n${analytics}`);
   }
 
   if (!validate.includes("AEGIS Totem validation passed.")) {

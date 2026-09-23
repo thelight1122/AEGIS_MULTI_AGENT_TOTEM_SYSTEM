@@ -32,6 +32,7 @@ aegis-totem totem create src
 aegis-totem lane message codex --to claude -m "I inspected src. Please review the parser boundary before editing."
 aegis-totem totem append src --actor codex --kind verified-change -m "Added parser tests. Verification: npm test passed."
 aegis-totem status
+aegis-totem analytics
 aegis-totem validate
 ```
 
@@ -56,6 +57,7 @@ Read the relevant Totem before editing a folder. Use a lane for coordination, un
 | `totem create <folder>` | Create a Folder Totem. |
 | `totem append <folder>` | Append a durable update with `--actor`, `--kind`, and `--message`. |
 | `status` | Show a read-only inventory. |
+| `analytics` | Show read-only append activity counts for Totems and lanes. |
 | `validate` | Check required Totem and append-log structure. |
 
 ## Development
@@ -75,7 +77,7 @@ The first release is intentionally a local CLI. VS Code, MCP, JetBrains, and oth
 
 ## VS Code
 
-The first extension adapter lives in `vscode-extension`. It adds an AEGIS Totem view to the Explorer, groups the Root Totem, Folder Totems, and agent lanes, and invokes the CLI for status, validation, lane messages, and Folder Totem updates.
+The first extension adapter lives in `vscode-extension`. It adds an AEGIS Totem view to the Explorer, groups the Root Totem, Folder Totems, and agent lanes, and invokes the CLI for status, analytics, validation, lane messages, and Folder Totem updates.
 
 Build an installable VS Code package locally:
 
@@ -110,7 +112,7 @@ The local MCP adapter exposes the same canonical repo surface to AI coding agent
 }
 ```
 
-The server provides tools to read the Root Totem, read Folder Totems and lanes, send lane messages, append Folder Totem updates, show status, and validate structure. It is local and stateless; the repository files remain authoritative.
+The server provides tools to read the Root Totem, read Folder Totems and lanes, send lane messages, append Folder Totem updates, show status, show analytics, and validate structure. It is local and stateless; the repository files remain authoritative.
 
 ## Project Records
 

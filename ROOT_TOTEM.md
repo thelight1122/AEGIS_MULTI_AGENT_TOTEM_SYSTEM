@@ -82,6 +82,23 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-23 | codex-lumin | read-only-analytics-package
+
+Implemented the next post-alpha improvement: read-only analytics over append activity.
+
+Evidence:
+
+- Added `aegis-totem analytics` to report Root append entries, lane counts, lane message entries, Folder Totem counts, Folder Totem append entries, and busiest lane/folder surfaces.
+- Exposed analytics through the MCP adapter as `aegis_analytics`.
+- Exposed analytics through the VS Code adapter as `AEGIS: Show Analytics`.
+- Updated README, quickstart, release checklist, local install QA, MCP QA, and VS Code QA.
+- `npm run alpha:check` passes with 16 tests and all package, MCP, VS Code, and release preflight checks.
+
+Distilled understanding:
+
+- Analytics should remain a read-only view over append-only records, not a second state system.
+- Developers need quick visibility into coordination activity without weakening the append-only law.
+
 ### 2026-09-23 | codex-lumin | vscode-post-alpha-usability
 
 Implemented the first Package 6 post-alpha improvement for the VS Code adapter.

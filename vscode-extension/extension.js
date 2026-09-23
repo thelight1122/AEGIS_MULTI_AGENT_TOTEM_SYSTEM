@@ -74,6 +74,7 @@ function activate(context) {
     await vscode.commands.executeCommand("vscode.open", vscode.Uri.file(rootTotem));
   })));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.status", () => showError(async () => vscode.window.showInformationMessage(await run("aegis-totem", ["status"])) )));
+  context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.analytics", () => showError(async () => vscode.window.showInformationMessage(await run("aegis-totem", ["analytics"])) )));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.validate", () => showError(async () => vscode.window.showInformationMessage(await run("aegis-totem", ["validate"])) )));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.sendMessage", () => showError(async () => {
     const lane = await vscode.window.showInputBox({ prompt: "Lane name", placeHolder: "codex" });

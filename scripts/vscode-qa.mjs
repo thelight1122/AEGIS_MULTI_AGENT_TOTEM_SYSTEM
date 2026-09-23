@@ -70,6 +70,7 @@ requireCommands(manifest, [
   "aegisTotem.refresh",
   "aegisTotem.openRoot",
   "aegisTotem.status",
+  "aegisTotem.analytics",
   "aegisTotem.validate",
   "aegisTotem.sendMessage",
   "aegisTotem.appendFolderUpdate"
@@ -80,6 +81,7 @@ requireSourceContains(source, [
   "aegis-totem",
   "Folder Totems",
   "Agent Lanes",
+  "analytics",
   "placeHolder",
   "lane",
   "message",

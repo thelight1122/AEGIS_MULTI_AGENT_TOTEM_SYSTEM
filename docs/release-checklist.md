@@ -33,6 +33,7 @@ npm run alpha:check
 - [ ] Confirm one lane message is appended.
 - [ ] Confirm one Folder Totem update is appended.
 - [ ] Confirm `aegis-totem status` reports the expected counts.
+- [ ] Confirm `aegis-totem analytics` reports append activity without editing Totems or lanes.
 - [ ] Confirm `aegis-totem validate` passes.
 
 Shortcut:
@@ -53,6 +54,7 @@ npm run local-install:qa
 - [ ] Confirm a lane message can be sent through MCP.
 - [ ] Confirm a Folder Totem update can be appended through MCP.
 - [ ] Confirm status and validation run through MCP.
+- [ ] Confirm analytics runs through MCP.
 
 Shortcut:
 
@@ -66,6 +68,7 @@ npm run mcp:qa
 - [ ] Confirm the `.vsix` contains the extension manifest, runtime file, README, and license.
 - [ ] Confirm the extension manifest declares the AEGIS Explorer view.
 - [ ] Confirm the extension manifest declares refresh, Root Totem, status, validation, lane-message, and Folder Totem append commands.
+- [ ] Confirm the extension manifest declares the analytics command.
 - [ ] Install the VS Code `.vsix`.
 - [ ] Open a temporary repository in VS Code.
 - [ ] Confirm Root Totem, Folder Totem, and lanes appear in the AEGIS Totem view.
