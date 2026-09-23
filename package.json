@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Append-only repo memory and agent lanes for AI-assisted development.",
   "type": "module",
-  "bin": { "aegis-totem": "./dist/cli.js" },
+  "bin": { "aegis-totem": "./dist/src/cli.js" },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsx src/cli.ts",

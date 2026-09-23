@@ -82,6 +82,24 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-23 | codex-lumin | implement-init-lanes-folder-totems
+
+Implemented the first usable AEGIS Totem workflow on top of the CLI foundation.
+
+Evidence:
+
+- Added `init` to create `.aegis/config.json`, lane/template directories, and a Root Totem without overwriting existing files.
+- Added `lane create` and `lane message` for per-agent append-only communication.
+- Added `totem create` and `totem append` for folder-local reference and durable updates.
+- Added ten passing tests across the CLI, path safety, initialization, lanes, and Folder Totems.
+- Corrected the package executable target after command-level verification found the compiled CLI at `dist/src/cli.js`.
+
+Distilled understanding:
+
+- The core workflow is now usable from any terminal or IDE task runner.
+- VS Code integration can build on stable CLI behavior instead of inventing a second storage model.
+- The next slice should add read-only status and validation, then dogfood the structure in this repository.
+
 ### 2026-09-23 | codex-lumin | scaffold-cli-foundation
 
 Implemented the first runnable AEGIS Totem CLI foundation.
