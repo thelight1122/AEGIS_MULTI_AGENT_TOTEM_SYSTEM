@@ -30,6 +30,7 @@ requireIncludes(readme, "aegis-totem list", "README list");
 requireIncludes(readme, "--lanes", "README list filters");
 requireIncludes(readme, "List/Analytics/Doctor panel", "README VS Code panels");
 requireIncludes(readme, "aegis-totem doctor", "README doctor");
+requireIncludes(readme, "aegis-totem doctor --json", "README doctor JSON");
 requireIncludes(readme, "aegis-totem mcp config", "README MCP config");
 requireIncludes(quickstart, "mcp-clients.md", "quickstart MCP section");
 requireIncludes(quickstart, "first-repo-walkthrough.md", "quickstart first repo section");
@@ -38,6 +39,7 @@ requireIncludes(quickstart, "aegis-totem list", "quickstart list");
 requireIncludes(quickstart, "aegis-totem list --lanes", "quickstart list filters");
 requireIncludes(quickstart, "AEGIS: Show List", "quickstart VS Code list");
 requireIncludes(quickstart, "aegis-totem doctor", "quickstart doctor");
+requireIncludes(quickstart, "aegis-totem doctor --json", "quickstart doctor JSON");
 requireIncludes(quickstart, "aegis-totem mcp config", "quickstart MCP config");
 
 for (const expected of [

@@ -91,6 +91,8 @@ requireSourceContains(source, [
   "AEGIS Totem Analytics",
   "AEGIS Totem Doctor",
   "doctor",
+  "doctorHtml",
+  "Readiness",
   "placeHolder",
   "lane",
   "message",

@@ -62,9 +62,10 @@ export function buildProgram(): Command {
       if (!result.ok) process.exitCode = 1;
     });
   program.command("doctor").description("Run a read-only readiness check for AEGIS Totem coordination.")
-    .action(async () => {
+    .option("--json", "Print machine-readable readiness checks.")
+    .action(async (options: { json?: boolean }) => {
       const result = await runDoctor(process.cwd());
-      console.log(formatDoctor(result));
+      console.log(options.json ? JSON.stringify(result, null, 2) : formatDoctor(result));
       if (!result.ok) process.exitCode = 1;
     });
 

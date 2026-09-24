@@ -90,6 +90,40 @@ function analyticsHtml(analytics) {
 </body>
 </html>`;
 }
+function doctorHtml(result) {
+  const checks = result.checks ?? [];
+  const cards = [
+    ["Readiness", result.ok ? "Ready" : "Needs attention"],
+    ["Checks", checks.length],
+    ["Passing", checks.filter((check) => check.ok).length],
+    ["Warnings", checks.filter((check) => !check.ok).length]
+  ];
+  const rows = checks.map((check) => `<tr class="${check.ok ? "ok" : "warn"}"><td>${check.ok ? "OK" : "WARN"}</td><td>${escapeHtml(check.label)}</td><td>${escapeHtml(check.detail)}</td></tr>`).join("");
+  return `<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { color: var(--vscode-foreground); font-family: var(--vscode-font-family); padding: 20px; }
+    h1 { font-weight: 600; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 16px 0 24px; }
+    .card { border: 1px solid var(--vscode-panel-border); border-radius: 6px; padding: 10px; background: var(--vscode-editor-background); }
+    .label { color: var(--vscode-descriptionForeground); font-size: 12px; margin-bottom: 6px; }
+    .value { font-size: 16px; font-weight: 600; overflow-wrap: anywhere; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border-bottom: 1px solid var(--vscode-panel-border); padding: 7px 6px; text-align: left; vertical-align: top; }
+    th { color: var(--vscode-descriptionForeground); font-weight: 600; }
+    .ok td:first-child { color: var(--vscode-testing-iconPassed); font-weight: 600; }
+    .warn td:first-child { color: var(--vscode-testing-iconQueued); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>AEGIS Totem Doctor</h1>
+  <div class="grid">${cards.map(([label, value]) => `<div class="card"><div class="label">${escapeHtml(label)}</div><div class="value">${escapeHtml(value)}</div></div>`).join("")}</div>
+  <table><thead><tr><th>Status</th><th>Check</th><th>Detail</th></tr></thead><tbody>${rows || "<tr><td colspan=\"3\">No checks returned.</td></tr>"}</tbody></table>
+</body>
+</html>`;
+}
 function findFiles(root, filename, relative = "", options = {}) {
   const skipAegis = options.skipAegis !== false;
   const directory = path.join(root, relative);
@@ -165,22 +199,9 @@ function activate(context) {
   })));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.validate", () => showError(async () => vscode.window.showInformationMessage(await run("aegis-totem", ["validate"])) )));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.doctor", () => showError(async () => {
-    const report = await run("aegis-totem", ["doctor"]);
+    const result = JSON.parse(await run("aegis-totem", ["doctor", "--json"]));
     const panel = vscode.window.createWebviewPanel("aegisTotemDoctor", "AEGIS Totem Doctor", vscode.ViewColumn.Beside, {});
-    panel.webview.html = `<!doctype html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <style>
-    body { color: var(--vscode-foreground); font-family: var(--vscode-font-family); padding: 20px; }
-    pre { background: var(--vscode-editor-background); border: 1px solid var(--vscode-panel-border); border-radius: 6px; padding: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
-  </style>
-</head>
-<body>
-  <h1>AEGIS Totem Doctor</h1>
-  <pre>${escapeHtml(report)}</pre>
-</body>
-</html>`;
+    panel.webview.html = doctorHtml(result);
   })));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.sendMessage", () => showError(async () => {
     const lane = await vscode.window.showInputBox({ prompt: "Lane name", placeHolder: "codex" });

@@ -64,7 +64,7 @@ Read the relevant Totem before editing a folder. Use a lane for coordination, un
 | `list` | List discovered lanes and Folder Totems, optionally filtered with `--lanes` or `--folders`. |
 | `analytics` | Show read-only append activity counts, last activity, active/quiet lanes, and busiest Totem surfaces. |
 | `validate` | Check required Totem and append-log structure. |
-| `doctor` | Run a read-only readiness check before parallel agent work. |
+| `doctor` | Run a read-only readiness check before parallel agent work. Use `--json` for IDE/tooling output. |
 | `mcp config` | Print copyable stdio MCP client JSON for the current repository. |
 | `hooks install` | Install an optional local pre-commit hook that runs validation. |
 
@@ -84,11 +84,11 @@ npm run alpha:check
 
 The first release is intentionally a local CLI. VS Code, MCP, JetBrains, and other IDE integrations will build on the same CLI and repository artifacts rather than creating a second source of truth.
 
-`aegis-totem analytics --json` returns the same read-only coordination snapshot as structured JSON for IDEs, MCP clients, and local automation.
+`aegis-totem analytics --json` returns the same read-only coordination snapshot as structured JSON for IDEs, MCP clients, and local automation. `aegis-totem doctor --json` returns readiness checks in the same machine-readable style.
 
 ## VS Code
 
-The first extension adapter lives in `vscode-extension`. It adds an AEGIS Totem view to the Explorer, groups the Root Totem, Folder Totems, and agent lanes, opens list, analytics, and doctor readiness in read-only panels, and invokes the CLI for status, validation, lane messages, and Folder Totem updates.
+The first extension adapter lives in `vscode-extension`. It adds an AEGIS Totem view to the Explorer, groups the Root Totem, Folder Totems, and agent lanes, opens list, analytics, and structured doctor readiness in read-only panels, and invokes the CLI for status, validation, lane messages, and Folder Totem updates.
 
 Build an installable VS Code package locally:
 

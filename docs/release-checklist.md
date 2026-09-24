@@ -41,6 +41,7 @@ npm run alpha:check
 - [ ] Confirm `aegis-totem analytics --json` returns the same read-only coordination snapshot for IDE/tooling use.
 - [ ] Confirm `aegis-totem validate` passes.
 - [ ] Confirm `aegis-totem doctor` passes for a prepared temporary repository.
+- [ ] Confirm `aegis-totem doctor --json` returns machine-readable readiness checks.
 - [ ] Confirm `aegis-totem mcp config` prints copyable stdio MCP JSON for the prepared repository.
 - [ ] Confirm `aegis-totem hooks install` creates `.git/hooks/pre-commit` without overwriting existing hooks.
 
@@ -84,7 +85,7 @@ npm run mcp:qa
 - [ ] Confirm `AEGIS: Show List` opens a read-only panel from `aegis-totem list --json`.
 - [ ] Confirm the extension manifest declares the analytics command.
 - [ ] Confirm `AEGIS: Show Analytics` opens a read-only panel from `aegis-totem analytics --json`.
-- [ ] Confirm `AEGIS: Run Doctor` opens a read-only readiness panel from `aegis-totem doctor`.
+- [ ] Confirm `AEGIS: Run Doctor` opens a read-only readiness panel from `aegis-totem doctor --json`.
 - [ ] Install the VS Code `.vsix`.
 - [ ] Open a temporary repository in VS Code.
 - [ ] Confirm Root Totem, Folder Totem, and lanes appear in the AEGIS Totem view.
@@ -120,6 +121,7 @@ npm run release:preflight
 - [x] Add richer tree grouping for Root Totem, Folder Totems, and lanes.
 - [x] Add VS Code Analytics panel for append activity and quiet lanes.
 - [x] Add VS Code Doctor panel for first-repo readiness.
+- [x] Add structured Doctor JSON for IDE/tooling use.
 - [x] Add VS Code List panel for discovered lanes and Folder Totems.
 - [ ] Re-run `npm run vscode:qa`.
 - [ ] Re-run `npm run alpha:check`.

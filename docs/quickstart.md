@@ -92,6 +92,7 @@ aegis-totem list
 aegis-totem analytics
 aegis-totem validate
 aegis-totem doctor
+aegis-totem doctor --json
 aegis-totem mcp config
 ```
 
@@ -106,6 +107,8 @@ aegis-totem analytics --json
 ```
 
 The analytics view reports total appends, last activity, active and quiet lanes, active and quiet Folder Totems, and the busiest lane/folder surfaces without changing any repo files.
+
+Use `aegis-totem doctor --json` when an IDE, MCP client, or local script needs structured readiness checks instead of the human-readable Doctor report.
 
 To make validation part of local commits, install the optional Git hook:
 

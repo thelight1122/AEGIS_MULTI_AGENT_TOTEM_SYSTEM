@@ -82,6 +82,21 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-24 | codex-lumin | structured-doctor-diagnostics
+
+Implemented the next local build group: structured Doctor diagnostics for IDE/tooling use.
+
+Evidence:
+
+- Added `aegis-totem doctor --json` while preserving the existing human-readable `doctor` output.
+- Updated the VS Code Doctor panel to read structured Doctor JSON and render readiness summary cards plus a checks table.
+- Updated local install QA, VS Code QA, docs QA, README, quickstart, changelog, release checklist, draft alpha release notes, and this Root Totem.
+
+Distilled understanding:
+
+- Doctor readiness should be both human-readable and machine-readable.
+- The IDE adapter should render canonical CLI data instead of parsing prose, keeping the CLI and repo files as the source of truth.
+
 ### 2026-09-24 | codex-lumin | filtered-list-discovery
 
 Added focused filters to the read-only list surface.

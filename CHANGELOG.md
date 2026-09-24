@@ -8,7 +8,7 @@ Public alpha foundation for AEGIS Totem.
 
 - TypeScript CLI with `init`, agent lanes, lane messages, Folder Totems, append-only folder updates, `status`, `list`, and `validate`.
 - Read-only `list` command for discovered lanes and Folder Totems, with lane-only and Folder-Totem-only filters.
-- Read-only `doctor` command for first-repository readiness checks before parallel agent work.
+- Read-only `doctor` command for first-repository readiness checks before parallel agent work, including JSON output for IDE/tooling use.
 - Read-only analytics for append activity, last activity, active/quiet lanes, active/quiet Folder Totems, busiest surfaces, and JSON output for IDE/tooling use.
 - Optional local pre-commit hook installation for Totem validation.
 - MCP client examples for Codex, Cursor, Claude Desktop, Cline, Windsurf, and other stdio clients.
@@ -16,7 +16,7 @@ Public alpha foundation for AEGIS Totem.
 - First repository walkthrough for introducing AEGIS Totem into an existing project.
 - Append-only write helper with lock-directory serialization for concurrent agent writes.
 - MCP stdio adapter exposing Root Totem, Folder Totem, lane, append, status, list, analytics, validation, and doctor tools.
-- VS Code adapter for browsing Totems and lanes, viewing read-only List, Analytics, and Doctor panels, sending lane messages, and appending Folder Totem updates.
+- VS Code adapter for browsing Totems and lanes, viewing read-only List, Analytics, and structured Doctor panels, sending lane messages, and appending Folder Totem updates.
 - Local VS Code `.vsix` packaging with `npm run package:vscode`.
 - Local install QA, MCP QA, VS Code package QA, and release preflight checks.
 - CI workflow for tests, typecheck, build, npm pack dry-run, install QA, MCP QA, VS Code QA, and release preflight.
