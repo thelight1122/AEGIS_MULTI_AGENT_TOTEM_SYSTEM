@@ -71,6 +71,7 @@ npm run build
 npm run local-install:qa
 npm run mcp:qa
 npm run vscode:qa
+npm run docs:qa
 npm run release:preflight
 npm run alpha:check
 ```
@@ -116,10 +117,14 @@ The local MCP adapter exposes the same canonical repo surface to AI coding agent
 
 The server provides tools to read the Root Totem, read Folder Totems and lanes, send lane messages, append Folder Totem updates, show status, show analytics, and validate structure. It is local and stateless; the repository files remain authoritative.
 
+See [MCP client examples](docs/mcp-clients.md) for Codex, Claude Desktop, and other stdio MCP client configuration shapes.
+
 ## Project Records
 
 - [Root Totem](ROOT_TOTEM.md)
 - [Quickstart](docs/quickstart.md)
+- [First repository walkthrough](docs/first-repo-walkthrough.md)
+- [MCP client examples](docs/mcp-clients.md)
 - [Release checklist](docs/release-checklist.md)
 - [Draft release notes](docs/releases/v0.1.0-alpha.1.md)
 - [Changelog](CHANGELOG.md)

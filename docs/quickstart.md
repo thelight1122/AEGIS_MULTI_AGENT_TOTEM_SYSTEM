@@ -102,6 +102,9 @@ aegis-totem hooks install
 
 The hook lives at `.git/hooks/pre-commit`, runs `aegis-totem validate`, and is local to the repository.
 
+For a step-by-step adoption path in an existing repository, see the
+[first repository walkthrough](first-repo-walkthrough.md).
+
 ## 8. Use VS Code
 
 Build and install the local VS Code extension package:
@@ -118,6 +121,14 @@ Open a repository that already has AEGIS Totem initialized. The AEGIS Totem Expl
 - `AEGIS: Validate`
 - `AEGIS: Send Lane Message`
 - `AEGIS: Append Folder Update`
+
+## 9. Use MCP Clients
+
+Build the server and point your MCP client at `dist/src/mcp-server.js` with
+`AEGIS_REPO_ROOT` set to the repository you want agents to coordinate.
+
+See [MCP client examples](mcp-clients.md) for Codex, Claude Desktop, and other
+stdio MCP client configuration shapes.
 
 ## Suggested Agent Loop
 

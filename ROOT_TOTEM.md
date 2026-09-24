@@ -82,6 +82,40 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-23 | codex-lumin | first-repo-walkthrough-package
+
+Implemented the next onboarding package: first repository walkthrough.
+
+Evidence:
+
+- Added `docs/first-repo-walkthrough.md`.
+- Documented first-use flow for initialization, lanes, Folder Totems, coordination messages, verified folder appends, inspection, validation hooks, and IDE/MCP surfaces.
+- Extended `scripts/docs-qa.mjs` so docs QA checks the walkthrough.
+- Updated README, quickstart, changelog, release checklist, and this Root Totem.
+
+Distilled understanding:
+
+- Public alpha onboarding needs a concrete first-repo path, not just command reference.
+- The strongest first experience teaches where to put working notes, where to put durable folder knowledge, and which artifacts normally belong in the first commit.
+
+### 2026-09-23 | codex-lumin | mcp-client-examples-package
+
+Implemented the next post-alpha documentation package: MCP client examples.
+
+Evidence:
+
+- Added `docs/mcp-clients.md` with stdio MCP configuration examples.
+- Documented required `AEGIS_REPO_ROOT` usage and exposed MCP tools.
+- Added a suggested agent loop for MCP clients.
+- Added `scripts/docs-qa.mjs` and `npm run docs:qa`.
+- Added docs QA to `npm run alpha:check`.
+- Updated README, quickstart, changelog, release checklist, and this Root Totem.
+
+Distilled understanding:
+
+- MCP adoption needs copyable client configuration, not only server implementation.
+- Docs that define integration contracts need QA so examples do not drift from the adapter surface.
+
 ### 2026-09-23 | codex-lumin | opt-in-validation-hooks-package
 
 Implemented the next local build stage: optional Git pre-commit validation hooks.

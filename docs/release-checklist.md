@@ -12,9 +12,11 @@ Use this checklist before a public alpha, npm publication, or IDE marketplace pu
 - [ ] `npm run local-install:qa` passes.
 - [ ] `npm run mcp:qa` passes.
 - [ ] `npm run vscode:qa` passes and produces `dist/aegis-totem-vscode-0.1.0.vsix`.
+- [ ] `npm run docs:qa` passes.
 - [ ] `npm run release:preflight` passes.
 - [ ] GitHub Actions CI passes on `main`.
 - [ ] `README.md`, `docs/quickstart.md`, `CHANGELOG.md`, and `SECURITY.md` are current.
+- [ ] `docs/first-repo-walkthrough.md` and `docs/mcp-clients.md` are current.
 
 Shortcut:
 
@@ -56,6 +58,8 @@ npm run local-install:qa
 - [ ] Confirm a Folder Totem update can be appended through MCP.
 - [ ] Confirm status and validation run through MCP.
 - [ ] Confirm analytics runs through MCP.
+- [ ] Confirm `docs/mcp-clients.md` includes usable stdio client examples.
+- [ ] Confirm `docs/first-repo-walkthrough.md` covers first repository adoption.
 
 Shortcut:
 

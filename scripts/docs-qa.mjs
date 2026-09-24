@@ -1,0 +1,58 @@
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+
+const root = process.cwd();
+
+function fail(message) {
+  console.error(`Docs QA failed: ${message}`);
+  process.exit(1);
+}
+
+function requireFile(relativePath) {
+  const path = join(root, relativePath);
+  if (!existsSync(path)) fail(`missing ${relativePath}`);
+  return readFileSync(path, "utf8");
+}
+
+function requireIncludes(text, expected, label) {
+  if (!text.includes(expected)) fail(`${label} missing ${expected}`);
+}
+
+const readme = requireFile("README.md");
+const quickstart = requireFile("docs/quickstart.md");
+const mcpClients = requireFile("docs/mcp-clients.md");
+const firstRepo = requireFile("docs/first-repo-walkthrough.md");
+
+requireIncludes(readme, "docs/mcp-clients.md", "README project records");
+requireIncludes(readme, "docs/first-repo-walkthrough.md", "README project records");
+requireIncludes(quickstart, "mcp-clients.md", "quickstart MCP section");
+requireIncludes(quickstart, "first-repo-walkthrough.md", "quickstart first repo section");
+
+for (const expected of [
+  "AEGIS_REPO_ROOT",
+  "dist/src/mcp-server.js",
+  "aegis_read_root_totem",
+  "aegis_read_folder_totem",
+  "aegis_read_lane",
+  "aegis_send_lane_message",
+  "aegis_append_folder_update",
+  "aegis_status",
+  "aegis_analytics",
+  "aegis_validate"
+]) {
+  requireIncludes(mcpClients, expected, "MCP client examples");
+}
+
+for (const expected of [
+  "aegis-totem init",
+  "aegis-totem lane create codex",
+  "aegis-totem totem create src",
+  "aegis-totem lane message codex",
+  "aegis-totem totem append src",
+  "aegis-totem hooks install",
+  "MCP client examples"
+]) {
+  requireIncludes(firstRepo, expected, "first repository walkthrough");
+}
+
+console.log("Docs QA passed.");
