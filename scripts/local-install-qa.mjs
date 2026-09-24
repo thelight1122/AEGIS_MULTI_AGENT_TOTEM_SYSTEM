@@ -62,6 +62,10 @@ try {
   runCli(["hooks", "install"]);
 
   const status = runCli(["status"]);
+  const inventory = runCli(["list"]);
+  const inventoryJson = JSON.parse(runCli(["list", "--json"]));
+  const laneInventory = runCli(["list", "--lanes"]);
+  const folderInventory = runCli(["list", "--folders"]);
   const analytics = runCli(["analytics"]);
   const analyticsJson = JSON.parse(runCli(["analytics", "--json"]));
   const validate = runCli(["validate"]);
@@ -92,6 +96,22 @@ try {
 
   if (!status.includes("Folder Totems: 1") || !status.includes("Agent lanes: 2")) {
     throw new Error(`Unexpected status output:\n${status}`);
+  }
+
+  if (!inventory.includes("- codex.md") || !inventory.includes("- claude.md") || !inventory.includes("- src/TOTEM.md")) {
+    throw new Error(`Unexpected list output:\n${inventory}`);
+  }
+
+  if (!inventoryJson.lanes.includes("codex.md") || !inventoryJson.folderTotems.includes("src/TOTEM.md")) {
+    throw new Error(`Unexpected list JSON output:\n${JSON.stringify(inventoryJson, null, 2)}`);
+  }
+
+  if (!laneInventory.includes("- codex.md") || laneInventory.includes("src/TOTEM.md")) {
+    throw new Error(`Unexpected lane list output:\n${laneInventory}`);
+  }
+
+  if (!folderInventory.includes("- src/TOTEM.md") || folderInventory.includes("codex.md")) {
+    throw new Error(`Unexpected Folder Totem list output:\n${folderInventory}`);
   }
 
   if (!analytics.includes("Lane message entries: 1") || !analytics.includes("Folder append entries: 1") || !analytics.includes("Quiet lanes: 1")) {

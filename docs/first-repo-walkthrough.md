@@ -90,14 +90,19 @@ in lanes; put reusable verified folder knowledge in Folder Totems.
 
 ```bash
 aegis-totem status
+aegis-totem list
 aegis-totem analytics
 aegis-totem validate
 aegis-totem doctor
 ```
 
-`status`, `analytics`, and `doctor` are read-only. `validate` checks required
-append-log structure. `doctor` summarizes readiness gaps such as missing lanes,
-Folder Totems, append activity, or the optional local validation hook.
+`status`, `list`, `analytics`, and `doctor` are read-only. `validate` checks
+required append-log structure. `list` shows discovered lane files and Folder
+Totems. `doctor` summarizes readiness gaps such as missing lanes, Folder Totems,
+append activity, or the optional local validation hook.
+
+Use `aegis-totem list --lanes` to inspect participant lanes only, or
+`aegis-totem list --folders` to inspect Folder Totems only.
 
 ## 8. Add Optional Local Validation
 

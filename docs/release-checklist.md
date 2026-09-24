@@ -35,6 +35,8 @@ npm run alpha:check
 - [ ] Confirm one lane message is appended.
 - [ ] Confirm one Folder Totem update is appended.
 - [ ] Confirm `aegis-totem status` reports the expected counts.
+- [ ] Confirm `aegis-totem list` reports discovered lane files and Folder Totems.
+- [ ] Confirm `aegis-totem list --lanes` and `aegis-totem list --folders` filter discovery output.
 - [ ] Confirm `aegis-totem analytics` reports append activity, quiet lanes, and last activity without editing Totems or lanes.
 - [ ] Confirm `aegis-totem analytics --json` returns the same read-only coordination snapshot for IDE/tooling use.
 - [ ] Confirm `aegis-totem validate` passes.
@@ -60,6 +62,8 @@ npm run local-install:qa
 - [ ] Confirm a lane message can be sent through MCP.
 - [ ] Confirm a Folder Totem update can be appended through MCP.
 - [ ] Confirm status and validation run through MCP.
+- [ ] Confirm list runs through MCP.
+- [ ] Confirm list filters run through MCP.
 - [ ] Confirm analytics runs through MCP.
 - [ ] Confirm `docs/mcp-clients.md` includes usable stdio client examples.
 - [ ] Confirm `docs/first-repo-walkthrough.md` covers first repository adoption.
@@ -76,6 +80,8 @@ npm run mcp:qa
 - [ ] Confirm the `.vsix` contains the extension manifest, runtime file, README, and license.
 - [ ] Confirm the extension manifest declares the AEGIS Explorer view.
 - [ ] Confirm the extension manifest declares refresh, Root Totem, status, validation, lane-message, and Folder Totem append commands.
+- [ ] Confirm the extension manifest declares the list command.
+- [ ] Confirm `AEGIS: Show List` opens a read-only panel from `aegis-totem list --json`.
 - [ ] Confirm the extension manifest declares the analytics command.
 - [ ] Confirm `AEGIS: Show Analytics` opens a read-only panel from `aegis-totem analytics --json`.
 - [ ] Confirm `AEGIS: Run Doctor` opens a read-only readiness panel from `aegis-totem doctor`.
@@ -114,8 +120,10 @@ npm run release:preflight
 - [x] Add richer tree grouping for Root Totem, Folder Totems, and lanes.
 - [x] Add VS Code Analytics panel for append activity and quiet lanes.
 - [x] Add VS Code Doctor panel for first-repo readiness.
+- [x] Add VS Code List panel for discovered lanes and Folder Totems.
 - [ ] Re-run `npm run vscode:qa`.
 - [ ] Re-run `npm run alpha:check`.
+- [x] Add read-only list command for discovered lanes and Folder Totems.
 - [x] Add more MCP client examples.
 - [x] Add MCP config generator for first-use setup.
 - [ ] Add JetBrains or other IDE adapters if demand appears.

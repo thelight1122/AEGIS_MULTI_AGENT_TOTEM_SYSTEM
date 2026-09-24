@@ -159,6 +159,7 @@ The server exposes:
 - `aegis_send_lane_message`
 - `aegis_append_folder_update`
 - `aegis_status`
+- `aegis_list`
 - `aegis_analytics`
 - `aegis_validate`
 - `aegis_doctor`
@@ -172,7 +173,10 @@ The server exposes:
 5. Work in the repository.
 6. Run the repository's normal verification.
 7. Use `aegis_append_folder_update` only for durable, verified folder knowledge.
-8. Use `aegis_status`, `aegis_analytics`, `aegis_validate`, and `aegis_doctor` before handoff.
+8. Use `aegis_status`, `aegis_list`, `aegis_analytics`, `aegis_validate`, and `aegis_doctor` before handoff.
+
+`aegis_list` accepts optional `lanes` or `folders` booleans when an agent only
+needs one side of the coordination surface.
 
 ## Smoke Test The Server
 

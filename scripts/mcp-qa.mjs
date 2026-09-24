@@ -76,6 +76,7 @@ try {
     "aegis_send_lane_message",
     "aegis_append_folder_update",
     "aegis_status",
+    "aegis_list",
     "aegis_analytics",
     "aegis_validate",
     "aegis_doctor"
@@ -105,6 +106,10 @@ try {
 
   assertIncludes(text(await client.callTool({ name: "aegis_status", arguments: {} })), "Folder Totems: 1", "MCP status");
   assertIncludes(text(await client.callTool({ name: "aegis_status", arguments: {} })), "Agent lanes: 1", "MCP status");
+  assertIncludes(text(await client.callTool({ name: "aegis_list", arguments: {} })), "- codex.md", "MCP list");
+  assertIncludes(text(await client.callTool({ name: "aegis_list", arguments: {} })), "- src/TOTEM.md", "MCP list");
+  assertIncludes(text(await client.callTool({ name: "aegis_list", arguments: { lanes: true } })), "AEGIS Totem lanes", "MCP lane list");
+  assertIncludes(text(await client.callTool({ name: "aegis_list", arguments: { folders: true } })), "AEGIS Folder Totems", "MCP folder list");
   assertIncludes(text(await client.callTool({ name: "aegis_analytics", arguments: {} })), "Lane message entries: 1", "MCP analytics");
   assertIncludes(text(await client.callTool({ name: "aegis_analytics", arguments: {} })), "Folder append entries: 1", "MCP analytics");
   assertIncludes(text(await client.callTool({ name: "aegis_validate", arguments: {} })), "AEGIS Totem validation passed.", "MCP validate");

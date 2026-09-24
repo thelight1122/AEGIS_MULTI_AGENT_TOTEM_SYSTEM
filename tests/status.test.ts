@@ -5,7 +5,7 @@ import { createTempRepo } from "./helpers/tempRepo.js";
 import { initTotemRepo } from "../src/core/init.js";
 import { createLane } from "../src/core/lanes.js";
 import { createFolderTotem } from "../src/core/totems.js";
-import { formatStatus, getStatus } from "../src/core/status.js";
+import { formatInventory, formatStatus, getStatus, resolveInventoryScope } from "../src/core/status.js";
 
 describe("status", () => {
   it("reports Totems and lanes without editing the Root Totem", async () => {
@@ -19,6 +19,16 @@ describe("status", () => {
     expect(status.lanes).toContain("codex.md");
     expect(status.folderTotems).toContain("src/TOTEM.md");
     expect(formatStatus(status)).toContain("Agent lanes: 1");
+    expect(formatInventory(status)).toContain("- codex.md");
+    expect(formatInventory(status)).toContain("- src/TOTEM.md");
+    expect(formatInventory(status, "lanes")).toContain("AEGIS Totem lanes");
+    expect(formatInventory(status, "lanes")).not.toContain("src/TOTEM.md");
+    expect(formatInventory(status, "folders")).toContain("AEGIS Folder Totems");
+    expect(formatInventory(status, "folders")).not.toContain("codex.md");
     await expect(readFile(join(root, "ROOT_TOTEM.md"), "utf8")).resolves.toBe(before);
+  });
+
+  it("rejects conflicting inventory filters", () => {
+    expect(() => resolveInventoryScope({ lanes: true, folders: true })).toThrow("Use only one list filter");
   });
 });

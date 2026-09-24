@@ -20,6 +20,7 @@
       { "command": "aegisTotem.refresh", "title": "AEGIS: Refresh" },
       { "command": "aegisTotem.openRoot", "title": "AEGIS: Open Root Totem" },
       { "command": "aegisTotem.status", "title": "AEGIS: Show Status" },
+      { "command": "aegisTotem.list", "title": "AEGIS: Show List" },
       { "command": "aegisTotem.analytics", "title": "AEGIS: Show Analytics" },
       { "command": "aegisTotem.validate", "title": "AEGIS: Validate" },
       { "command": "aegisTotem.doctor", "title": "AEGIS: Run Doctor" },

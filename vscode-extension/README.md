@@ -1,6 +1,8 @@
 # AEGIS Totem for VS Code
 
-This extension exposes the repository's Root Totem, discovered Folder Totems, and agent lanes in grouped Explorer sections. It invokes the installed `aegis-totem` CLI for status, analytics, validation, doctor readiness, lane messages, and Folder Totem updates, so the extension does not create a second storage system.
+This extension exposes the repository's Root Totem, discovered Folder Totems, and agent lanes in grouped Explorer sections. It invokes the installed `aegis-totem` CLI for status, list, analytics, validation, doctor readiness, lane messages, and Folder Totem updates, so the extension does not create a second storage system.
+
+`AEGIS: Show List` opens a read-only panel with the discovered Root Totem, lane files, and Folder Totems.
 
 `AEGIS: Show Analytics` opens a read-only panel with last activity, active and quiet lanes, active and quiet Folder Totems, busiest surfaces, and detailed lane/folder activity tables.
 

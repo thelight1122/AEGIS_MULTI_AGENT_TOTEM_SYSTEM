@@ -82,6 +82,52 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-24 | codex-lumin | filtered-list-discovery
+
+Added focused filters to the read-only list surface.
+
+Evidence:
+
+- Added `aegis-totem list --lanes` and `aegis-totem list --folders`.
+- Added optional `lanes` and `folders` filters to the MCP `aegis_list` tool.
+- Updated focused status tests, local install QA, MCP QA, docs QA, README, quickstart, first-repo walkthrough, MCP client examples, release checklist, changelog, release notes, and this Root Totem.
+
+Distilled understanding:
+
+- Discovery becomes more useful when agents can ask for only lanes or only Folder Totems before deciding what to inspect.
+- Filtered discovery stays read-only and does not create a second inventory model.
+
+### 2026-09-24 | codex-lumin | vscode-list-panel
+
+Extended the read-only list surface into the VS Code adapter.
+
+Evidence:
+
+- Added `AEGIS: Show List` to the VS Code extension manifest.
+- Added a read-only VS Code List webview backed by `aegis-totem list --json`.
+- Updated VS Code QA so packaged extension checks require the List command and panel wiring.
+- Updated extension README, main README, quickstart, release checklist, changelog, release notes, docs QA, and this Root Totem.
+
+Distilled understanding:
+
+- Discovery should be equally available in shell, MCP, and IDE surfaces.
+- The VS Code adapter remains a CLI-backed read-only view for inventory; it does not create a second state model.
+
+### 2026-09-24 | codex-lumin | read-only-list-command
+
+Added a read-only inventory list surface for developers and MCP agents.
+
+Evidence:
+
+- Added `aegis-totem list` with human-readable and `--json` output.
+- Added `aegis_list` to the MCP server.
+- Updated status tests, local install QA, MCP QA, docs QA, README, quickstart, first-repo walkthrough, MCP client examples, release checklist, changelog, release notes, and this Root Totem.
+
+Distilled understanding:
+
+- Counts are not enough for handoff; developers and agents need to see the actual lane files and Folder Totems before choosing what to read.
+- The list surface remains read-only and reuses the existing repository inventory model.
+
 ### 2026-09-24 | codex-lumin | mcp-config-generator
 
 Added a read-only MCP configuration generator for first-use setup.

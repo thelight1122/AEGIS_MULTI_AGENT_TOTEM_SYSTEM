@@ -22,6 +22,35 @@ function statRows(items) {
   if (!items?.length) return "<tr><td colspan=\"3\">None</td></tr>";
   return items.map((item) => `<tr><td>${escapeHtml(item.name)}</td><td>${item.entries}</td><td>${escapeHtml(item.lastActivity ?? "none")}</td></tr>`).join("");
 }
+function listItems(items) {
+  if (!items?.length) return "<li>none</li>";
+  return items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+}
+function inventoryHtml(inventory) {
+  return `<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { color: var(--vscode-foreground); font-family: var(--vscode-font-family); padding: 20px; }
+    h1, h2 { font-weight: 600; }
+    .path { color: var(--vscode-descriptionForeground); overflow-wrap: anywhere; }
+    ul { padding-left: 20px; }
+    li { margin: 5px 0; overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <h1>AEGIS Totem List</h1>
+  <p class="path">${escapeHtml(inventory.root)}</p>
+  <h2>Root Totem</h2>
+  <p>${inventory.rootTotem ? "ROOT_TOTEM.md" : "missing"}</p>
+  <h2>Agent Lanes</h2>
+  <ul>${listItems(inventory.lanes)}</ul>
+  <h2>Folder Totems</h2>
+  <ul>${listItems(inventory.folderTotems)}</ul>
+</body>
+</html>`;
+}
 function analyticsHtml(analytics) {
   const totalEntries = analytics.rootAppendEntries + analytics.laneMessageEntries + analytics.folderAppendEntries;
   const cards = [
@@ -124,6 +153,11 @@ function activate(context) {
     await vscode.commands.executeCommand("vscode.open", vscode.Uri.file(rootTotem));
   })));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.status", () => showError(async () => vscode.window.showInformationMessage(await run("aegis-totem", ["status"])) )));
+  context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.list", () => showError(async () => {
+    const inventory = JSON.parse(await run("aegis-totem", ["list", "--json"]));
+    const panel = vscode.window.createWebviewPanel("aegisTotemList", "AEGIS Totem List", vscode.ViewColumn.Beside, {});
+    panel.webview.html = inventoryHtml(inventory);
+  })));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.analytics", () => showError(async () => {
     const analytics = JSON.parse(await run("aegis-totem", ["analytics", "--json"]));
     const panel = vscode.window.createWebviewPanel("aegisTotemAnalytics", "AEGIS Totem Analytics", vscode.ViewColumn.Beside, {});

@@ -26,11 +26,17 @@ const firstRepo = requireFile("docs/first-repo-walkthrough.md");
 requireIncludes(readme, "docs/mcp-clients.md", "README project records");
 requireIncludes(readme, "docs/first-repo-walkthrough.md", "README project records");
 requireIncludes(readme, "aegis-totem analytics --json", "README analytics JSON");
+requireIncludes(readme, "aegis-totem list", "README list");
+requireIncludes(readme, "--lanes", "README list filters");
+requireIncludes(readme, "List/Analytics/Doctor panel", "README VS Code panels");
 requireIncludes(readme, "aegis-totem doctor", "README doctor");
 requireIncludes(readme, "aegis-totem mcp config", "README MCP config");
 requireIncludes(quickstart, "mcp-clients.md", "quickstart MCP section");
 requireIncludes(quickstart, "first-repo-walkthrough.md", "quickstart first repo section");
 requireIncludes(quickstart, "aegis-totem analytics --json", "quickstart analytics JSON");
+requireIncludes(quickstart, "aegis-totem list", "quickstart list");
+requireIncludes(quickstart, "aegis-totem list --lanes", "quickstart list filters");
+requireIncludes(quickstart, "AEGIS: Show List", "quickstart VS Code list");
 requireIncludes(quickstart, "aegis-totem doctor", "quickstart doctor");
 requireIncludes(quickstart, "aegis-totem mcp config", "quickstart MCP config");
 
@@ -49,6 +55,9 @@ for (const expected of [
   "aegis_send_lane_message",
   "aegis_append_folder_update",
   "aegis_status",
+  "aegis_list",
+  "lanes",
+  "folders",
   "aegis_analytics",
   "aegis_validate",
   "aegis_doctor"
@@ -62,6 +71,7 @@ for (const expected of [
   "aegis-totem totem create src",
   "aegis-totem lane message codex",
   "aegis-totem totem append src",
+  "aegis-totem list",
   "aegis-totem doctor",
   "aegis-totem mcp config",
   "aegis-totem hooks install",

@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { initTotemRepo } from "./core/init.js";
 import { appendLaneMessage, createLane } from "./core/lanes.js";
 import { appendFolderTotem, createFolderTotem } from "./core/totems.js";
-import { formatStatus, getStatus } from "./core/status.js";
+import { formatInventory, formatStatus, getStatus, resolveInventoryScope } from "./core/status.js";
 import { formatValidation, validateRepo } from "./core/validate.js";
 import { formatAnalytics, getAnalytics } from "./core/analytics.js";
 import { formatDoctor, runDoctor } from "./core/doctor.js";
@@ -39,6 +39,16 @@ export function buildProgram(): Command {
 
   program.command("status").description("Show a read-only current view of AEGIS Totem files.")
     .action(async () => console.log(formatStatus(await getStatus(process.cwd()))));
+  program.command("list").description("List discovered lanes and Folder Totems.")
+    .option("--json", "Print machine-readable inventory.")
+    .option("--lanes", "Show only agent lanes.")
+    .option("--folders", "Show only Folder Totems.")
+    .action(async (options: { json?: boolean; lanes?: boolean; folders?: boolean }) => {
+      const status = await getStatus(process.cwd());
+      const scope = resolveInventoryScope(options);
+      const json = scope === "lanes" ? status.lanes : scope === "folders" ? status.folderTotems : status;
+      console.log(options.json ? JSON.stringify(json, null, 2) : formatInventory(status, scope));
+    });
   program.command("analytics").description("Show read-only append activity counts for Totems and lanes.")
     .option("--json", "Print machine-readable analytics.")
     .action(async (options: { json?: boolean }) => {

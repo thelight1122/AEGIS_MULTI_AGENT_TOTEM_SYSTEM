@@ -32,6 +32,7 @@ aegis-totem totem create src
 aegis-totem lane message codex --to claude -m "I inspected src. Please review the parser boundary before editing."
 aegis-totem totem append src --actor codex --kind verified-change -m "Added parser tests. Verification: npm test passed."
 aegis-totem status
+aegis-totem list
 aegis-totem analytics
 aegis-totem validate
 aegis-totem doctor
@@ -60,6 +61,7 @@ Read the relevant Totem before editing a folder. Use a lane for coordination, un
 | `totem create <folder>` | Create a Folder Totem. |
 | `totem append <folder>` | Append a durable update with `--actor`, `--kind`, and `--message`. |
 | `status` | Show a read-only inventory. |
+| `list` | List discovered lanes and Folder Totems, optionally filtered with `--lanes` or `--folders`. |
 | `analytics` | Show read-only append activity counts, last activity, active/quiet lanes, and busiest Totem surfaces. |
 | `validate` | Check required Totem and append-log structure. |
 | `doctor` | Run a read-only readiness check before parallel agent work. |
@@ -86,7 +88,7 @@ The first release is intentionally a local CLI. VS Code, MCP, JetBrains, and oth
 
 ## VS Code
 
-The first extension adapter lives in `vscode-extension`. It adds an AEGIS Totem view to the Explorer, groups the Root Totem, Folder Totems, and agent lanes, opens analytics and doctor readiness in read-only panels, and invokes the CLI for status, validation, lane messages, and Folder Totem updates.
+The first extension adapter lives in `vscode-extension`. It adds an AEGIS Totem view to the Explorer, groups the Root Totem, Folder Totems, and agent lanes, opens list, analytics, and doctor readiness in read-only panels, and invokes the CLI for status, validation, lane messages, and Folder Totem updates.
 
 Build an installable VS Code package locally:
 
@@ -103,7 +105,7 @@ To verify the packaged extension before sharing it, run:
 npm run vscode:qa
 ```
 
-The QA packages the extension, inspects the `.vsix`, confirms required files are present, and verifies the expected AEGIS commands, Analytics/Doctor panel wiring, and Explorer view are declared.
+The QA packages the extension, inspects the `.vsix`, confirms required files are present, and verifies the expected AEGIS commands, List/Analytics/Doctor panel wiring, and Explorer view are declared.
 
 ## MCP
 
@@ -121,7 +123,7 @@ The local MCP adapter exposes the same canonical repo surface to AI coding agent
 }
 ```
 
-The server provides tools to read the Root Totem, read Folder Totems and lanes, send lane messages, append Folder Totem updates, show status, show analytics, validate structure, and run the readiness doctor. It is local and stateless; the repository files remain authoritative.
+The server provides tools to read the Root Totem, read Folder Totems and lanes, send lane messages, append Folder Totem updates, show status, list discovered surfaces, show analytics, validate structure, and run the readiness doctor. It is local and stateless; the repository files remain authoritative.
 
 To print copyable MCP JSON for the current repository:
 
