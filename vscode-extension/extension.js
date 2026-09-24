@@ -175,6 +175,11 @@ class TotemProvider {
   }
 }
 async function showError(action) { try { await action(); } catch (error) { vscode.window.showErrorMessage(`AEGIS: ${error.message}`); } }
+async function openDoctorPanel() {
+  const result = JSON.parse(await run("aegis-totem", ["doctor", "--json"]));
+  const panel = vscode.window.createWebviewPanel("aegisTotemDoctor", "AEGIS Totem Doctor", vscode.ViewColumn.Beside, {});
+  panel.webview.html = doctorHtml(result);
+}
 async function createFolderTotemForPath(filePath, provider) {
   const root = repoRoot();
   if (!root || !fs.existsSync(path.join(root, ".aegis", "config.json"))) return;
@@ -201,9 +206,10 @@ function activate(context) {
   context.subscriptions.push(watcher.onDidCreate((uri) => showError(async () => createFolderTotemForPath(uri.fsPath, provider))));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.refresh", () => provider.refresh()));
   const startTotem = () => showError(async () => {
-    const output = await run("aegis-totem", ["start"]);
+    const result = JSON.parse(await run("aegis-totem", ["start", "--json"]));
     provider.refresh();
-    vscode.window.showInformationMessage(`AEGIS: ${output}`);
+    vscode.window.showInformationMessage(`AEGIS: Started Totem. Seeded ${result.seededFolderTotems} Folder Totem(s).`);
+    await openDoctorPanel();
   });
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.start", startTotem));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.initialize", startTotem));
@@ -227,9 +233,7 @@ function activate(context) {
   })));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.validate", () => showError(async () => vscode.window.showInformationMessage(await run("aegis-totem", ["validate"])) )));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.doctor", () => showError(async () => {
-    const result = JSON.parse(await run("aegis-totem", ["doctor", "--json"]));
-    const panel = vscode.window.createWebviewPanel("aegisTotemDoctor", "AEGIS Totem Doctor", vscode.ViewColumn.Beside, {});
-    panel.webview.html = doctorHtml(result);
+    await openDoctorPanel();
   })));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.sendMessage", () => showError(async () => {
     const lane = await vscode.window.showInputBox({ prompt: "Lane name", placeHolder: "codex" });

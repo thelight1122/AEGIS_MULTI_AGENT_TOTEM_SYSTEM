@@ -27,6 +27,13 @@ From the root of the repository you want to coordinate:
 aegis-totem start
 ```
 
+For local automation, IDEs, or agents that need machine-readable proof of the
+Start result:
+
+```bash
+aegis-totem start --json
+```
+
 This creates:
 
 ```text

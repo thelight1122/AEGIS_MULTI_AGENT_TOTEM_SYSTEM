@@ -23,9 +23,10 @@ export function buildProgram(): Command {
     .action(async () => { await initTotemRepo(process.cwd()); console.log("Initialized AEGIS Totem."); });
 
   program.command("start").description("Initialize and seed AEGIS Totems in an existing repository.")
-    .action(async () => {
+    .option("--json", "Print machine-readable start result.")
+    .action(async (options: { json?: boolean }) => {
       const result = await startTotemRepo(process.cwd());
-      console.log(`Started AEGIS Totem. Seeded ${result.seededFolderTotems} Folder Totem(s).`);
+      console.log(options.json ? JSON.stringify(result, null, 2) : `Started AEGIS Totem. Seeded ${result.seededFolderTotems} Folder Totem(s).`);
     });
 
   const lane = program.command("lane").description("Manage append-only agent lanes.");

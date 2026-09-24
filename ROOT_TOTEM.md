@@ -82,6 +82,40 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-24 | codex-lumin | start-json-automation-contract
+
+Made `AEGIS Totem: Start` easier for IDEs, agents, and local automation to verify without scraping human-readable text.
+
+Evidence:
+
+- `aegis-totem start --json` now returns the normalized repository path, a readiness flag, and the seeded Branch Folder Totem count.
+- The VS Code `AEGIS Totem: Start` command now calls `aegis-totem start --json`, reports the seeded count, refreshes the Explorer view, and opens Doctor readiness.
+- Local install QA verifies the installed CLI's structured Start output while preserving branch-folder seeding behavior.
+- VS Code QA verifies the Start JSON wiring and still packages 7 files, 11 commands, and 1 Explorer view.
+- README, quickstart, first-repo walkthrough, VS Code README, release checklist, docs QA, and alpha release notes now document the structured Start contract.
+- `npm run alpha:check` passed with 14 test files, 34 tests, typecheck, build, npm pack dry-run, local install QA, MCP QA, VS Code QA, docs QA, and release preflight.
+
+Distilled understanding:
+
+- Existing-repo adoption needs one visible action for humans and one structured result for tools. Start remains the activation switch, while JSON makes that switch dependable for coordinated multi-agent coding surfaces.
+
+### 2026-09-24 | codex-lumin | vscode-start-doctor-readiness
+
+Added immediate readiness feedback to the VS Code Start path.
+
+Evidence:
+
+- `AEGIS Totem: Start` still delegates to the canonical `aegis-totem start` CLI command.
+- After Start completes, the extension now opens the structured Doctor readiness panel automatically.
+- The manual `AEGIS: Run Doctor` command reuses the same Doctor panel helper.
+- README, quickstart, VS Code README, release checklist, and alpha release notes now describe automatic Doctor readiness after Start.
+- `npm run vscode:qa` passed and packaged `dist/aegis-totem-vscode-0.1.0.vsix` with 7 files, 11 commands, and 1 Explorer view.
+- `npm run alpha:check` passed with 14 test files, 34 tests, typecheck, build, npm pack dry-run, local install QA, MCP QA, VS Code QA, docs QA, and release preflight.
+
+Distilled understanding:
+
+- Start should not only create structure; it should immediately show whether the repository is ready for coordinated agent work. The VS Code path now gives a non-technical user a visible readiness result after seeding without creating a second source of truth.
+
 ### 2026-09-24 | codex-lumin | verus-audit-hardening
 
 Applied Verus's AEGIS Totem audit illuminations to strengthen append safety and repository-scale behavior.

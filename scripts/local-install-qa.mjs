@@ -52,7 +52,7 @@ try {
   runNpm(["install", cliPackage], { cwd: sandbox });
   run(process.execPath, ["-e", "const fs=require('fs'); fs.mkdirSync('target-repo/src/core/parser',{recursive:true}); fs.mkdirSync('target-repo/src/ui',{recursive:true}); fs.mkdirSync('target-repo/docs',{recursive:true});"], { cwd: sandbox });
 
-  runCli(["start"]);
+  const startJson = JSON.parse(runCli(["start", "--json"]));
   runCli(["lane", "create", "codex"]);
   runCli(["lane", "create", "claude"]);
   runCli(["lane", "message", "codex", "--to", "claude", "-m", "Local install QA lane message."]);
@@ -83,6 +83,10 @@ try {
   assertExists(join(targetRepo, "src", "TOTEM.md"));
   assertExists(join(targetRepo, "src", "core", "TOTEM.md"));
   assertExists(join(targetRepo, ".git", "hooks", "pre-commit"));
+
+  if (startJson.ready !== true || startJson.seededFolderTotems !== 2 || startJson.root !== targetRepo.replaceAll("\\", "/")) {
+    throw new Error(`Unexpected start JSON output:\n${JSON.stringify(startJson, null, 2)}`);
+  }
 
   const codexLane = readFileSync(join(targetRepo, ".aegis", "lanes", "codex.md"), "utf8");
   const folderTotem = readFileSync(join(targetRepo, "src", "TOTEM.md"), "utf8");

@@ -30,6 +30,7 @@ npm run alpha:check
 - [ ] Confirm the packed npm tarball installs into a temporary sandbox.
 - [ ] Confirm the installed `aegis-totem` binary runs in a temporary repository.
 - [ ] Confirm `aegis-totem init` creates the Root Totem and `.aegis` structure.
+- [ ] Confirm `aegis-totem start --json` returns repository readiness and the seeded Folder Totem count.
 - [ ] Confirm two lanes can be created.
 - [ ] Confirm at least one Folder Totem can be created.
 - [ ] Confirm one lane message is appended.
@@ -87,6 +88,7 @@ npm run mcp:qa
 - [ ] Confirm the extension manifest declares the analytics command.
 - [ ] Confirm `AEGIS: Show Analytics` opens a read-only panel from `aegis-totem analytics --json`.
 - [ ] Confirm `AEGIS: Run Doctor` opens a read-only readiness panel from `aegis-totem doctor --json`.
+- [ ] Confirm `AEGIS Totem: Start` calls `aegis-totem start --json`, reports the seeded Folder Totem count, and then opens Doctor readiness.
 - [ ] Install the VS Code `.vsix`.
 - [ ] Open a temporary repository in VS Code.
 - [ ] Confirm Root Totem, Folder Totem, and lanes appear in the AEGIS Totem view.
@@ -124,8 +126,10 @@ npm run release:preflight
 - [x] Add VS Code Doctor panel for first-repo readiness.
 - [x] Add structured Doctor JSON for IDE/tooling use.
 - [x] Add VS Code List panel for discovered lanes and Folder Totems.
-- [ ] Re-run `npm run vscode:qa`.
-- [ ] Re-run `npm run alpha:check`.
+- [x] Open Doctor readiness automatically after `AEGIS Totem: Start`.
+- [x] Add structured Start JSON for VS Code, agents, and scripts.
+- [x] Re-run `npm run vscode:qa`.
+- [x] Re-run `npm run alpha:check`.
 - [x] Add read-only list command for discovered lanes and Folder Totems.
 - [x] Add more MCP client examples.
 - [x] Add MCP config generator for first-use setup.

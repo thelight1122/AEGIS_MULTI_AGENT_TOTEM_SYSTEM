@@ -2,7 +2,7 @@
 
 This extension creates and seeds a repository's AEGIS Totem structure when it is absent, then exposes the Root Totem, discovered Folder Totems, and agent lanes in grouped Explorer sections. It invokes the installed `aegis-totem` CLI for Start, status, list, analytics, validation, doctor readiness, lane messages, and Folder Totem updates, so the extension does not create a second storage system.
 
-The first step is `AEGIS Totem: Start`. That creates the Root Totem, local AEGIS configuration, assistant-facing `AGENTS.md` instructions, and Folder Totems only for existing branch folders, with immediate subfolder elements listed. After Start, models and developers can read the repository's Totems and append reference material, code snippets, audit requests, findings, and agent communications.
+The first step is `AEGIS Totem: Start`. That calls `aegis-totem start --json`, creates the Root Totem, local AEGIS configuration, assistant-facing `AGENTS.md` instructions, and Folder Totems only for existing branch folders, with immediate subfolder elements listed. It then opens Doctor readiness so the first run shows whether the repository is prepared for coordinated agent work. After Start, models and developers can read the repository's Totems and append reference material, code snippets, audit requests, findings, and agent communications.
 
 Start preserves existing `AGENTS.md`, `ROOT_TOTEM.md`, and `TOTEM.md` files. The extension also watches for new branch folders and creates a `TOTEM.md` in each branch folder, unless one already exists.
 

@@ -71,10 +71,16 @@ async function seedFolderTotems(rootDir: string, currentDir = rootDir): Promise<
 }
 
 export type StartTotemRepoResult = {
+  root: string;
+  ready: true;
   seededFolderTotems: number;
 };
 
 export async function startTotemRepo(rootDir: string): Promise<StartTotemRepoResult> {
   await initTotemRepo(rootDir);
-  return { seededFolderTotems: await seedFolderTotems(rootDir) };
+  return {
+    root: rootDir.replace(/\\/g, "/"),
+    ready: true,
+    seededFolderTotems: await seedFolderTotems(rootDir)
+  };
 }

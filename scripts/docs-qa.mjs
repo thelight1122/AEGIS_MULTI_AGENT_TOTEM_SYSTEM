@@ -26,6 +26,7 @@ const firstRepo = requireFile("docs/first-repo-walkthrough.md");
 requireIncludes(readme, "docs/mcp-clients.md", "README project records");
 requireIncludes(readme, "docs/first-repo-walkthrough.md", "README project records");
 requireIncludes(readme, "aegis-totem analytics --json", "README analytics JSON");
+requireIncludes(readme, "aegis-totem start --json", "README start JSON");
 requireIncludes(readme, "aegis-totem list", "README list");
 requireIncludes(readme, "--lanes", "README list filters");
 requireIncludes(readme, "aegis-totem read root", "README read root");
@@ -36,6 +37,7 @@ requireIncludes(readme, "aegis-totem mcp config", "README MCP config");
 requireIncludes(quickstart, "mcp-clients.md", "quickstart MCP section");
 requireIncludes(quickstart, "first-repo-walkthrough.md", "quickstart first repo section");
 requireIncludes(quickstart, "aegis-totem analytics --json", "quickstart analytics JSON");
+requireIncludes(quickstart, "aegis-totem start --json", "quickstart start JSON");
 requireIncludes(quickstart, "aegis-totem list", "quickstart list");
 requireIncludes(quickstart, "aegis-totem list --lanes", "quickstart list filters");
 requireIncludes(quickstart, "aegis-totem read root", "quickstart read root");
@@ -71,6 +73,7 @@ for (const expected of [
 
 for (const expected of [
   "aegis-totem start",
+  "aegis-totem start --json",
   "aegis-totem lane create codex",
   "AGENTS.md",
   "<branch-folder>/TOTEM.md",

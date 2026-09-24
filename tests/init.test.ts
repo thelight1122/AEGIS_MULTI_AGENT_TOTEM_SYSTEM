@@ -41,6 +41,8 @@ describe("initTotemRepo", () => {
 
     const result = await startTotemRepo(root);
 
+    expect(result.root).toBe(root.replace(/\\/g, "/"));
+    expect(result.ready).toBe(true);
     expect(result.seededFolderTotems).toBe(2);
     const srcTotem = await readFile(join(root, "src", "TOTEM.md"), "utf8");
     expect(srcTotem).toContain("# Folder Totem: src");

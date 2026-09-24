@@ -37,6 +37,12 @@ Run from the root of the repository you want to coordinate:
 aegis-totem start
 ```
 
+For IDEs, agents, and scripts that need a structured result:
+
+```bash
+aegis-totem start --json
+```
+
 This creates:
 
 ```text
@@ -114,7 +120,7 @@ aegis-totem analytics --json
 
 The analytics view reports total appends, last activity, active and quiet lanes, active and quiet Folder Totems, and the busiest lane/folder surfaces without changing any repo files.
 
-Use `aegis-totem doctor --json` when an IDE, MCP client, or local script needs structured readiness checks instead of the human-readable Doctor report.
+Use `aegis-totem start --json` when an IDE, agent, or local script needs the repository path, readiness flag, and seeded Folder Totem count. Use `aegis-totem doctor --json` when an IDE, MCP client, or local script needs structured readiness checks instead of the human-readable Doctor report.
 
 To make validation part of local commits, install the optional Git hook:
 
@@ -138,7 +144,7 @@ code --install-extension dist/aegis-totem-vscode-0.1.0.vsix
 
 On Windows, do not double-click the `.vsix` file. That can open the Visual Studio VSIX Installer, which cannot install VS Code extensions. In VS Code, use `Extensions` -> `...` -> `Install from VSIX...`, or run the `code --install-extension` command above.
 
-Open any existing repository and run `AEGIS Totem: Start` from the command palette. The extension calls `aegis-totem start`, builds the Root Totem structure, seeds Folder Totems only for existing branch folders, lists their immediate subfolder elements, and creates `AGENTS.md` when absent. The AEGIS Totem Explorer view then shows the Root Totem, Folder Totems, and lane files. Use the command palette for:
+Open any existing repository and run `AEGIS Totem: Start` from the command palette. The extension calls `aegis-totem start --json`, builds the Root Totem structure, seeds Folder Totems only for existing branch folders, lists their immediate subfolder elements, creates `AGENTS.md` when absent, and opens Doctor readiness immediately after Start. The AEGIS Totem Explorer view then shows the Root Totem, Folder Totems, and lane files. Use the command palette for:
 
 - `AEGIS Totem: Start`
 - `AEGIS: Show Status`

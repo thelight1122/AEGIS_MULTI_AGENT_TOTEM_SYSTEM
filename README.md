@@ -26,6 +26,7 @@ Run these commands from the root of a repository:
 
 ```bash
 aegis-totem start
+aegis-totem start --json
 aegis-totem lane create codex
 aegis-totem lane create claude
 aegis-totem lane message codex --to claude -m "I inspected src. Please review the parser boundary before editing."
@@ -57,7 +58,7 @@ Read the relevant Totem before editing a folder. Use a lane for coordination, un
 
 | Command | Purpose |
 | --- | --- |
-| `start` | Create the local AEGIS structure and seed Folder Totems for existing branch folders, with immediate subfolder elements listed. |
+| `start` | Create the local AEGIS structure and seed Folder Totems for existing branch folders, with immediate subfolder elements listed. Use `--json` for IDEs, agents, and scripts. |
 | `init` | Create only the base local AEGIS structure without seeding existing folders. |
 | `lane create <name>` | Create an agent lane. |
 | `lane message <lane> -m <text>` | Append a message, optionally addressed with `--to <lane>`. |
@@ -92,11 +93,11 @@ The first release is intentionally a local CLI. VS Code, MCP, JetBrains, and oth
 
 Use `aegis-totem read root`, `aegis-totem read lane <name>`, and `aegis-totem read folder <path>` after `list` when a terminal, script, or agent needs the actual Markdown content without manually opening files.
 
-`aegis-totem analytics --json` returns the same read-only coordination snapshot as structured JSON for IDEs, MCP clients, and local automation. `aegis-totem doctor --json` returns readiness checks in the same machine-readable style.
+`aegis-totem start --json` returns the repository path, readiness flag, and seeded Folder Totem count for IDEs, agents, and scripts. `aegis-totem analytics --json` returns the same read-only coordination snapshot as structured JSON for IDEs, MCP clients, and local automation. `aegis-totem doctor --json` returns readiness checks in the same machine-readable style.
 
 ## VS Code
 
-The first extension adapter lives in `vscode-extension`. Its first job is to run `AEGIS Totem: Start` in any existing repository: create the Totem structure, add assistant-facing `AGENTS.md` instructions when absent, and seed Folder Totems only for existing branch folders, with immediate subfolder elements listed. It then adds an AEGIS Totem view to the Explorer, watches new branch folders and creates their Folder Totems, groups the Root Totem, Folder Totems, and agent lanes, opens list, analytics, and structured doctor readiness in read-only panels, and invokes the CLI for status, validation, lane messages, and Folder Totem updates.
+The first extension adapter lives in `vscode-extension`. Its first job is to run `AEGIS Totem: Start` in any existing repository through `aegis-totem start --json`: create the Totem structure, add assistant-facing `AGENTS.md` instructions when absent, seed Folder Totems only for existing branch folders, with immediate subfolder elements listed, and open Doctor readiness immediately after Start. It then adds an AEGIS Totem view to the Explorer, watches new branch folders and creates their Folder Totems, groups the Root Totem, Folder Totems, and agent lanes, opens list, analytics, and structured doctor readiness in read-only panels, and invokes the CLI for status, validation, lane messages, and Folder Totem updates.
 
 Build an installable VS Code package locally:
 
