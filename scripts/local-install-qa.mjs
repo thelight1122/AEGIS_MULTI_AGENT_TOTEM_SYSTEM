@@ -65,6 +65,7 @@ try {
   const analytics = runCli(["analytics"]);
   const analyticsJson = JSON.parse(runCli(["analytics", "--json"]));
   const validate = runCli(["validate"]);
+  const doctor = runCli(["doctor"]);
 
   assertExists(join(targetRepo, "ROOT_TOTEM.md"));
   assertExists(join(targetRepo, ".aegis", "config.json"));
@@ -102,6 +103,10 @@ try {
 
   if (!validate.includes("AEGIS Totem validation passed.")) {
     throw new Error(`Unexpected validate output:\n${validate}`);
+  }
+
+  if (!doctor.includes("AEGIS Totem doctor passed.") || !doctor.includes("OK Local validation hook:")) {
+    throw new Error(`Unexpected doctor output:\n${doctor}`);
   }
 
   console.log("Local install QA passed.");

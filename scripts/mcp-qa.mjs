@@ -53,6 +53,8 @@ try {
   runCli(["init"]);
   runCli(["lane", "create", "codex"]);
   runCli(["totem", "create", "src"]);
+  run(process.execPath, ["-e", "require('fs').mkdirSync('.git')"], { cwd: targetRepo });
+  runCli(["hooks", "install"]);
 
   const transport = new StdioClientTransport({
     command: process.execPath,
@@ -75,7 +77,8 @@ try {
     "aegis_append_folder_update",
     "aegis_status",
     "aegis_analytics",
-    "aegis_validate"
+    "aegis_validate",
+    "aegis_doctor"
   ]) {
     if (!toolNames.has(name)) {
       throw new Error(`Expected MCP tool missing: ${name}`);
@@ -105,6 +108,7 @@ try {
   assertIncludes(text(await client.callTool({ name: "aegis_analytics", arguments: {} })), "Lane message entries: 1", "MCP analytics");
   assertIncludes(text(await client.callTool({ name: "aegis_analytics", arguments: {} })), "Folder append entries: 1", "MCP analytics");
   assertIncludes(text(await client.callTool({ name: "aegis_validate", arguments: {} })), "AEGIS Totem validation passed.", "MCP validate");
+  assertIncludes(text(await client.callTool({ name: "aegis_doctor", arguments: {} })), "AEGIS Totem doctor passed.", "MCP doctor");
 
   await client.close();
 

@@ -7,6 +7,7 @@ import { appendFolderTotem, createFolderTotem } from "./core/totems.js";
 import { formatStatus, getStatus } from "./core/status.js";
 import { formatValidation, validateRepo } from "./core/validate.js";
 import { formatAnalytics, getAnalytics } from "./core/analytics.js";
+import { formatDoctor, runDoctor } from "./core/doctor.js";
 import { installPreCommitHook } from "./core/hooks.js";
 
 export function buildProgram(): Command {
@@ -46,6 +47,12 @@ export function buildProgram(): Command {
     .action(async () => {
       const result = await validateRepo(process.cwd());
       console.log(formatValidation(result));
+      if (!result.ok) process.exitCode = 1;
+    });
+  program.command("doctor").description("Run a read-only readiness check for AEGIS Totem coordination.")
+    .action(async () => {
+      const result = await runDoctor(process.cwd());
+      console.log(formatDoctor(result));
       if (!result.ok) process.exitCode = 1;
     });
 

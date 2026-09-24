@@ -82,6 +82,70 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-24 | codex-lumin | expanded-mcp-client-examples
+
+Expanded the MCP adoption documentation for more coding clients.
+
+Evidence:
+
+- Added Cursor, Cline, and Windsurf stdio configuration shapes to `docs/mcp-clients.md`.
+- Added a terminal smoke-test section for checking the MCP server before troubleshooting an IDE client.
+- Updated docs QA so the new MCP client sections are required.
+- Refreshed README, changelog, release checklist, and draft alpha release notes so the documented alpha surface matches CLI, MCP, analytics, doctor, and VS Code capabilities.
+
+Distilled understanding:
+
+- MCP adoption improves when setup examples cover the clients developers already use.
+- Client-specific documentation should stay conservative because exact settings locations can drift; the stable contract is the stdio `mcpServers` shape plus `AEGIS_REPO_ROOT`.
+
+### 2026-09-24 | codex-lumin | vscode-doctor-panel
+
+Extended the doctor readiness package into the VS Code adapter.
+
+Evidence:
+
+- Added `AEGIS: Run Doctor` to the VS Code extension manifest.
+- Added a read-only VS Code Doctor webview panel backed by `aegis-totem doctor`.
+- Updated VS Code QA so packaged extension checks require the Doctor command and panel wiring.
+- Updated README, quickstart, release checklist, extension README, changelog, and this Root Totem.
+
+Distilled understanding:
+
+- Readiness needs to be visible in the IDE as well as the shell and MCP.
+- VS Code remains a CLI-backed view layer; doctor does not mutate repo structure or repair gaps.
+
+### 2026-09-24 | codex-lumin | mcp-doctor-tool
+
+Extended the adoption doctor package into the MCP adapter.
+
+Evidence:
+
+- Added `aegis_doctor` as a read-only MCP tool backed by the same `runDoctor` core used by the CLI.
+- Updated MCP QA to create a prepared temporary repo, install the optional local validation hook, confirm `aegis_doctor` is listed, and verify the tool returns a passing doctor report.
+- Updated MCP client docs and docs QA so the exposed-tool list includes `aegis_doctor`.
+- Updated the changelog adapter description to include analytics, validation, and doctor coverage.
+
+Distilled understanding:
+
+- Agent clients need the same readiness answer as shell users.
+- The MCP adapter should continue to expose one canonical repo surface, not a second readiness model.
+
+### 2026-09-24 | codex-lumin | adoption-doctor-command
+
+Implemented the next adoption-friction package: a read-only readiness doctor.
+
+Evidence:
+
+- Added `aegis-totem doctor` to check Root Totem presence, structure validation, agent lanes, Folder Totems, append activity, and optional local validation hook status.
+- Added focused doctor tests for an incomplete repo and a prepared repo.
+- Updated local install QA so the packaged CLI must pass `doctor` in a prepared temporary repository.
+- Updated README, quickstart, first-repo walkthrough, release checklist, changelog, and docs QA coverage.
+
+Distilled understanding:
+
+- Developers need a simple readiness answer before starting parallel agent work.
+- The doctor command should remain read-only and advisory; it names gaps without silently creating structure or changing trust boundaries.
+
 ### 2026-09-24 | codex-lumin | vscode-analytics-panel
 
 Implemented the next IDE usability package: a read-only VS Code Analytics panel.

@@ -52,6 +52,28 @@ Use this shape in any MCP client that supports stdio servers:
 On Windows, forward slashes in JSON paths avoid escaping mistakes. Backslashes
 also work when escaped as `\\`.
 
+## Cursor Shape
+
+Cursor uses the same `mcpServers` JSON shape for local stdio servers:
+
+```json
+{
+  "mcpServers": {
+    "aegis-totem": {
+      "command": "node",
+      "args": ["G:/AEGIS_MULTI_AGENT_TOTEM_SYSTEM/dist/src/mcp-server.js"],
+      "env": {
+        "AEGIS_REPO_ROOT": "G:/my-project"
+      }
+    }
+  }
+}
+```
+
+Add the server wherever your Cursor install manages MCP configuration. After
+adding the server, restart or reload the client and confirm the `aegis_*` tools
+are visible before relying on the lane workflow.
+
 ## Claude Desktop Shape
 
 Claude Desktop uses the same stdio server shape in its MCP configuration:
@@ -72,6 +94,49 @@ Claude Desktop uses the same stdio server shape in its MCP configuration:
 
 Restart the client after changing MCP configuration.
 
+## Cline Shape
+
+Cline local stdio MCP servers use the same server object:
+
+```json
+{
+  "mcpServers": {
+    "aegis-totem": {
+      "command": "node",
+      "args": ["G:/AEGIS_MULTI_AGENT_TOTEM_SYSTEM/dist/src/mcp-server.js"],
+      "env": {
+        "AEGIS_REPO_ROOT": "G:/my-project"
+      }
+    }
+  }
+}
+```
+
+Use Cline's MCP server configuration panel or settings file for your install.
+Reload Cline after editing the configuration.
+
+## Windsurf Shape
+
+Windsurf also supports local MCP servers through JSON configuration. Use the
+same stdio shape:
+
+```json
+{
+  "mcpServers": {
+    "aegis-totem": {
+      "command": "node",
+      "args": ["G:/AEGIS_MULTI_AGENT_TOTEM_SYSTEM/dist/src/mcp-server.js"],
+      "env": {
+        "AEGIS_REPO_ROOT": "G:/my-project"
+      }
+    }
+  }
+}
+```
+
+Open the MCP configuration for your Windsurf install, add the server, then
+reload the client and confirm the AEGIS tools appear.
+
 ## Exposed Tools
 
 The server exposes:
@@ -84,6 +149,7 @@ The server exposes:
 - `aegis_status`
 - `aegis_analytics`
 - `aegis_validate`
+- `aegis_doctor`
 
 ## Suggested Agent Loop
 
@@ -94,7 +160,27 @@ The server exposes:
 5. Work in the repository.
 6. Run the repository's normal verification.
 7. Use `aegis_append_folder_update` only for durable, verified folder knowledge.
-8. Use `aegis_status`, `aegis_analytics`, and `aegis_validate` before handoff.
+8. Use `aegis_status`, `aegis_analytics`, `aegis_validate`, and `aegis_doctor` before handoff.
+
+## Smoke Test The Server
+
+Before blaming an IDE configuration, confirm the server starts from a normal
+terminal:
+
+```bash
+npm run build
+AEGIS_REPO_ROOT=/absolute/path/to/your/repo node dist/src/mcp-server.js
+```
+
+On PowerShell:
+
+```powershell
+$env:AEGIS_REPO_ROOT = "G:/my-project"
+node dist/src/mcp-server.js
+```
+
+The process should stay open and wait for MCP stdio traffic. Stop it with
+`Ctrl+C` after confirming it starts cleanly.
 
 ## Boundaries
 

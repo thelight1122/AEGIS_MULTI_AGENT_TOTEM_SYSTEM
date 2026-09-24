@@ -92,10 +92,12 @@ in lanes; put reusable verified folder knowledge in Folder Totems.
 aegis-totem status
 aegis-totem analytics
 aegis-totem validate
+aegis-totem doctor
 ```
 
-`status` and `analytics` are read-only. `validate` checks required append-log
-structure.
+`status`, `analytics`, and `doctor` are read-only. `validate` checks required
+append-log structure. `doctor` summarizes readiness gaps such as missing lanes,
+Folder Totems, append activity, or the optional local validation hook.
 
 ## 8. Add Optional Local Validation
 

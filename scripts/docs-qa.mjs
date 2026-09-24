@@ -26,13 +26,20 @@ const firstRepo = requireFile("docs/first-repo-walkthrough.md");
 requireIncludes(readme, "docs/mcp-clients.md", "README project records");
 requireIncludes(readme, "docs/first-repo-walkthrough.md", "README project records");
 requireIncludes(readme, "aegis-totem analytics --json", "README analytics JSON");
+requireIncludes(readme, "aegis-totem doctor", "README doctor");
 requireIncludes(quickstart, "mcp-clients.md", "quickstart MCP section");
 requireIncludes(quickstart, "first-repo-walkthrough.md", "quickstart first repo section");
 requireIncludes(quickstart, "aegis-totem analytics --json", "quickstart analytics JSON");
+requireIncludes(quickstart, "aegis-totem doctor", "quickstart doctor");
 
 for (const expected of [
   "AEGIS_REPO_ROOT",
   "dist/src/mcp-server.js",
+  "Cursor Shape",
+  "Claude Desktop Shape",
+  "Cline Shape",
+  "Windsurf Shape",
+  "Smoke Test The Server",
   "aegis_read_root_totem",
   "aegis_read_folder_totem",
   "aegis_read_lane",
@@ -40,7 +47,8 @@ for (const expected of [
   "aegis_append_folder_update",
   "aegis_status",
   "aegis_analytics",
-  "aegis_validate"
+  "aegis_validate",
+  "aegis_doctor"
 ]) {
   requireIncludes(mcpClients, expected, "MCP client examples");
 }
@@ -51,6 +59,7 @@ for (const expected of [
   "aegis-totem totem create src",
   "aegis-totem lane message codex",
   "aegis-totem totem append src",
+  "aegis-totem doctor",
   "aegis-totem hooks install",
   "MCP client examples"
 ]) {

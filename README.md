@@ -34,6 +34,7 @@ aegis-totem totem append src --actor codex --kind verified-change -m "Added pars
 aegis-totem status
 aegis-totem analytics
 aegis-totem validate
+aegis-totem doctor
 aegis-totem hooks install
 ```
 
@@ -60,6 +61,7 @@ Read the relevant Totem before editing a folder. Use a lane for coordination, un
 | `status` | Show a read-only inventory. |
 | `analytics` | Show read-only append activity counts, last activity, active/quiet lanes, and busiest Totem surfaces. |
 | `validate` | Check required Totem and append-log structure. |
+| `doctor` | Run a read-only readiness check before parallel agent work. |
 | `hooks install` | Install an optional local pre-commit hook that runs validation. |
 
 ## Development
@@ -82,7 +84,7 @@ The first release is intentionally a local CLI. VS Code, MCP, JetBrains, and oth
 
 ## VS Code
 
-The first extension adapter lives in `vscode-extension`. It adds an AEGIS Totem view to the Explorer, groups the Root Totem, Folder Totems, and agent lanes, opens analytics in a read-only panel, and invokes the CLI for status, validation, lane messages, and Folder Totem updates.
+The first extension adapter lives in `vscode-extension`. It adds an AEGIS Totem view to the Explorer, groups the Root Totem, Folder Totems, and agent lanes, opens analytics and doctor readiness in read-only panels, and invokes the CLI for status, validation, lane messages, and Folder Totem updates.
 
 Build an installable VS Code package locally:
 
@@ -99,7 +101,7 @@ To verify the packaged extension before sharing it, run:
 npm run vscode:qa
 ```
 
-The QA packages the extension, inspects the `.vsix`, confirms required files are present, and verifies the expected AEGIS commands, Analytics panel wiring, and Explorer view are declared.
+The QA packages the extension, inspects the `.vsix`, confirms required files are present, and verifies the expected AEGIS commands, Analytics/Doctor panel wiring, and Explorer view are declared.
 
 ## MCP
 
@@ -117,9 +119,9 @@ The local MCP adapter exposes the same canonical repo surface to AI coding agent
 }
 ```
 
-The server provides tools to read the Root Totem, read Folder Totems and lanes, send lane messages, append Folder Totem updates, show status, show analytics, and validate structure. It is local and stateless; the repository files remain authoritative.
+The server provides tools to read the Root Totem, read Folder Totems and lanes, send lane messages, append Folder Totem updates, show status, show analytics, validate structure, and run the readiness doctor. It is local and stateless; the repository files remain authoritative.
 
-See [MCP client examples](docs/mcp-clients.md) for Codex, Claude Desktop, and other stdio MCP client configuration shapes.
+See [MCP client examples](docs/mcp-clients.md) for Codex, Cursor, Claude Desktop, Cline, Windsurf, and other stdio MCP client configuration shapes.
 
 ## Project Records
 

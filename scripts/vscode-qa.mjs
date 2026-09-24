@@ -72,6 +72,7 @@ requireCommands(manifest, [
   "aegisTotem.status",
   "aegisTotem.analytics",
   "aegisTotem.validate",
+  "aegisTotem.doctor",
   "aegisTotem.sendMessage",
   "aegisTotem.appendFolderUpdate"
 ]);
@@ -85,6 +86,8 @@ requireSourceContains(source, [
   "--json",
   "createWebviewPanel",
   "AEGIS Totem Analytics",
+  "AEGIS Totem Doctor",
+  "doctor",
   "placeHolder",
   "lane",
   "message",

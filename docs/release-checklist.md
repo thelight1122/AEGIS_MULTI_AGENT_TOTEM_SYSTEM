@@ -38,6 +38,7 @@ npm run alpha:check
 - [ ] Confirm `aegis-totem analytics` reports append activity, quiet lanes, and last activity without editing Totems or lanes.
 - [ ] Confirm `aegis-totem analytics --json` returns the same read-only coordination snapshot for IDE/tooling use.
 - [ ] Confirm `aegis-totem validate` passes.
+- [ ] Confirm `aegis-totem doctor` passes for a prepared temporary repository.
 - [ ] Confirm `aegis-totem hooks install` creates `.git/hooks/pre-commit` without overwriting existing hooks.
 
 Shortcut:
@@ -76,6 +77,7 @@ npm run mcp:qa
 - [ ] Confirm the extension manifest declares refresh, Root Totem, status, validation, lane-message, and Folder Totem append commands.
 - [ ] Confirm the extension manifest declares the analytics command.
 - [ ] Confirm `AEGIS: Show Analytics` opens a read-only panel from `aegis-totem analytics --json`.
+- [ ] Confirm `AEGIS: Run Doctor` opens a read-only readiness panel from `aegis-totem doctor`.
 - [ ] Install the VS Code `.vsix`.
 - [ ] Open a temporary repository in VS Code.
 - [ ] Confirm Root Totem, Folder Totem, and lanes appear in the AEGIS Totem view.
@@ -110,9 +112,11 @@ npm run release:preflight
 - [x] Improve VS Code command prompts and error messages.
 - [x] Add richer tree grouping for Root Totem, Folder Totems, and lanes.
 - [x] Add VS Code Analytics panel for append activity and quiet lanes.
+- [x] Add VS Code Doctor panel for first-repo readiness.
 - [ ] Re-run `npm run vscode:qa`.
 - [ ] Re-run `npm run alpha:check`.
-- [ ] Add more MCP client examples.
+- [x] Add more MCP client examples.
 - [ ] Add JetBrains or other IDE adapters if demand appears.
 - [x] Add optional analytics over append logs without changing append-only storage.
-- [ ] Add optional local Git hook installation for validation.
+- [x] Add optional local Git hook installation for validation.
+- [x] Add read-only adoption doctor for first-repo readiness.

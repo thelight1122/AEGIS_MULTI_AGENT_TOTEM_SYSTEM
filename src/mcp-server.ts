@@ -8,6 +8,7 @@ import { appendFolderTotem } from "./core/totems.js";
 import { formatStatus, getStatus } from "./core/status.js";
 import { formatValidation, validateRepo } from "./core/validate.js";
 import { formatAnalytics, getAnalytics } from "./core/analytics.js";
+import { formatDoctor, runDoctor } from "./core/doctor.js";
 import { ensureInsideRoot } from "./fs/repo.js";
 import { sanitizeLaneName } from "./core/schema.js";
 
@@ -23,4 +24,5 @@ server.tool("aegis_append_folder_update", "Append a durable update to a Folder T
 server.tool("aegis_status", "Show the current read-only AEGIS Totem inventory.", {}, async () => text(formatStatus(await getStatus(repoRoot))));
 server.tool("aegis_analytics", "Show read-only append activity counts for Totems and lanes.", {}, async () => text(formatAnalytics(await getAnalytics(repoRoot))));
 server.tool("aegis_validate", "Validate AEGIS Totem structure and append logs.", {}, async () => text(formatValidation(await validateRepo(repoRoot))));
+server.tool("aegis_doctor", "Run a read-only readiness check for AEGIS Totem coordination.", {}, async () => text(formatDoctor(await runDoctor(repoRoot))));
 await server.connect(new StdioServerTransport());

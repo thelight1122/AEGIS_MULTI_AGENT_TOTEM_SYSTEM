@@ -130,6 +130,24 @@ function activate(context) {
     panel.webview.html = analyticsHtml(analytics);
   })));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.validate", () => showError(async () => vscode.window.showInformationMessage(await run("aegis-totem", ["validate"])) )));
+  context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.doctor", () => showError(async () => {
+    const report = await run("aegis-totem", ["doctor"]);
+    const panel = vscode.window.createWebviewPanel("aegisTotemDoctor", "AEGIS Totem Doctor", vscode.ViewColumn.Beside, {});
+    panel.webview.html = `<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { color: var(--vscode-foreground); font-family: var(--vscode-font-family); padding: 20px; }
+    pre { background: var(--vscode-editor-background); border: 1px solid var(--vscode-panel-border); border-radius: 6px; padding: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <h1>AEGIS Totem Doctor</h1>
+  <pre>${escapeHtml(report)}</pre>
+</body>
+</html>`;
+  })));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.sendMessage", () => showError(async () => {
     const lane = await vscode.window.showInputBox({ prompt: "Lane name", placeHolder: "codex" });
     const message = lane && await vscode.window.showInputBox({ prompt: "Message to append", placeHolder: "I am working in src/core. I will append when verification passes." });

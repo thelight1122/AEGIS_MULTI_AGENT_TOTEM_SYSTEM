@@ -90,9 +90,10 @@ Use Folder Totems for durable, reusable folder knowledge. Use lanes for coordina
 aegis-totem status
 aegis-totem analytics
 aegis-totem validate
+aegis-totem doctor
 ```
 
-`status` and `analytics` are read-only. `validate` checks the required Root Totem and append-log structure.
+`status`, `analytics`, and `doctor` are read-only. `validate` checks the required Root Totem and append-log structure. `doctor` reports readiness gaps before parallel agent work begins.
 
 For IDEs, scripts, or MCP clients that need a structured coordination snapshot:
 
@@ -127,6 +128,7 @@ Open a repository that already has AEGIS Totem initialized. The AEGIS Totem Expl
 - `AEGIS: Show Status`
 - `AEGIS: Show Analytics`
 - `AEGIS: Validate`
+- `AEGIS: Run Doctor`
 - `AEGIS: Send Lane Message`
 - `AEGIS: Append Folder Update`
 
