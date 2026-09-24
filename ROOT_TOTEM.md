@@ -82,6 +82,22 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-24 | codex-lumin | cli-read-surfaces
+
+Implemented the next local build group: first-class CLI read surfaces.
+
+Evidence:
+
+- Added `aegis-totem read root`, `aegis-totem read lane <name>`, and `aegis-totem read folder <path>`.
+- Added shared read helpers and routed MCP read tools through the same helpers.
+- Added focused read tests and local install QA coverage.
+- Updated README, quickstart, first-repo walkthrough, changelog, release checklist, draft alpha release notes, docs QA, and this Root Totem.
+
+Distilled understanding:
+
+- Discovery and reading should be a paired workflow: `list` shows what exists, `read` prints the exact coordination surface.
+- Terminal agents should not need to infer repo file paths in order to follow the Totem loop.
+
 ### 2026-09-24 | codex-lumin | structured-doctor-diagnostics
 
 Implemented the next local build group: structured Doctor diagnostics for IDE/tooling use.

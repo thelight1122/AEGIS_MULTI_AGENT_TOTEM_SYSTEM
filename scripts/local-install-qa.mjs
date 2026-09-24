@@ -66,6 +66,9 @@ try {
   const inventoryJson = JSON.parse(runCli(["list", "--json"]));
   const laneInventory = runCli(["list", "--lanes"]);
   const folderInventory = runCli(["list", "--folders"]);
+  const rootRead = runCli(["read", "root"]);
+  const laneRead = runCli(["read", "lane", "codex"]);
+  const folderRead = runCli(["read", "folder", "src"]);
   const analytics = runCli(["analytics"]);
   const analyticsJson = JSON.parse(runCli(["analytics", "--json"]));
   const validate = runCli(["validate"]);
@@ -113,6 +116,10 @@ try {
 
   if (!folderInventory.includes("- src/TOTEM.md") || folderInventory.includes("codex.md")) {
     throw new Error(`Unexpected Folder Totem list output:\n${folderInventory}`);
+  }
+
+  if (!rootRead.includes("# AEGIS Root Totem") || !laneRead.includes("# AEGIS Agent Lane: codex") || !folderRead.includes("# Folder Totem: src")) {
+    throw new Error(`Unexpected read output:\n${rootRead}\n${laneRead}\n${folderRead}`);
   }
 
   if (!analytics.includes("Lane message entries: 1") || !analytics.includes("Folder append entries: 1") || !analytics.includes("Quiet lanes: 1")) {

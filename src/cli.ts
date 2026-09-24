@@ -11,6 +11,7 @@ import { formatAnalytics, getAnalytics } from "./core/analytics.js";
 import { formatDoctor, runDoctor } from "./core/doctor.js";
 import { installPreCommitHook } from "./core/hooks.js";
 import { buildMcpConfig } from "./core/mcp-config.js";
+import { readFolderTotem, readLane, readRootTotem } from "./core/read.js";
 
 export function buildProgram(): Command {
   const program = new Command()
@@ -49,6 +50,13 @@ export function buildProgram(): Command {
       const json = scope === "lanes" ? status.lanes : scope === "folders" ? status.folderTotems : status;
       console.log(options.json ? JSON.stringify(json, null, 2) : formatInventory(status, scope));
     });
+  const read = program.command("read").description("Read Totems and lanes without editing repository files.");
+  read.command("root").description("Read the repository Root Totem.")
+    .action(async () => console.log(await readRootTotem(process.cwd())));
+  read.command("lane").description("Read an append-only agent lane.").argument("<lane>")
+    .action(async (laneName: string) => console.log(await readLane(process.cwd(), laneName)));
+  read.command("folder").description("Read a Folder Totem by repository-relative folder path.").argument("<folder>")
+    .action(async (folder: string) => console.log(await readFolderTotem(process.cwd(), folder)));
   program.command("analytics").description("Show read-only append activity counts for Totems and lanes.")
     .option("--json", "Print machine-readable analytics.")
     .action(async (options: { json?: boolean }) => {

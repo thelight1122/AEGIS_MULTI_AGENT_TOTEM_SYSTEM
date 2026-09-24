@@ -8,6 +8,7 @@ Public alpha foundation for AEGIS Totem.
 
 - TypeScript CLI with `init`, agent lanes, lane messages, Folder Totems, append-only folder updates, `status`, `list`, and `validate`.
 - Read-only `list` command for discovered lanes and Folder Totems, with lane-only and Folder-Totem-only filters.
+- Read-only `read` commands for Root Totem, agent lanes, and Folder Totems.
 - Read-only `doctor` command for first-repository readiness checks before parallel agent work, including JSON output for IDE/tooling use.
 - Read-only analytics for append activity, last activity, active/quiet lanes, active/quiet Folder Totems, busiest surfaces, and JSON output for IDE/tooling use.
 - Optional local pre-commit hook installation for Totem validation.

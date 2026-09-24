@@ -28,6 +28,7 @@ requireIncludes(readme, "docs/first-repo-walkthrough.md", "README project record
 requireIncludes(readme, "aegis-totem analytics --json", "README analytics JSON");
 requireIncludes(readme, "aegis-totem list", "README list");
 requireIncludes(readme, "--lanes", "README list filters");
+requireIncludes(readme, "aegis-totem read root", "README read root");
 requireIncludes(readme, "List/Analytics/Doctor panel", "README VS Code panels");
 requireIncludes(readme, "aegis-totem doctor", "README doctor");
 requireIncludes(readme, "aegis-totem doctor --json", "README doctor JSON");
@@ -37,6 +38,7 @@ requireIncludes(quickstart, "first-repo-walkthrough.md", "quickstart first repo 
 requireIncludes(quickstart, "aegis-totem analytics --json", "quickstart analytics JSON");
 requireIncludes(quickstart, "aegis-totem list", "quickstart list");
 requireIncludes(quickstart, "aegis-totem list --lanes", "quickstart list filters");
+requireIncludes(quickstart, "aegis-totem read root", "quickstart read root");
 requireIncludes(quickstart, "AEGIS: Show List", "quickstart VS Code list");
 requireIncludes(quickstart, "aegis-totem doctor", "quickstart doctor");
 requireIncludes(quickstart, "aegis-totem doctor --json", "quickstart doctor JSON");
@@ -74,6 +76,7 @@ for (const expected of [
   "aegis-totem lane message codex",
   "aegis-totem totem append src",
   "aegis-totem list",
+  "aegis-totem read root",
   "aegis-totem doctor",
   "aegis-totem mcp config",
   "aegis-totem hooks install",

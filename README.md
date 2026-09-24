@@ -33,6 +33,9 @@ aegis-totem lane message codex --to claude -m "I inspected src. Please review th
 aegis-totem totem append src --actor codex --kind verified-change -m "Added parser tests. Verification: npm test passed."
 aegis-totem status
 aegis-totem list
+aegis-totem read root
+aegis-totem read lane codex
+aegis-totem read folder src
 aegis-totem analytics
 aegis-totem validate
 aegis-totem doctor
@@ -62,6 +65,9 @@ Read the relevant Totem before editing a folder. Use a lane for coordination, un
 | `totem append <folder>` | Append a durable update with `--actor`, `--kind`, and `--message`. |
 | `status` | Show a read-only inventory. |
 | `list` | List discovered lanes and Folder Totems, optionally filtered with `--lanes` or `--folders`. |
+| `read root` | Print the Root Totem. |
+| `read lane <name>` | Print an agent lane. |
+| `read folder <folder>` | Print a Folder Totem. |
 | `analytics` | Show read-only append activity counts, last activity, active/quiet lanes, and busiest Totem surfaces. |
 | `validate` | Check required Totem and append-log structure. |
 | `doctor` | Run a read-only readiness check before parallel agent work. Use `--json` for IDE/tooling output. |
@@ -83,6 +89,8 @@ npm run alpha:check
 ```
 
 The first release is intentionally a local CLI. VS Code, MCP, JetBrains, and other IDE integrations will build on the same CLI and repository artifacts rather than creating a second source of truth.
+
+Use `aegis-totem read root`, `aegis-totem read lane <name>`, and `aegis-totem read folder <path>` after `list` when a terminal, script, or agent needs the actual Markdown content without manually opening files.
 
 `aegis-totem analytics --json` returns the same read-only coordination snapshot as structured JSON for IDEs, MCP clients, and local automation. `aegis-totem doctor --json` returns readiness checks in the same machine-readable style.
 

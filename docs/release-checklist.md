@@ -37,6 +37,7 @@ npm run alpha:check
 - [ ] Confirm `aegis-totem status` reports the expected counts.
 - [ ] Confirm `aegis-totem list` reports discovered lane files and Folder Totems.
 - [ ] Confirm `aegis-totem list --lanes` and `aegis-totem list --folders` filter discovery output.
+- [ ] Confirm `aegis-totem read root`, `read lane <name>`, and `read folder <path>` print the expected Markdown surfaces.
 - [ ] Confirm `aegis-totem analytics` reports append activity, quiet lanes, and last activity without editing Totems or lanes.
 - [ ] Confirm `aegis-totem analytics --json` returns the same read-only coordination snapshot for IDE/tooling use.
 - [ ] Confirm `aegis-totem validate` passes.

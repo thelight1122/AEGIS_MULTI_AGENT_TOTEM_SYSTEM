@@ -89,6 +89,9 @@ Use Folder Totems for durable, reusable folder knowledge. Use lanes for coordina
 ```bash
 aegis-totem status
 aegis-totem list
+aegis-totem read root
+aegis-totem read lane codex
+aegis-totem read folder src
 aegis-totem analytics
 aegis-totem validate
 aegis-totem doctor
@@ -99,6 +102,8 @@ aegis-totem mcp config
 `status`, `list`, `analytics`, `doctor`, and `mcp config` are read-only. `validate` checks the required Root Totem and append-log structure. `list` shows discovered lane files and Folder Totems. `doctor` reports readiness gaps before parallel agent work begins.
 
 Use `aegis-totem list --lanes` or `aegis-totem list --folders` when you only need one side of the coordination surface.
+
+Use `aegis-totem read root`, `aegis-totem read lane <name>`, and `aegis-totem read folder <path>` when you need the actual Markdown content from a terminal, script, or agent process.
 
 For IDEs, scripts, or MCP clients that need a structured coordination snapshot:
 
