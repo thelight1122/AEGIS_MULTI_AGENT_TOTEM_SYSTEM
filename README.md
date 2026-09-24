@@ -58,7 +58,7 @@ Read the relevant Totem before editing a folder. Use a lane for coordination, un
 | `totem create <folder>` | Create a Folder Totem. |
 | `totem append <folder>` | Append a durable update with `--actor`, `--kind`, and `--message`. |
 | `status` | Show a read-only inventory. |
-| `analytics` | Show read-only append activity counts for Totems and lanes. |
+| `analytics` | Show read-only append activity counts, last activity, active/quiet lanes, and busiest Totem surfaces. |
 | `validate` | Check required Totem and append-log structure. |
 | `hooks install` | Install an optional local pre-commit hook that runs validation. |
 
@@ -78,9 +78,11 @@ npm run alpha:check
 
 The first release is intentionally a local CLI. VS Code, MCP, JetBrains, and other IDE integrations will build on the same CLI and repository artifacts rather than creating a second source of truth.
 
+`aegis-totem analytics --json` returns the same read-only coordination snapshot as structured JSON for IDEs, MCP clients, and local automation.
+
 ## VS Code
 
-The first extension adapter lives in `vscode-extension`. It adds an AEGIS Totem view to the Explorer, groups the Root Totem, Folder Totems, and agent lanes, and invokes the CLI for status, analytics, validation, lane messages, and Folder Totem updates.
+The first extension adapter lives in `vscode-extension`. It adds an AEGIS Totem view to the Explorer, groups the Root Totem, Folder Totems, and agent lanes, opens analytics in a read-only panel, and invokes the CLI for status, validation, lane messages, and Folder Totem updates.
 
 Build an installable VS Code package locally:
 
@@ -97,7 +99,7 @@ To verify the packaged extension before sharing it, run:
 npm run vscode:qa
 ```
 
-The QA packages the extension, inspects the `.vsix`, confirms required files are present, and verifies the expected AEGIS commands and Explorer view are declared.
+The QA packages the extension, inspects the `.vsix`, confirms required files are present, and verifies the expected AEGIS commands, Analytics panel wiring, and Explorer view are declared.
 
 ## MCP
 

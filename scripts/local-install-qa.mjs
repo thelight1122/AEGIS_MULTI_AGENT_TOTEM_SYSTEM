@@ -63,6 +63,7 @@ try {
 
   const status = runCli(["status"]);
   const analytics = runCli(["analytics"]);
+  const analyticsJson = JSON.parse(runCli(["analytics", "--json"]));
   const validate = runCli(["validate"]);
 
   assertExists(join(targetRepo, "ROOT_TOTEM.md"));
@@ -91,8 +92,12 @@ try {
     throw new Error(`Unexpected status output:\n${status}`);
   }
 
-  if (!analytics.includes("Lane message entries: 1") || !analytics.includes("Folder append entries: 1")) {
+  if (!analytics.includes("Lane message entries: 1") || !analytics.includes("Folder append entries: 1") || !analytics.includes("Quiet lanes: 1")) {
     throw new Error(`Unexpected analytics output:\n${analytics}`);
+  }
+
+  if (analyticsJson.activeLaneCount !== 1 || analyticsJson.quietLaneCount !== 1 || analyticsJson.lastActivity === undefined) {
+    throw new Error(`Unexpected analytics JSON output:\n${JSON.stringify(analyticsJson, null, 2)}`);
   }
 
   if (!validate.includes("AEGIS Totem validation passed.")) {

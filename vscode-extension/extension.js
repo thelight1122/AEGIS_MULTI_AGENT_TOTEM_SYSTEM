@@ -11,6 +11,56 @@ function run(command, args) {
     cp.execFile(command, args, { cwd: root }, (error, stdout, stderr) => error ? reject(new Error(stderr || error.message)) : resolve(stdout.trim()));
   });
 }
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+function statRows(items) {
+  if (!items?.length) return "<tr><td colspan=\"3\">None</td></tr>";
+  return items.map((item) => `<tr><td>${escapeHtml(item.name)}</td><td>${item.entries}</td><td>${escapeHtml(item.lastActivity ?? "none")}</td></tr>`).join("");
+}
+function analyticsHtml(analytics) {
+  const totalEntries = analytics.rootAppendEntries + analytics.laneMessageEntries + analytics.folderAppendEntries;
+  const cards = [
+    ["Total entries", totalEntries],
+    ["Last activity", analytics.lastActivity ?? "none"],
+    ["Active lanes", `${analytics.activeLaneCount}/${analytics.laneCount}`],
+    ["Quiet lanes", analytics.quietLaneCount],
+    ["Active Folder Totems", `${analytics.activeFolderTotemCount}/${analytics.folderTotemCount}`],
+    ["Quiet Folder Totems", analytics.quietFolderTotemCount],
+    ["Busiest lane", analytics.busiestLane ? `${analytics.busiestLane.lane} (${analytics.busiestLane.entries})` : "none"],
+    ["Busiest Folder Totem", analytics.busiestFolderTotem ? `${analytics.busiestFolderTotem.folderTotem} (${analytics.busiestFolderTotem.entries})` : "none"]
+  ];
+  return `<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { color: var(--vscode-foreground); font-family: var(--vscode-font-family); padding: 20px; }
+    h1, h2 { font-weight: 600; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 16px 0 24px; }
+    .card { border: 1px solid var(--vscode-panel-border); border-radius: 6px; padding: 10px; background: var(--vscode-editor-background); }
+    .label { color: var(--vscode-descriptionForeground); font-size: 12px; margin-bottom: 6px; }
+    .value { font-size: 16px; font-weight: 600; overflow-wrap: anywhere; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 24px; }
+    th, td { border-bottom: 1px solid var(--vscode-panel-border); padding: 7px 6px; text-align: left; vertical-align: top; }
+    th { color: var(--vscode-descriptionForeground); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>AEGIS Totem Analytics</h1>
+  <p>${escapeHtml(analytics.root)}</p>
+  <div class="grid">${cards.map(([label, value]) => `<div class="card"><div class="label">${escapeHtml(label)}</div><div class="value">${escapeHtml(value)}</div></div>`).join("")}</div>
+  <h2>Agent Lanes</h2>
+  <table><thead><tr><th>Lane</th><th>Entries</th><th>Last Activity</th></tr></thead><tbody>${statRows(analytics.lanes)}</tbody></table>
+  <h2>Folder Totems</h2>
+  <table><thead><tr><th>Folder Totem</th><th>Entries</th><th>Last Activity</th></tr></thead><tbody>${statRows(analytics.folderTotems)}</tbody></table>
+</body>
+</html>`;
+}
 function findFiles(root, filename, relative = "", options = {}) {
   const skipAegis = options.skipAegis !== false;
   const directory = path.join(root, relative);
@@ -74,7 +124,11 @@ function activate(context) {
     await vscode.commands.executeCommand("vscode.open", vscode.Uri.file(rootTotem));
   })));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.status", () => showError(async () => vscode.window.showInformationMessage(await run("aegis-totem", ["status"])) )));
-  context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.analytics", () => showError(async () => vscode.window.showInformationMessage(await run("aegis-totem", ["analytics"])) )));
+  context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.analytics", () => showError(async () => {
+    const analytics = JSON.parse(await run("aegis-totem", ["analytics", "--json"]));
+    const panel = vscode.window.createWebviewPanel("aegisTotemAnalytics", "AEGIS Totem Analytics", vscode.ViewColumn.Beside, {});
+    panel.webview.html = analyticsHtml(analytics);
+  })));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.validate", () => showError(async () => vscode.window.showInformationMessage(await run("aegis-totem", ["validate"])) )));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.sendMessage", () => showError(async () => {
     const lane = await vscode.window.showInputBox({ prompt: "Lane name", placeHolder: "codex" });

@@ -25,8 +25,10 @@ const firstRepo = requireFile("docs/first-repo-walkthrough.md");
 
 requireIncludes(readme, "docs/mcp-clients.md", "README project records");
 requireIncludes(readme, "docs/first-repo-walkthrough.md", "README project records");
+requireIncludes(readme, "aegis-totem analytics --json", "README analytics JSON");
 requireIncludes(quickstart, "mcp-clients.md", "quickstart MCP section");
 requireIncludes(quickstart, "first-repo-walkthrough.md", "quickstart first repo section");
+requireIncludes(quickstart, "aegis-totem analytics --json", "quickstart analytics JSON");
 
 for (const expected of [
   "AEGIS_REPO_ROOT",

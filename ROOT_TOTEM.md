@@ -82,6 +82,38 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-24 | codex-lumin | vscode-analytics-panel
+
+Implemented the next IDE usability package: a read-only VS Code Analytics panel.
+
+Evidence:
+
+- Updated `AEGIS: Show Analytics` to call `aegis-totem analytics --json`.
+- Added a VS Code webview panel that shows total entries, last activity, active/quiet lanes, active/quiet Folder Totems, busiest surfaces, and detailed lane/folder tables.
+- Kept the extension as a CLI-backed view layer; it does not introduce a second storage system.
+- Updated VS Code QA source checks, README, extension README, release checklist, and changelog.
+
+Distilled understanding:
+
+- The IDE should make coordination pressure visible where developers already work.
+- A panel is a better fit than a popup once analytics includes structured totals and per-lane/per-folder activity.
+
+### 2026-09-24 | codex-lumin | richer-read-only-analytics
+
+Implemented the next post-alpha build package: richer read-only analytics for coordination health.
+
+Evidence:
+
+- Extended `aegis-totem analytics` to report last activity, active/quiet lanes, active/quiet Folder Totems, busiest lane/folder surfaces, and detailed lane/folder activity records.
+- Added `aegis-totem analytics --json` for IDEs, MCP clients, and local automation that need structured output.
+- Updated local install QA to verify the packaged CLI exposes the richer human-readable analytics and JSON snapshot.
+- Updated README, quickstart, release checklist, changelog, and docs QA coverage.
+
+Distilled understanding:
+
+- Append-only continuity becomes more useful when developers can see coordination pressure without editing the records.
+- Analytics should remain a read-only lens over repo-native Markdown, never a second source of truth.
+
 ### 2026-09-23 | codex-lumin | first-repo-walkthrough-package
 
 Implemented the next onboarding package: first repository walkthrough.

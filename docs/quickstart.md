@@ -94,6 +94,14 @@ aegis-totem validate
 
 `status` and `analytics` are read-only. `validate` checks the required Root Totem and append-log structure.
 
+For IDEs, scripts, or MCP clients that need a structured coordination snapshot:
+
+```bash
+aegis-totem analytics --json
+```
+
+The analytics view reports total appends, last activity, active and quiet lanes, active and quiet Folder Totems, and the busiest lane/folder surfaces without changing any repo files.
+
 To make validation part of local commits, install the optional Git hook:
 
 ```bash

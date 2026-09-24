@@ -37,7 +37,11 @@ export function buildProgram(): Command {
   program.command("status").description("Show a read-only current view of AEGIS Totem files.")
     .action(async () => console.log(formatStatus(await getStatus(process.cwd()))));
   program.command("analytics").description("Show read-only append activity counts for Totems and lanes.")
-    .action(async () => console.log(formatAnalytics(await getAnalytics(process.cwd()))));
+    .option("--json", "Print machine-readable analytics.")
+    .action(async (options: { json?: boolean }) => {
+      const analytics = await getAnalytics(process.cwd());
+      console.log(options.json ? JSON.stringify(analytics, null, 2) : formatAnalytics(analytics));
+    });
   program.command("validate").description("Validate AEGIS Totem structure.")
     .action(async () => {
       const result = await validateRepo(process.cwd());

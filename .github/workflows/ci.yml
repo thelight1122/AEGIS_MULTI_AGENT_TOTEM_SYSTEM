@@ -45,5 +45,8 @@ jobs:
       - name: VS Code QA
         run: npm run vscode:qa
 
+      - name: Docs QA
+        run: npm run docs:qa
+
       - name: Release preflight
         run: npm run release:preflight

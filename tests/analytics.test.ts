@@ -25,10 +25,20 @@ describe("analytics", () => {
     expect(analytics.rootAppendEntries).toBe(0);
     expect(analytics.laneCount).toBe(2);
     expect(analytics.laneMessageEntries).toBe(2);
+    expect(analytics.activeLaneCount).toBe(1);
+    expect(analytics.quietLaneCount).toBe(1);
     expect(analytics.folderTotemCount).toBe(1);
     expect(analytics.folderAppendEntries).toBe(1);
+    expect(analytics.activeFolderTotemCount).toBe(1);
+    expect(analytics.quietFolderTotemCount).toBe(0);
+    expect(analytics.lastActivity).toMatch(/^\d{4}-\d{2}-\d{2}T/);
     expect(analytics.busiestLane).toEqual({ lane: "codex.md", entries: 2 });
+    expect(analytics.lanes).toEqual(expect.arrayContaining([
+      expect.objectContaining({ name: "claude.md", entries: 0 }),
+      expect.objectContaining({ name: "codex.md", entries: 2 })
+    ]));
     expect(formatAnalytics(analytics)).toContain("Busiest lane: codex.md (2)");
+    expect(formatAnalytics(analytics)).toContain("Quiet lanes: 1");
     await expect(readFile(join(root, "ROOT_TOTEM.md"), "utf8")).resolves.toBe(rootBefore);
   });
 });
