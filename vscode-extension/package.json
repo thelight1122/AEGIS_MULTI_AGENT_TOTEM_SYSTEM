@@ -2,7 +2,7 @@
   "name": "aegis-totem-vscode",
   "displayName": "AEGIS Totem",
   "description": "Create and use repo-native Totems for multi-agent reference and communications.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "thelight1122",
   "license": "MIT",
   "icon": "media/aegis-totem-icon.png",
@@ -20,7 +20,7 @@
     "commands": [
       { "command": "aegisTotem.refresh", "title": "AEGIS: Refresh" },
       { "command": "aegisTotem.start", "title": "AEGIS Totem: Start" },
-      { "command": "aegisTotem.initialize", "title": "AEGIS: Initialize Totem Structure" },
+      { "command": "aegisTotem.initialize", "title": "AEGIS: Initialize System", "icon": "$(rocket)" },
       { "command": "aegisTotem.openRoot", "title": "AEGIS: Open Root Totem" },
       { "command": "aegisTotem.status", "title": "AEGIS: Show Status" },
       { "command": "aegisTotem.list", "title": "AEGIS: Show List" },
@@ -31,6 +31,17 @@
       { "command": "aegisTotem.appendFolderUpdate", "title": "AEGIS: Append Folder Update" }
     ],
     "views": { "explorer": [{ "id": "aegisTotemView", "name": "AEGIS Totem" }] },
-    "menus": { "view/title": [{ "command": "aegisTotem.refresh", "when": "view == aegisTotemView", "group": "navigation" }] }
+    "viewsWelcome": [
+      {
+        "view": "aegisTotemView",
+        "contents": "Initialize the current repository for AEGIS Totem continuity.\n[Initialize System](command:aegisTotem.initialize)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        { "command": "aegisTotem.initialize", "when": "view == aegisTotemView", "group": "navigation@1" },
+        { "command": "aegisTotem.refresh", "when": "view == aegisTotemView", "group": "navigation@2" }
+      ]
+    }
   }
 }

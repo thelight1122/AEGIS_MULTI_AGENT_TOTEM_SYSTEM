@@ -11,7 +11,7 @@ Use this checklist before a public alpha, npm publication, or IDE marketplace pu
 - [ ] `npm pack --dry-run` shows only intended npm package files.
 - [ ] `npm run local-install:qa` passes.
 - [ ] `npm run mcp:qa` passes.
-- [ ] `npm run vscode:qa` passes and produces `dist/aegis-totem-vscode-0.1.0.vsix`.
+- [ ] `npm run vscode:qa` passes and produces `dist/aegis-totem-vscode-0.1.1.vsix`.
 - [ ] `npm run docs:qa` passes.
 - [ ] `npm run release:preflight` passes.
 - [ ] GitHub Actions CI passes on `main`.
@@ -89,6 +89,7 @@ npm run mcp:qa
 - [ ] Confirm the extension manifest declares the analytics command.
 - [ ] Confirm `AEGIS: Show Analytics` opens a read-only panel from `aegis-totem analytics --json`.
 - [ ] Confirm `AEGIS: Run Doctor` opens a read-only readiness panel from `aegis-totem doctor --json`.
+- [ ] Confirm the AEGIS Totem Explorer view exposes an `Initialize System` action for first-run setup.
 - [ ] Confirm `AEGIS Totem: Start` calls `aegis-totem start --json`, reports the seeded Folder Totem count, and then opens Doctor readiness.
 - [ ] Install the VS Code `.vsix`.
 - [ ] Open a temporary repository in VS Code.
@@ -106,8 +107,8 @@ npm run vscode:qa
 - [ ] Run the automated release preflight.
 - [ ] Confirm npm package name and ownership.
 - [ ] Re-check whether `aegis-totem` exists in the npm registry immediately before publication.
-- [ ] Re-check whether `v0.1.0-alpha.1` exists as a GitHub Release immediately before publication.
-- [ ] Review `docs/releases/v0.1.0-alpha.1.md`.
+- [ ] Re-check whether `v0.1.1-alpha.1` exists as a GitHub Release immediately before publication.
+- [ ] Review `docs/releases/v0.1.1-alpha.1.md`.
 - [ ] Publish npm only after explicit authorization.
 - [ ] Create a GitHub Release with release notes.
 - [ ] Attach the generated `.vsix` if using GitHub Releases for alpha distribution.
@@ -128,6 +129,7 @@ npm run release:preflight
 - [x] Add structured Doctor JSON for IDE/tooling use.
 - [x] Add VS Code List panel for discovered lanes and Folder Totems.
 - [x] Open Doctor readiness automatically after `AEGIS Totem: Start`.
+- [x] Add a visible `Initialize System` action to the VS Code AEGIS Totem view.
 - [x] Add structured Start JSON for VS Code, agents, and scripts.
 - [x] Re-run `npm run vscode:qa`.
 - [x] Re-run `npm run alpha:check`.

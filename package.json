@@ -1,12 +1,25 @@
 {
   "name": "aegis-totem",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Append-only repo memory and agent lanes for AI-assisted development.",
-  "keywords": ["aegis", "ai-coding", "agents", "repo-memory", "developer-tools", "cli"],
+  "keywords": [
+    "aegis",
+    "ai-coding",
+    "agents",
+    "repo-memory",
+    "developer-tools",
+    "cli"
+  ],
   "author": "Tracey Prutch",
-  "files": ["dist/src", "README.md", "LICENSE"],
+  "files": [
+    "dist/src",
+    "README.md",
+    "LICENSE"
+  ],
   "type": "module",
-  "bin": { "aegis-totem": "./dist/src/cli.js" },
+  "bin": {
+    "aegis-totem": "./dist/src/cli.js"
+  },
   "scripts": {
     "alpha:check": "npm test && npm run typecheck && npm run build && npm pack --dry-run && npm run local-install:qa && npm run mcp:qa && npm run vscode:qa && npm run docs:qa && npm run release:preflight",
     "build": "tsc -p tsconfig.json",
@@ -21,7 +34,11 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "vscode:qa": "npm run package:vscode && node scripts/vscode-qa.mjs"
   },
-  "dependencies": { "@modelcontextprotocol/sdk": "^1.30.0", "commander": "^12.1.0", "zod": "^3.23.8" },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "commander": "^12.1.0",
+    "zod": "^3.23.8"
+  },
   "devDependencies": {
     "@types/node": "^20.14.10",
     "@vscode/vsce": "^3.6.0",

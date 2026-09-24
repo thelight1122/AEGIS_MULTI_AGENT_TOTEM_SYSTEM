@@ -4,7 +4,7 @@ import { spawnSync } from "node:child_process";
 
 const root = process.cwd();
 const outDir = join(root, "dist");
-const packagePath = join(outDir, "aegis-totem-vscode-0.1.0.vsix");
+const packagePath = join(outDir, "aegis-totem-vscode-0.1.1.vsix");
 const vsceBin = join(root, "node_modules", "@vscode", "vsce", "vsce");
 
 mkdirSync(outDir, { recursive: true });

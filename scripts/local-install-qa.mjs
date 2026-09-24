@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { spawnSync } from "node:child_process";
 
 const root = process.cwd();
-const cliPackage = join(root, "aegis-totem-0.1.0.tgz");
+const cliPackage = join(root, "aegis-totem-0.1.1.tgz");
 const sandbox = mkdtempSync(join(tmpdir(), "aegis-totem-install-qa-"));
 const targetRepo = join(sandbox, "target-repo");
 const installedCli = join(sandbox, "node_modules", "aegis-totem", "dist", "src", "cli.js");

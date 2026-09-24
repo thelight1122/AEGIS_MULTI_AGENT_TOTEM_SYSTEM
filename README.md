@@ -97,13 +97,13 @@ Use `aegis-totem read root`, `aegis-totem read lane <name>`, and `aegis-totem re
 
 ## VS Code
 
-The first extension adapter lives in `vscode-extension`. Its first job is to run `AEGIS Totem: Start` in any existing repository through `aegis-totem start --json`: create the Totem structure, add assistant-facing `AGENTS.md` instructions when absent, seed Folder Totems only for existing branch folders, with immediate subfolder elements listed, and open Doctor readiness immediately after Start. It then adds an AEGIS Totem view to the Explorer, watches new branch folders and creates their Folder Totems, groups the Root Totem, Folder Totems, and agent lanes, opens list, analytics, and structured doctor readiness in read-only panels, and invokes the CLI for status, validation, lane messages, and Folder Totem updates.
+The first extension adapter lives in `vscode-extension`. Its first job is to run Start in any existing repository through `aegis-totem start --json`: create the Totem structure, add assistant-facing `AGENTS.md` instructions when absent, seed Folder Totems only for existing branch folders, with immediate subfolder elements listed, and open Doctor readiness immediately after Start. Users can trigger that flow from the AEGIS Totem Explorer view's `Initialize System` button or from the command palette with `AEGIS Totem: Start`. It then watches new branch folders and creates their Folder Totems, groups the Root Totem, Folder Totems, and agent lanes, opens list, analytics, and structured doctor readiness in read-only panels, and invokes the CLI for status, validation, lane messages, and Folder Totem updates.
 
 Build an installable VS Code package locally:
 
 ```bash
 npm run package:vscode
-code --install-extension dist/aegis-totem-vscode-0.1.0.vsix
+code --install-extension dist/aegis-totem-vscode-0.1.1.vsix
 ```
 
 Install the CLI first so the extension can call `aegis-totem` from opened repositories.
@@ -114,7 +114,7 @@ To verify the packaged extension before sharing it, run:
 npm run vscode:qa
 ```
 
-The QA packages the extension, inspects the `.vsix`, confirms required files are present, and verifies the expected AEGIS commands, List/Analytics/Doctor panel wiring, and Explorer view are declared.
+The QA packages the extension, inspects the `.vsix`, confirms required files are present, and verifies the expected AEGIS commands, Initialize System view action, List/Analytics/Doctor panel wiring, and Explorer view are declared.
 
 ## MCP
 
@@ -149,7 +149,7 @@ See [MCP client examples](docs/mcp-clients.md) for Codex, Cursor, Claude Desktop
 - [First repository walkthrough](docs/first-repo-walkthrough.md)
 - [MCP client examples](docs/mcp-clients.md)
 - [Release checklist](docs/release-checklist.md)
-- [Draft release notes](docs/releases/v0.1.0-alpha.1.md)
+- [Draft release notes](docs/releases/v0.1.1-alpha.1.md)
 - [Changelog](CHANGELOG.md)
 - [Security policy](SECURITY.md)
 - [MVP implementation plan](docs/superpowers/plans/2026-09-23-aegis-totem-mvp.md)

@@ -3,7 +3,7 @@ import { join } from "node:path";
 import yauzl from "yauzl";
 
 const root = process.cwd();
-const vsixPath = join(root, "dist", "aegis-totem-vscode-0.1.0.vsix");
+const vsixPath = join(root, "dist", "aegis-totem-vscode-0.1.1.vsix");
 const extensionSourcePath = join(root, "vscode-extension", "extension.js");
 
 function fail(message) {
@@ -93,6 +93,14 @@ if (manifest.icon !== "media/aegis-totem-icon.png") fail(`unexpected extension i
 const views = manifest.contributes?.views?.explorer ?? [];
 if (!views.some((view) => view.id === "aegisTotemView")) {
   fail("missing aegisTotemView Explorer view");
+}
+const viewsWelcome = manifest.contributes?.viewsWelcome ?? [];
+if (!viewsWelcome.some((welcome) => welcome.view === "aegisTotemView" && welcome.contents?.includes("Initialize System"))) {
+  fail("missing Initialize System welcome action for aegisTotemView");
+}
+const viewTitleMenu = manifest.contributes?.menus?.["view/title"] ?? [];
+if (!viewTitleMenu.some((item) => item.command === "aegisTotem.initialize" && item.when === "view == aegisTotemView")) {
+  fail("missing Initialize System view title button");
 }
 
 requireCommands(manifest, [

@@ -82,6 +82,38 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-24 | codex-lumin | bump-alpha-version-0.1.1
+
+Updated active package and release identity for the next alpha patch.
+
+Evidence:
+
+- Root npm package metadata now reports `aegis-totem@0.1.1`.
+- The VS Code extension manifest now reports `aegis-totem-vscode@0.1.1`.
+- VSIX packaging, VS Code QA, local install QA, release preflight, README, quickstart, release checklist, changelog, and draft release notes now reference `0.1.1` / `v0.1.1-alpha.1`.
+- `npm run vscode:qa` produced `dist/aegis-totem-vscode-0.1.1.vsix`.
+- `npm run docs:qa` and `npm run release:preflight` passed.
+
+Distilled understanding:
+
+- Version identity is a multi-surface contract in this repo: npm package version, VS Code extension version, generated VSIX filename, docs, and release preflight must move together.
+
+### 2026-09-24 | codex-lumin | vscode-initialize-system-button
+
+Made the VS Code first-run path visible in the AEGIS Totem Explorer view.
+
+Evidence:
+
+- The extension manifest now exposes `AEGIS: Initialize System` with a visible view-title action in the AEGIS Totem view.
+- The AEGIS Totem view now includes welcome content with an `Initialize System` action for first-run setup.
+- The action uses the existing Start/Initialize command handler, which calls `aegis-totem start --json`, refreshes the Explorer view, and opens Doctor readiness.
+- VS Code QA now verifies the Initialize System view-title action and welcome action.
+- README, VS Code README, quickstart, release checklist, changelog, and draft alpha release notes now describe the simpler first-run flow.
+
+Distilled understanding:
+
+- The simplest VS Code flow is not a command the user has to remember. It is a visible action in the AEGIS Totem view: open a repo, click Initialize System, see Doctor readiness, then begin coordinated work.
+
 ### 2026-09-24 | codex-lumin | ci-vsix-zip-qa-portability
 
 Fixed the final release-readiness CI blocker found during the publication-gate series.

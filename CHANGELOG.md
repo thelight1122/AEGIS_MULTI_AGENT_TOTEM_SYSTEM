@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0-alpha.1 - Unreleased
+## 0.1.1-alpha.1 - Unreleased
 
 Public alpha foundation for AEGIS Totem.
 
@@ -17,7 +17,7 @@ Public alpha foundation for AEGIS Totem.
 - First repository walkthrough for introducing AEGIS Totem into an existing project.
 - Append-only write helper with lock-directory serialization for concurrent agent writes.
 - MCP stdio adapter exposing Root Totem, Folder Totem, lane, append, status, list, analytics, validation, and doctor tools.
-- VS Code adapter for browsing Totems and lanes, viewing read-only List, Analytics, and structured Doctor panels, sending lane messages, and appending Folder Totem updates.
+- VS Code adapter with a visible Initialize System action for first-run setup, browsing Totems and lanes, viewing read-only List, Analytics, and structured Doctor panels, sending lane messages, and appending Folder Totem updates.
 - Local VS Code `.vsix` packaging with `npm run package:vscode`.
 - Local install QA, MCP QA, VS Code package QA, and release preflight checks.
 - CI workflow for tests, typecheck, build, npm pack dry-run, install QA, MCP QA, VS Code QA, and release preflight.
