@@ -159,6 +159,8 @@ Open any existing repository and run `AEGIS Totem: Start` from the command palet
 
 Build the server and point your MCP client at `dist/src/mcp-server.js` with
 `AEGIS_REPO_ROOT` set to the repository you want agents to coordinate.
+If that repository has not been Totem-enabled yet, the agent can call
+`aegis_start` once to create the same structure as `aegis-totem start --json`.
 
 See [MCP client examples](mcp-clients.md) for Codex, Claude Desktop, and other
 stdio MCP client configuration shapes.

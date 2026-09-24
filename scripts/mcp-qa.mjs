@@ -70,6 +70,7 @@ try {
   const tools = await client.listTools();
   const toolNames = new Set(tools.tools.map((tool) => tool.name));
   for (const name of [
+    "aegis_start",
     "aegis_read_root_totem",
     "aegis_read_folder_totem",
     "aegis_read_lane",
@@ -84,6 +85,27 @@ try {
     if (!toolNames.has(name)) {
       throw new Error(`Expected MCP tool missing: ${name}`);
     }
+  }
+
+  const startedRepo = join(sandbox, "started-repo");
+  run(process.execPath, ["-e", "require('fs').mkdirSync('started-repo/src/core/parser',{recursive:true}); require('fs').mkdirSync('started-repo/docs',{recursive:true});"], { cwd: sandbox });
+  const startTransport = new StdioClientTransport({
+    command: process.execPath,
+    args: [serverPath],
+    cwd: root,
+    env: { ...process.env, AEGIS_REPO_ROOT: startedRepo },
+    stderr: "pipe"
+  });
+  const startClient = new Client({ name: "aegis-totem-mcp-start-qa", version: "0.1.0" });
+  await startClient.connect(startTransport);
+  const startJson = JSON.parse(text(await startClient.callTool({ name: "aegis_start", arguments: {} })));
+  await startClient.close();
+
+  if (startJson.ready !== true || startJson.seededFolderTotems !== 2 || startJson.root !== startedRepo.replaceAll("\\", "/")) {
+    throw new Error(`Unexpected MCP start output:\n${JSON.stringify(startJson, null, 2)}`);
+  }
+  if (!existsSync(join(startedRepo, "ROOT_TOTEM.md")) || !existsSync(join(startedRepo, "src", "TOTEM.md")) || !existsSync(join(startedRepo, "src", "core", "TOTEM.md"))) {
+    throw new Error("MCP start did not create expected Totem files.");
   }
 
   assertIncludes(text(await client.callTool({ name: "aegis_read_root_totem", arguments: {} })), "# AEGIS Root Totem", "Root Totem read");

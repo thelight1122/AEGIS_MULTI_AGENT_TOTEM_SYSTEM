@@ -4,6 +4,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { appendLaneMessage } from "./core/lanes.js";
 import { appendFolderTotem } from "./core/totems.js";
+import { startTotemRepo } from "./core/init.js";
 import { formatInventory, formatStatus, getStatus, resolveInventoryScope } from "./core/status.js";
 import { formatValidation, validateRepo } from "./core/validate.js";
 import { formatAnalytics, getAnalytics } from "./core/analytics.js";
@@ -14,6 +15,7 @@ const repoRoot = resolve(process.env.AEGIS_REPO_ROOT ?? process.cwd());
 const text = (value: string) => ({ content: [{ type: "text" as const, text: value }] });
 const server = new McpServer({ name: "aegis-totem", version: "0.1.0" });
 
+server.tool("aegis_start", "Initialize and seed AEGIS Totems in the configured repository.", {}, async () => text(JSON.stringify(await startTotemRepo(repoRoot), null, 2)));
 server.tool("aegis_read_root_totem", "Read the repository Root Totem.", {}, async () => text(await readRootTotem(repoRoot)));
 server.tool("aegis_read_folder_totem", "Read a Folder Totem by repository-relative folder path.", { folder: z.string() }, async ({ folder }) => text(await readFolderTotem(repoRoot, folder)));
 server.tool("aegis_read_lane", "Read an append-only agent lane.", { lane: z.string() }, async ({ lane }) => text(await readLane(repoRoot, lane)));

@@ -153,6 +153,7 @@ reload the client and confirm the AEGIS tools appear.
 
 The server exposes:
 
+- `aegis_start`
 - `aegis_read_root_totem`
 - `aegis_read_folder_totem`
 - `aegis_read_lane`
@@ -166,17 +167,17 @@ The server exposes:
 
 ## Suggested Agent Loop
 
-1. Call `aegis_read_root_totem`.
-2. Call `aegis_read_folder_totem` for the folder you will inspect or edit.
-3. Call `aegis_read_lane` for your lane.
-4. Use `aegis_send_lane_message` before starting work that could collide.
-5. Work in the repository.
-6. Run the repository's normal verification.
-7. Use `aegis_append_folder_update` only for durable, verified folder knowledge.
-8. Use `aegis_status`, `aegis_list`, `aegis_analytics`, `aegis_validate`, and `aegis_doctor` before handoff.
+1. Call `aegis_start` once if the repository has not been Totem-enabled yet.
+2. Call `aegis_read_root_totem`.
+3. Call `aegis_read_folder_totem` for the folder you will inspect or edit.
+4. Call `aegis_read_lane` for your lane.
+5. Use `aegis_send_lane_message` before starting work that could collide.
+6. Work in the repository.
+7. Run the repository's normal verification.
+8. Use `aegis_append_folder_update` only for durable, verified folder knowledge.
+9. Use `aegis_status`, `aegis_list`, `aegis_analytics`, `aegis_validate`, and `aegis_doctor` before handoff.
 
-`aegis_list` accepts optional `lanes` or `folders` booleans when an agent only
-needs one side of the coordination surface.
+`aegis_start` returns the same structured Start result as `aegis-totem start --json`: repository path, readiness flag, and seeded Branch Folder Totem count. `aegis_list` accepts optional `lanes` or `folders` booleans when an agent only needs one side of the coordination surface.
 
 ## Smoke Test The Server
 

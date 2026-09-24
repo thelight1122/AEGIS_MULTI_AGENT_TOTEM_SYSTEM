@@ -82,6 +82,23 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-24 | codex-lumin | mcp-start-adoption-surface
+
+Extended existing-repository activation into the MCP agent surface.
+
+Evidence:
+
+- Added MCP tool `aegis_start`, backed by the same `startTotemRepo` core used by the CLI and VS Code.
+- `aegis_start` returns structured JSON with normalized repository path, readiness flag, and seeded Branch Folder Totem count.
+- MCP QA now starts a separate temporary repository through `aegis_start` and verifies `ROOT_TOTEM.md`, `src/TOTEM.md`, and `src/core/TOTEM.md` are created.
+- MCP client docs now include `aegis_start` in the exposed tool list and suggested agent loop.
+- README, quickstart, release checklist, docs QA, and alpha release notes now describe MCP Start as part of first-repo adoption.
+- `npm run mcp:qa`, `npm run docs:qa`, and `npm run typecheck` passed.
+
+Distilled understanding:
+
+- AEGIS adoption is strongest when every coordination surface can activate the same repository structure. MCP agents should not need a separate human terminal step before they can establish the Root Totem, assistant instructions, and Branch Folder Totems.
+
 ### 2026-09-24 | codex-lumin | start-json-automation-contract
 
 Made `AEGIS Totem: Start` easier for IDEs, agents, and local automation to verify without scraping human-readable text.

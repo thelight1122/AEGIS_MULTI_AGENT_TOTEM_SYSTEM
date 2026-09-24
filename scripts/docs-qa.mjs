@@ -55,6 +55,7 @@ for (const expected of [
   "Cline Shape",
   "Windsurf Shape",
   "Smoke Test The Server",
+  "aegis_start",
   "aegis_read_root_totem",
   "aegis_read_folder_totem",
   "aegis_read_lane",

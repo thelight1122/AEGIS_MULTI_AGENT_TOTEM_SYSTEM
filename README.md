@@ -132,7 +132,7 @@ The local MCP adapter exposes the same canonical repo surface to AI coding agent
 }
 ```
 
-The server provides tools to read the Root Totem, read Folder Totems and lanes, send lane messages, append Folder Totem updates, show status, list discovered surfaces, show analytics, validate structure, and run the readiness doctor. It is local and stateless; the repository files remain authoritative.
+The server provides tools to start and seed a configured repository, read the Root Totem, read Folder Totems and lanes, send lane messages, append Folder Totem updates, show status, list discovered surfaces, show analytics, validate structure, and run the readiness doctor. It is local and stateless; the repository files remain authoritative.
 
 To print copyable MCP JSON for the current repository:
 

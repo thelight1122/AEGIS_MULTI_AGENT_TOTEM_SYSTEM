@@ -59,6 +59,7 @@ npm run local-install:qa
 - [ ] Confirm the MCP server starts through stdio.
 - [ ] Confirm `AEGIS_REPO_ROOT` points to a temporary test repository.
 - [ ] Confirm the expected MCP tools are listed.
+- [ ] Confirm `aegis_start` initializes and seeds a configured temporary repository.
 - [ ] Confirm Root Totem can be read through MCP.
 - [ ] Confirm a Folder Totem can be read through MCP.
 - [ ] Confirm an agent lane can be read through MCP.
