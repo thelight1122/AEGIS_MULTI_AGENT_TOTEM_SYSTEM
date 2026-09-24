@@ -82,6 +82,22 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-24 | codex-lumin | mcp-config-generator
+
+Added a read-only MCP configuration generator for first-use setup.
+
+Evidence:
+
+- Added `aegis-totem mcp config` to print copyable stdio MCP JSON.
+- Added `src/core/mcp-config.ts` and focused tests for default and custom server names.
+- Updated local install QA so the packed CLI must print MCP config for the prepared repository.
+- Updated README, quickstart, MCP client examples, first-repo walkthrough, release checklist, changelog, release notes, docs QA, and this Root Totem.
+
+Distilled understanding:
+
+- MCP adoption should not require users to hand-assemble JSON from prose when the CLI can print the stable config shape.
+- The generator stays read-only and does not mutate IDE settings or client files.
+
 ### 2026-09-24 | codex-lumin | expanded-mcp-client-examples
 
 Expanded the MCP adoption documentation for more coding clients.

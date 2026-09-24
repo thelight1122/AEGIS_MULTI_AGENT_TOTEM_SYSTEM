@@ -91,9 +91,10 @@ aegis-totem status
 aegis-totem analytics
 aegis-totem validate
 aegis-totem doctor
+aegis-totem mcp config
 ```
 
-`status`, `analytics`, and `doctor` are read-only. `validate` checks the required Root Totem and append-log structure. `doctor` reports readiness gaps before parallel agent work begins.
+`status`, `analytics`, `doctor`, and `mcp config` are read-only. `validate` checks the required Root Totem and append-log structure. `doctor` reports readiness gaps before parallel agent work begins.
 
 For IDEs, scripts, or MCP clients that need a structured coordination snapshot:
 
@@ -139,6 +140,12 @@ Build the server and point your MCP client at `dist/src/mcp-server.js` with
 
 See [MCP client examples](mcp-clients.md) for Codex, Claude Desktop, and other
 stdio MCP client configuration shapes.
+
+To print copyable MCP JSON for the current repository:
+
+```bash
+aegis-totem mcp config
+```
 
 ## Suggested Agent Loop
 

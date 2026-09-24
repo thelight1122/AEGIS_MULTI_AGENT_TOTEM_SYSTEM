@@ -20,6 +20,18 @@ The server entry point is:
 dist/src/mcp-server.js
 ```
 
+## Generate Config
+
+From the repository an agent should coordinate, run:
+
+```bash
+aegis-totem mcp config
+```
+
+This prints copyable stdio MCP JSON with the built server path and
+`AEGIS_REPO_ROOT` set to the current repository. Use `--repo`, `--server`, or
+`--name` when you need to override those values.
+
 ## Required Environment
 
 Set `AEGIS_REPO_ROOT` to the repository the agent should coordinate.

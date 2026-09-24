@@ -27,12 +27,15 @@ requireIncludes(readme, "docs/mcp-clients.md", "README project records");
 requireIncludes(readme, "docs/first-repo-walkthrough.md", "README project records");
 requireIncludes(readme, "aegis-totem analytics --json", "README analytics JSON");
 requireIncludes(readme, "aegis-totem doctor", "README doctor");
+requireIncludes(readme, "aegis-totem mcp config", "README MCP config");
 requireIncludes(quickstart, "mcp-clients.md", "quickstart MCP section");
 requireIncludes(quickstart, "first-repo-walkthrough.md", "quickstart first repo section");
 requireIncludes(quickstart, "aegis-totem analytics --json", "quickstart analytics JSON");
 requireIncludes(quickstart, "aegis-totem doctor", "quickstart doctor");
+requireIncludes(quickstart, "aegis-totem mcp config", "quickstart MCP config");
 
 for (const expected of [
+  "aegis-totem mcp config",
   "AEGIS_REPO_ROOT",
   "dist/src/mcp-server.js",
   "Cursor Shape",
@@ -60,6 +63,7 @@ for (const expected of [
   "aegis-totem lane message codex",
   "aegis-totem totem append src",
   "aegis-totem doctor",
+  "aegis-totem mcp config",
   "aegis-totem hooks install",
   "MCP client examples"
 ]) {

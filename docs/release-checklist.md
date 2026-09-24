@@ -39,6 +39,7 @@ npm run alpha:check
 - [ ] Confirm `aegis-totem analytics --json` returns the same read-only coordination snapshot for IDE/tooling use.
 - [ ] Confirm `aegis-totem validate` passes.
 - [ ] Confirm `aegis-totem doctor` passes for a prepared temporary repository.
+- [ ] Confirm `aegis-totem mcp config` prints copyable stdio MCP JSON for the prepared repository.
 - [ ] Confirm `aegis-totem hooks install` creates `.git/hooks/pre-commit` without overwriting existing hooks.
 
 Shortcut:
@@ -116,6 +117,7 @@ npm run release:preflight
 - [ ] Re-run `npm run vscode:qa`.
 - [ ] Re-run `npm run alpha:check`.
 - [x] Add more MCP client examples.
+- [x] Add MCP config generator for first-use setup.
 - [ ] Add JetBrains or other IDE adapters if demand appears.
 - [x] Add optional analytics over append logs without changing append-only storage.
 - [x] Add optional local Git hook installation for validation.

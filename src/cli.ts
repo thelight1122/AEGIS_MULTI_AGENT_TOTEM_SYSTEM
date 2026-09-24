@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { Command } from "commander";
+import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { initTotemRepo } from "./core/init.js";
 import { appendLaneMessage, createLane } from "./core/lanes.js";
@@ -9,6 +10,7 @@ import { formatValidation, validateRepo } from "./core/validate.js";
 import { formatAnalytics, getAnalytics } from "./core/analytics.js";
 import { formatDoctor, runDoctor } from "./core/doctor.js";
 import { installPreCommitHook } from "./core/hooks.js";
+import { buildMcpConfig } from "./core/mcp-config.js";
 
 export function buildProgram(): Command {
   const program = new Command()
@@ -59,6 +61,21 @@ export function buildProgram(): Command {
   const hooks = program.command("hooks").description("Install optional local Git hooks.");
   hooks.command("install").description("Install a local pre-commit hook that runs AEGIS validation.")
     .action(async () => console.log(`Installed AEGIS pre-commit hook: ${await installPreCommitHook(process.cwd())}`));
+
+  const mcp = program.command("mcp").description("Print local MCP client configuration.");
+  mcp.command("config").description("Print copyable stdio MCP configuration for this repository.")
+    .option("--repo <path>", "Repository root for AEGIS_REPO_ROOT.", process.cwd())
+    .option("--server <path>", "Built MCP server path.")
+    .option("--name <name>", "MCP server name.", "aegis-totem")
+    .action((options: { repo: string; server?: string; name: string }) => {
+      const cliDir = dirname(fileURLToPath(import.meta.url));
+      const serverPath = options.server ? resolve(options.server) : resolve(cliDir, "mcp-server.js");
+      console.log(buildMcpConfig({
+        repoRoot: resolve(options.repo),
+        serverPath,
+        serverName: options.name
+      }));
+    });
 
   return program;
 }

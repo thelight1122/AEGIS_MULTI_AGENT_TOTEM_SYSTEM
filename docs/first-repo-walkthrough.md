@@ -114,6 +114,7 @@ It is opt-in and will not silently overwrite an existing hook.
 
 - VS Code: build the VSIX with `npm run package:vscode`, then install it.
 - MCP clients: see [MCP client examples](mcp-clients.md).
+- MCP config: run `aegis-totem mcp config` from the repository you want agents to coordinate.
 
 All surfaces read and append the same repository files.
 

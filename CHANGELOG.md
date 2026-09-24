@@ -11,6 +11,7 @@ Public alpha foundation for AEGIS Totem.
 - Read-only analytics for append activity, last activity, active/quiet lanes, active/quiet Folder Totems, busiest surfaces, and JSON output for IDE/tooling use.
 - Optional local pre-commit hook installation for Totem validation.
 - MCP client examples for Codex, Cursor, Claude Desktop, Cline, Windsurf, and other stdio clients.
+- Read-only `mcp config` command for printing copyable stdio MCP client JSON.
 - First repository walkthrough for introducing AEGIS Totem into an existing project.
 - Append-only write helper with lock-directory serialization for concurrent agent writes.
 - MCP stdio adapter exposing Root Totem, Folder Totem, lane, append, status, analytics, validation, and doctor tools.

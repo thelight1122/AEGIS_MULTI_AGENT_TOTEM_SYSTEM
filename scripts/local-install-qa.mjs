@@ -66,6 +66,7 @@ try {
   const analyticsJson = JSON.parse(runCli(["analytics", "--json"]));
   const validate = runCli(["validate"]);
   const doctor = runCli(["doctor"]);
+  const mcpConfig = JSON.parse(runCli(["mcp", "config", "--server", "G:/AEGIS_MULTI_AGENT_TOTEM_SYSTEM/dist/src/mcp-server.js"]));
 
   assertExists(join(targetRepo, "ROOT_TOTEM.md"));
   assertExists(join(targetRepo, ".aegis", "config.json"));
@@ -107,6 +108,10 @@ try {
 
   if (!doctor.includes("AEGIS Totem doctor passed.") || !doctor.includes("OK Local validation hook:")) {
     throw new Error(`Unexpected doctor output:\n${doctor}`);
+  }
+
+  if (mcpConfig.mcpServers?.["aegis-totem"]?.env?.AEGIS_REPO_ROOT !== targetRepo.replaceAll("\\", "/")) {
+    throw new Error(`Unexpected MCP config output:\n${JSON.stringify(mcpConfig, null, 2)}`);
   }
 
   console.log("Local install QA passed.");

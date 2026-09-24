@@ -35,6 +35,7 @@ aegis-totem status
 aegis-totem analytics
 aegis-totem validate
 aegis-totem doctor
+aegis-totem mcp config
 aegis-totem hooks install
 ```
 
@@ -62,6 +63,7 @@ Read the relevant Totem before editing a folder. Use a lane for coordination, un
 | `analytics` | Show read-only append activity counts, last activity, active/quiet lanes, and busiest Totem surfaces. |
 | `validate` | Check required Totem and append-log structure. |
 | `doctor` | Run a read-only readiness check before parallel agent work. |
+| `mcp config` | Print copyable stdio MCP client JSON for the current repository. |
 | `hooks install` | Install an optional local pre-commit hook that runs validation. |
 
 ## Development
@@ -120,6 +122,12 @@ The local MCP adapter exposes the same canonical repo surface to AI coding agent
 ```
 
 The server provides tools to read the Root Totem, read Folder Totems and lanes, send lane messages, append Folder Totem updates, show status, show analytics, validate structure, and run the readiness doctor. It is local and stateless; the repository files remain authoritative.
+
+To print copyable MCP JSON for the current repository:
+
+```bash
+aegis-totem mcp config
+```
 
 See [MCP client examples](docs/mcp-clients.md) for Codex, Cursor, Claude Desktop, Cline, Windsurf, and other stdio MCP client configuration shapes.
 
