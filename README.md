@@ -25,10 +25,9 @@ node dist/src/cli.js --help
 Run these commands from the root of a repository:
 
 ```bash
-aegis-totem init
+aegis-totem start
 aegis-totem lane create codex
 aegis-totem lane create claude
-aegis-totem totem create src
 aegis-totem lane message codex --to claude -m "I inspected src. Please review the parser boundary before editing."
 aegis-totem totem append src --actor codex --kind verified-change -m "Added parser tests. Verification: npm test passed."
 aegis-totem status
@@ -49,7 +48,7 @@ aegis-totem hooks install
 ROOT_TOTEM.md                 repo-wide orientation and append log
 .aegis/config.json            local configuration
 .aegis/lanes/<agent>.md       one append-only lane per participant
-<folder>/TOTEM.md             folder reference and durable append log
+<branch-folder>/TOTEM.md      branch folder reference, subfolder element list, and durable append log
 ```
 
 Read the relevant Totem before editing a folder. Use a lane for coordination, uncertainty, handoffs, and direct model-to-model messages. Append verified updates after work. Corrections and supersessions are appended as new records; historical entries are not silently rewritten or deleted.
@@ -58,7 +57,8 @@ Read the relevant Totem before editing a folder. Use a lane for coordination, un
 
 | Command | Purpose |
 | --- | --- |
-| `init` | Create the local AEGIS structure without overwriting existing Totems. |
+| `start` | Create the local AEGIS structure and seed Folder Totems for existing branch folders, with immediate subfolder elements listed. |
+| `init` | Create only the base local AEGIS structure without seeding existing folders. |
 | `lane create <name>` | Create an agent lane. |
 | `lane message <lane> -m <text>` | Append a message, optionally addressed with `--to <lane>`. |
 | `totem create <folder>` | Create a Folder Totem. |
@@ -96,7 +96,7 @@ Use `aegis-totem read root`, `aegis-totem read lane <name>`, and `aegis-totem re
 
 ## VS Code
 
-The first extension adapter lives in `vscode-extension`. It adds an AEGIS Totem view to the Explorer, groups the Root Totem, Folder Totems, and agent lanes, opens list, analytics, and structured doctor readiness in read-only panels, and invokes the CLI for status, validation, lane messages, and Folder Totem updates.
+The first extension adapter lives in `vscode-extension`. Its first job is to run `AEGIS Totem: Start` in any existing repository: create the Totem structure, add assistant-facing `AGENTS.md` instructions when absent, and seed Folder Totems only for existing branch folders, with immediate subfolder elements listed. It then adds an AEGIS Totem view to the Explorer, watches new branch folders and creates their Folder Totems, groups the Root Totem, Folder Totems, and agent lanes, opens list, analytics, and structured doctor readiness in read-only panels, and invokes the CLI for status, validation, lane messages, and Folder Totem updates.
 
 Build an installable VS Code package locally:
 

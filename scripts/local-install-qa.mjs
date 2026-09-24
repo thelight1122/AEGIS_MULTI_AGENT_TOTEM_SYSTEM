@@ -50,12 +50,11 @@ try {
   runNpm(["pack"]);
   runNpm(["init", "-y"], { cwd: sandbox });
   runNpm(["install", cliPackage], { cwd: sandbox });
-  run(process.execPath, ["-e", "require('fs').mkdirSync('target-repo')"], { cwd: sandbox });
+  run(process.execPath, ["-e", "const fs=require('fs'); fs.mkdirSync('target-repo/src/core/parser',{recursive:true}); fs.mkdirSync('target-repo/src/ui',{recursive:true}); fs.mkdirSync('target-repo/docs',{recursive:true});"], { cwd: sandbox });
 
-  runCli(["init"]);
+  runCli(["start"]);
   runCli(["lane", "create", "codex"]);
   runCli(["lane", "create", "claude"]);
-  runCli(["totem", "create", "src"]);
   runCli(["lane", "message", "codex", "--to", "claude", "-m", "Local install QA lane message."]);
   runCli(["totem", "append", "src", "--actor", "codex", "--kind", "local-install-qa", "-m", "Verified local install QA append path."]);
   run(process.execPath, ["-e", "require('fs').mkdirSync('.git')"], { cwd: targetRepo });
@@ -78,9 +77,11 @@ try {
 
   assertExists(join(targetRepo, "ROOT_TOTEM.md"));
   assertExists(join(targetRepo, ".aegis", "config.json"));
+  assertExists(join(targetRepo, "AGENTS.md"));
   assertExists(join(targetRepo, ".aegis", "lanes", "codex.md"));
   assertExists(join(targetRepo, ".aegis", "lanes", "claude.md"));
   assertExists(join(targetRepo, "src", "TOTEM.md"));
+  assertExists(join(targetRepo, "src", "core", "TOTEM.md"));
   assertExists(join(targetRepo, ".git", "hooks", "pre-commit"));
 
   const codexLane = readFileSync(join(targetRepo, ".aegis", "lanes", "codex.md"), "utf8");
@@ -98,15 +99,15 @@ try {
     throw new Error("Expected pre-commit hook to run aegis-totem validate.");
   }
 
-  if (!status.includes("Folder Totems: 1") || !status.includes("Agent lanes: 2")) {
+  if (!status.includes("Folder Totems: 2") || !status.includes("Agent lanes: 2")) {
     throw new Error(`Unexpected status output:\n${status}`);
   }
 
-  if (!inventory.includes("- codex.md") || !inventory.includes("- claude.md") || !inventory.includes("- src/TOTEM.md")) {
+  if (!inventory.includes("- codex.md") || !inventory.includes("- claude.md") || !inventory.includes("- src/TOTEM.md") || !inventory.includes("- src/core/TOTEM.md") || inventory.includes("- docs/TOTEM.md")) {
     throw new Error(`Unexpected list output:\n${inventory}`);
   }
 
-  if (!inventoryJson.lanes.includes("codex.md") || !inventoryJson.folderTotems.includes("src/TOTEM.md")) {
+  if (!inventoryJson.lanes.includes("codex.md") || !inventoryJson.folderTotems.includes("src/TOTEM.md") || !inventoryJson.folderTotems.includes("src/core/TOTEM.md") || inventoryJson.folderTotems.includes("docs/TOTEM.md")) {
     throw new Error(`Unexpected list JSON output:\n${JSON.stringify(inventoryJson, null, 2)}`);
   }
 
@@ -114,7 +115,7 @@ try {
     throw new Error(`Unexpected lane list output:\n${laneInventory}`);
   }
 
-  if (!folderInventory.includes("- src/TOTEM.md") || folderInventory.includes("codex.md")) {
+  if (!folderInventory.includes("- src/TOTEM.md") || !folderInventory.includes("- src/core/TOTEM.md") || folderInventory.includes("- docs/TOTEM.md") || folderInventory.includes("codex.md")) {
     throw new Error(`Unexpected Folder Totem list output:\n${folderInventory}`);
   }
 
@@ -122,7 +123,7 @@ try {
     throw new Error(`Unexpected read output:\n${rootRead}\n${laneRead}\n${folderRead}`);
   }
 
-  if (!analytics.includes("Lane message entries: 1") || !analytics.includes("Folder append entries: 1") || !analytics.includes("Quiet lanes: 1")) {
+  if (!analytics.includes("Lane message entries: 1") || !analytics.includes("Folder append entries: 1") || !analytics.includes("Quiet lanes: 1") || !analytics.includes("Folder Totems: 2")) {
     throw new Error(`Unexpected analytics output:\n${analytics}`);
   }
 

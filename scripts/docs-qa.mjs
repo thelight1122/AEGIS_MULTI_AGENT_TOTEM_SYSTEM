@@ -70,9 +70,10 @@ for (const expected of [
 }
 
 for (const expected of [
-  "aegis-totem init",
+  "aegis-totem start",
   "aegis-totem lane create codex",
-  "aegis-totem totem create src",
+  "AGENTS.md",
+  "<branch-folder>/TOTEM.md",
   "aegis-totem lane message codex",
   "aegis-totem totem append src",
   "aegis-totem list",

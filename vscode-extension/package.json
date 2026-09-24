@@ -1,10 +1,11 @@
 {
   "name": "aegis-totem-vscode",
   "displayName": "AEGIS Totem",
-  "description": "Browse repo Totems and agent lanes from VS Code.",
+  "description": "Create and use repo-native Totems for multi-agent reference and communications.",
   "version": "0.1.0",
   "publisher": "thelight1122",
   "license": "MIT",
+  "icon": "media/aegis-totem-icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/thelight1122/AEGIS_MULTI_AGENT_TOTEM_SYSTEM.git",
@@ -12,12 +13,14 @@
   },
   "engines": { "vscode": "^1.85.0" },
   "main": "./extension.js",
-  "files": ["extension.js", "README.md", "LICENSE"],
+  "files": ["extension.js", "README.md", "LICENSE", "media/aegis-totem-icon.png"],
   "activationEvents": ["onStartupFinished"],
   "categories": ["Other"],
   "contributes": {
     "commands": [
       { "command": "aegisTotem.refresh", "title": "AEGIS: Refresh" },
+      { "command": "aegisTotem.start", "title": "AEGIS Totem: Start" },
+      { "command": "aegisTotem.initialize", "title": "AEGIS: Initialize Totem Structure" },
       { "command": "aegisTotem.openRoot", "title": "AEGIS: Open Root Totem" },
       { "command": "aegisTotem.status", "title": "AEGIS: Show Status" },
       { "command": "aegisTotem.list", "title": "AEGIS: Show List" },

@@ -10,6 +10,10 @@ AEGIS Totem is local-first. The CLI, MCP adapter, and VS Code adapter operate on
 - Append-only records are written to local repository files.
 - The MCP server is a local stdio adapter over those files.
 
+## Local Trust Boundary
+
+The MCP adapter trusts the local client that launches it. Any agent with access to the MCP server can append to exposed lanes and Folder Totems using the actor or lane names supplied in the tool call. Use repository permissions, local MCP client configuration, and normal source review to decide which agents may write to a shared checkout.
+
 ## Reporting Issues
 
 For now, report security concerns through GitHub issues on the public repository:

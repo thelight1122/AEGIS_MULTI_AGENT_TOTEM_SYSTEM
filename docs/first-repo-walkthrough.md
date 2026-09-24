@@ -19,24 +19,26 @@ After npm publication, the intended install path is:
 npm install -g aegis-totem
 ```
 
-## 2. Initialize The Target Repository
+## 2. Start The Target Repository
 
 From the root of the repository you want to coordinate:
 
 ```bash
-aegis-totem init
+aegis-totem start
 ```
 
 This creates:
 
 ```text
 ROOT_TOTEM.md
+AGENTS.md
 .aegis/config.json
 .aegis/lanes/
 .aegis/templates/
+<branch-folder>/TOTEM.md
 ```
 
-It does not overwrite an existing `ROOT_TOTEM.md` or `.aegis/config.json`.
+It does not overwrite existing `ROOT_TOTEM.md`, `AGENTS.md`, `.aegis/config.json`, or `TOTEM.md` files. It seeds Folder Totems only for existing branch folders, lists their immediate subfolder elements, and skips generated/dependency folders such as `.git`, `.aegis`, `node_modules`, `dist`, and `coverage`.
 
 ## 3. Create Lanes For Active Participants
 
@@ -51,12 +53,11 @@ aegis-totem lane create claude
 Use lanes for intent, uncertainty, handoffs, collision warnings, and direct
 agent-to-agent messages.
 
-## 4. Create Folder Totems For High-Traffic Areas
+## 4. Add Folder Totems As Needed
 
-Start with folders where agents often inspect or edit code:
+Start already seeds existing branch folders. If a branch folder is created later outside the VS Code watcher, add its Totem manually:
 
 ```bash
-aegis-totem totem create src
 aegis-totem totem create tests
 ```
 
@@ -139,7 +140,7 @@ ROOT_TOTEM.md
 .aegis/config.json
 .aegis/templates/
 .aegis/lanes/<participant>.md
-<folder>/TOTEM.md
+<branch-folder>/TOTEM.md
 ```
 
 The optional `.git/hooks/pre-commit` file is not normally committed because Git

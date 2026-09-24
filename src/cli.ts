@@ -2,7 +2,7 @@
 import { Command } from "commander";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { initTotemRepo } from "./core/init.js";
+import { initTotemRepo, startTotemRepo } from "./core/init.js";
 import { appendLaneMessage, createLane } from "./core/lanes.js";
 import { appendFolderTotem, createFolderTotem } from "./core/totems.js";
 import { formatInventory, formatStatus, getStatus, resolveInventoryScope } from "./core/status.js";
@@ -21,6 +21,12 @@ export function buildProgram(): Command {
 
   program.command("init").description("Initialize AEGIS Totem files in the current repository.")
     .action(async () => { await initTotemRepo(process.cwd()); console.log("Initialized AEGIS Totem."); });
+
+  program.command("start").description("Initialize and seed AEGIS Totems in an existing repository.")
+    .action(async () => {
+      const result = await startTotemRepo(process.cwd());
+      console.log(`Started AEGIS Totem. Seeded ${result.seededFolderTotems} Folder Totem(s).`);
+    });
 
   const lane = program.command("lane").description("Manage append-only agent lanes.");
   lane.command("create").argument("<name>")

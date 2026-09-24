@@ -175,15 +175,43 @@ class TotemProvider {
   }
 }
 async function showError(action) { try { await action(); } catch (error) { vscode.window.showErrorMessage(`AEGIS: ${error.message}`); } }
+async function createFolderTotemForPath(filePath, provider) {
+  const root = repoRoot();
+  if (!root || !fs.existsSync(path.join(root, ".aegis", "config.json"))) return;
+  const folder = fs.existsSync(filePath) && fs.statSync(filePath).isDirectory() ? filePath : path.dirname(filePath);
+  const candidates = [folder, path.dirname(folder)].filter((candidate, index, all) => all.indexOf(candidate) === index);
+  for (const candidate of candidates) {
+    if (candidate === root || candidate.includes(`${path.sep}.aegis`)) continue;
+    const childDirectories = fs.readdirSync(candidate, { withFileTypes: true }).filter((entry) => entry.isDirectory() && ![".aegis", ".git", ".hg", ".svn", ".vscode", "coverage", "dist", "node_modules", "out", "target", "tmp"].includes(entry.name));
+    if (childDirectories.length === 0) continue;
+    const totemPath = path.join(candidate, "TOTEM.md");
+    if (fs.existsSync(totemPath)) continue;
+    const relativeFolder = path.relative(root, candidate);
+    await run("aegis-totem", ["totem", "create", relativeFolder]);
+    provider.refresh();
+    vscode.window.showInformationMessage(`AEGIS: Created Branch Folder Totem for ${relativeFolder}.`);
+    return;
+  }
+}
 function activate(context) {
   const provider = new TotemProvider();
   context.subscriptions.push(vscode.window.registerTreeDataProvider("aegisTotemView", provider));
+  const watcher = vscode.workspace.createFileSystemWatcher("**/*");
+  context.subscriptions.push(watcher);
+  context.subscriptions.push(watcher.onDidCreate((uri) => showError(async () => createFolderTotemForPath(uri.fsPath, provider))));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.refresh", () => provider.refresh()));
+  const startTotem = () => showError(async () => {
+    const output = await run("aegis-totem", ["start"]);
+    provider.refresh();
+    vscode.window.showInformationMessage(`AEGIS: ${output}`);
+  });
+  context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.start", startTotem));
+  context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.initialize", startTotem));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.openRoot", () => showError(async () => {
     const root = repoRoot();
     if (!root) throw new Error("Open a repository folder first.");
     const rootTotem = path.join(root, "ROOT_TOTEM.md");
-    if (!fs.existsSync(rootTotem)) throw new Error("ROOT_TOTEM.md was not found. Run AEGIS: Initialize from the CLI first.");
+    if (!fs.existsSync(rootTotem)) throw new Error("ROOT_TOTEM.md was not found. Run AEGIS Totem: Start first.");
     await vscode.commands.executeCommand("vscode.open", vscode.Uri.file(rootTotem));
   })));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.status", () => showError(async () => vscode.window.showInformationMessage(await run("aegis-totem", ["status"])) )));

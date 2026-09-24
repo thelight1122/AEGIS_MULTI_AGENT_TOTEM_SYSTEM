@@ -82,6 +82,157 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-24 | codex-lumin | verus-audit-hardening
+
+Applied Verus's AEGIS Totem audit illuminations to strengthen append safety and repository-scale behavior.
+
+Evidence:
+
+- New lane and Folder Totem appends are hash-chained with `Chain-Prev` and `Chain-Hash` metadata.
+- `validate` recomputes chained entries and reports hash mismatches or broken chain links.
+- Appending to a missing lane or missing Folder Totem now refuses instead of creating a headerless file.
+- Message bodies escape lines that look like append headings so a body cannot forge a new lane/Totem entry.
+- Start/status/manual Totem paths now ignore additional generated and dependency folders including `.venv`, `venv`, `__pycache__`, `build`, `.next`, and `.tox`.
+- Live config schema no longer advertises unused custom path fields.
+- `SECURITY.md` now states the local MCP trust boundary: any local MCP-authorized agent can append with supplied actor/lane names.
+- Added regression tests for missing append targets, forged heading bodies, chained-entry tampering, and ignored generated folders.
+- Full `npm run alpha:check` passed with 14 test files and 32 tests, typecheck, build, npm pack dry-run, local install QA, MCP QA, VS Code QA, docs QA, and release preflight.
+
+Open follow-up:
+
+- A future integrity layer can add committed-version append-only diff checks, `.gitignore` parsing, dry-run seeding counts, depth/count limits, and optional structured evidence fields such as `--file`, `--verify`, and `--next`.
+
+Distilled understanding:
+
+- AEGIS Totem becomes more than a coordination note system when each new append carries verifiable continuity evidence. The first integrity step is not central authority; it is local tamper evidence and clear refusal of malformed writes.
+
+### 2026-09-24 | codex-lumin | branch-folder-start-seeding
+
+Clarified and implemented Tracey's branch-folder seeding rule for `AEGIS Totem: Start`.
+
+Evidence:
+
+- `aegis-totem start` now seeds Folder Totems only for branch folders, not leaf folders.
+- Each seeded branch Folder Totem includes a `Subfolder Elements` section listing its immediate subfolders.
+- Manual and VS Code-created Folder Totems also include immediate subfolder elements when the target folder has children.
+- The VS Code watcher creates Totems for new branch folders and for a parent folder that becomes a branch when a child folder appears.
+- Local install QA now verifies a started repo with `src/TOTEM.md` and `src/core/TOTEM.md`, while leaf-only folders such as `docs` and `src/ui` are left without Folder Totems.
+- README, quickstart, first-repo walkthrough, VS Code README, and docs QA now describe branch-folder seeding instead of all-folder seeding.
+
+Distilled understanding:
+
+- AEGIS Totem should keep the repository surface useful without flooding every leaf folder. Branch Folder Totems serve as local coordination anchors and list their subfolder elements so agents can orient inside that branch.
+
+### 2026-09-24 | codex-lumin | existing-repo-start-command
+
+Clarified and implemented the adoption requirement: an existing repository should become Totem-ready from one user-facing Start action.
+
+Evidence:
+
+- Added `aegis-totem start` to initialize the base AEGIS structure and seed Folder Totems for existing project folders.
+- `start` preserves existing `ROOT_TOTEM.md`, `AGENTS.md`, and `TOTEM.md` files.
+- Existing generated/dependency folders such as `.git`, `.aegis`, `node_modules`, `dist`, and `coverage` are skipped during seeding.
+- Added `AEGIS Totem: Start` to the VS Code extension and kept the older initialize command as a compatibility alias.
+- Local install QA now creates a pre-existing repo shape and verifies `start` seeds `src/TOTEM.md`, `src/core/TOTEM.md`, and `docs/TOTEM.md`.
+- README, quickstart, first-repo walkthrough, VS Code README, and alpha release notes now present Start as the adoption path.
+
+Distilled understanding:
+
+- For public adoption, AEGIS Totem must feel like a repo activation switch: open any existing repository, run Start, and receive the Root Totem, assistant instructions, lanes surface, and seeded Folder Totems needed for multi-agent coordinated coding.
+
+### 2026-09-24 | codex-lumin | automatic-totem-workflow
+
+Extended initialization and IDE behavior toward an automatic Totem service workflow.
+
+Evidence:
+
+- CLI initialization now creates `AGENTS.md` when no user-authored file exists, with read-before-turn and append-after-turn instructions.
+- The VS Code extension watches for newly created files and folders and creates a missing `TOTEM.md` in the containing folder after initialization.
+- Existing `AGENTS.md` and `TOTEM.md` files are preserved.
+- VS Code README and main README describe the initialization, assistant-instruction, and new-folder workflow.
+- Focused tests passed: `npm test -- init.test.ts totems.test.ts` with 2 test files and 6 tests.
+- Full alpha check passed: 14 test files and 26 tests, typecheck, build, npm pack dry-run, local install QA, MCP QA, VS Code QA, docs QA, and release preflight.
+- VS Code QA packaged 7 files, 10 commands, 1 Explorer view, and the Totem icon.
+
+Distilled understanding:
+
+- Totem continuity should be part of the repository lifecycle: initialize once, orient before coding, append after each turn, and automatically seed new folders with local reference instructions.
+
+### 2026-09-24 | codex-lumin | vscode-initialization-purpose
+
+Corrected the VS Code extension's product description and added a first-class initialization command.
+
+Evidence:
+
+- Added `AEGIS: Initialize Totem Structure` to the extension command palette.
+- The command invokes `aegis-totem init`, refreshes the Explorer view, and creates the Root Totem and local configuration when the repository is not initialized.
+- Updated the extension README and package description to describe creation as the extension's first purpose, followed by reading and appending to Totems.
+- Updated VS Code QA to require the initialization command and implementation wiring.
+- `npm run vscode:qa` passed with 7 packaged files, 10 commands, and 1 Explorer view.
+
+Distilled understanding:
+
+- The VS Code adapter is not merely a viewer. It is the entry point that turns an ordinary repository into a Totem-enabled, self-describing workspace.
+
+### 2026-09-24 | codex-lumin | canonical-totem-logo
+
+Replaced the temporary alpha VS Code icon with the selected `TOTEM_LOGO_BEST.png` Totem Pole mark.
+
+Evidence:
+
+- Copied the selected logo into `vscode-extension/media/aegis-totem-icon.png`.
+- Rebuilt the VSIX through `npm run vscode:qa`.
+- VS Code QA passed with 7 packaged files, 9 commands, and 1 Explorer view.
+- The packaged icon is intentionally the recognizable product mark; the current source image is approximately 1 MB and should be optimized in a later packaging-polish pass if distribution size becomes a concern.
+
+Distilled understanding:
+
+- The product identity is now aligned across the public Totem concept and the installable IDE surface: the icon reads as a Totem before it reads as a generic developer-tool symbol.
+
+### 2026-09-24 | codex-lumin | vscode-install-warning-and-logo
+
+Added the first AEGIS Totem VS Code logo and documented the Windows VSIX installer trap discovered during manual smoke testing.
+
+Evidence:
+
+- Created `vscode-extension/media/aegis-totem-icon.png` as the initial alpha icon for the VS Code extension.
+- Wired the icon into `vscode-extension/package.json` through the `icon` field and packaged file list.
+- Updated VS Code package QA to require the icon inside the generated VSIX and verify the manifest icon path.
+- Updated the quickstart, VS Code extension README, and draft alpha release notes to warn Windows testers not to double-click the `.vsix`.
+- The correct install path is VS Code `Extensions` -> `...` -> `Install from VSIX...` or `code --install-extension dist/aegis-totem-vscode-0.1.0.vsix`.
+
+Distilled understanding:
+
+- The first manual install attempt exposed a release-documentation issue, not a package identity failure.
+- A visible logo matters now because the tool is crossing from internal utility into a developer-facing artifact.
+- The current icon is an alpha brand marker and can be replaced by final artwork without changing the extension packaging path.
+
+### 2026-09-24 | codex-lumin | alpha-release-readiness-pass
+
+Performed the alpha release-readiness pass without publishing or installing release artifacts.
+
+Evidence:
+
+- `npm ci` completed from the committed lockfile.
+- `npm audit --omit=dev` reported zero production vulnerabilities.
+- Full `npm audit` initially reported dev-only Vitest/Vite-chain advisories.
+- Upgraded `vitest` to `^4.1.11`, after which `npm audit` reported zero vulnerabilities.
+- Hardened append lock acquisition to treat transient Windows `EPERM` during lock-directory contention as retryable within the existing timeout.
+- `npm test` passed with 14 test files and 24 tests under Vitest 4.1.11.
+- `npm run alpha:check` passed after the dependency upgrade and lock hardening.
+- `npm run vscode:qa` packaged `dist/aegis-totem-vscode-0.1.0.vsix` with 6 files, 9 commands, and 1 Explorer view.
+- `npm run release:preflight` passed for `aegis-totem@0.1.0` and `v0.1.0-alpha.1`.
+
+Shortfalls:
+
+- Manual VS Code installation smoke testing remains an explicit install gate.
+- npm publication, GitHub Release creation, VSIX attachment, and marketplace publication remain separate explicit gates.
+
+Distilled understanding:
+
+- Alpha readiness is stronger when clean install, audit, package dry-run, local install QA, MCP QA, VS Code package QA, docs QA, and release preflight are reported as separate evidence layers.
+- The upgraded test runner exposed a real Windows concurrency edge in append locking; readiness work should be allowed to discover and harden these edges before publication.
+
 ### 2026-09-24 | codex-lumin | cli-read-surfaces
 
 Implemented the next local build group: first-class CLI read surfaces.

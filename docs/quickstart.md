@@ -29,24 +29,26 @@ npm run alpha:check
 
 This validates the CLI, local install flow, MCP adapter, VS Code package, and release preflight without publishing anything.
 
-## 2. Initialize A Repository
+## 2. Start A Repository
 
 Run from the root of the repository you want to coordinate:
 
 ```bash
-aegis-totem init
+aegis-totem start
 ```
 
 This creates:
 
 ```text
 ROOT_TOTEM.md
+AGENTS.md
 .aegis/config.json
 .aegis/lanes/
 .aegis/templates/
+<branch-folder>/TOTEM.md
 ```
 
-It does not overwrite an existing Root Totem.
+Start preserves existing `ROOT_TOTEM.md`, `AGENTS.md`, and `TOTEM.md` files. It seeds Folder Totems only for existing branch folders and lists their immediate subfolder elements while skipping generated and dependency folders such as `.git`, `.aegis`, `node_modules`, `dist`, and `coverage`.
 
 ## 3. Create Lanes For Each Participant
 
@@ -57,12 +59,11 @@ aegis-totem lane create claude
 
 Each lane is an append-only Markdown file under `.aegis/lanes/`.
 
-## 4. Create Folder Totems
+## 4. Add Folder Totems As The Repo Grows
 
-Create a Folder Totem for each folder where agents need local reference:
+Start seeds the existing branch folders. Later, create a Folder Totem manually for any new branch folder that was added outside the VS Code watcher:
 
 ```bash
-aegis-totem totem create src
 aegis-totem totem create tests
 ```
 
@@ -135,8 +136,11 @@ npm run vscode:qa
 code --install-extension dist/aegis-totem-vscode-0.1.0.vsix
 ```
 
-Open a repository that already has AEGIS Totem initialized. The AEGIS Totem Explorer view shows the Root Totem, Folder Totems, and lane files. Use the command palette for:
+On Windows, do not double-click the `.vsix` file. That can open the Visual Studio VSIX Installer, which cannot install VS Code extensions. In VS Code, use `Extensions` -> `...` -> `Install from VSIX...`, or run the `code --install-extension` command above.
 
+Open any existing repository and run `AEGIS Totem: Start` from the command palette. The extension calls `aegis-totem start`, builds the Root Totem structure, seeds Folder Totems only for existing branch folders, lists their immediate subfolder elements, and creates `AGENTS.md` when absent. The AEGIS Totem Explorer view then shows the Root Totem, Folder Totems, and lane files. Use the command palette for:
+
+- `AEGIS Totem: Start`
 - `AEGIS: Show Status`
 - `AEGIS: Show List`
 - `AEGIS: Show Analytics`

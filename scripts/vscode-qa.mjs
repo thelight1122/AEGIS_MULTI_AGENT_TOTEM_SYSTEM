@@ -50,6 +50,7 @@ const files = run("tar", ["-tf", vsixPath]).trim().split(/\r?\n/).filter(Boolean
 requireIncluded(files, [
   "extension/package.json",
   "extension/extension.js",
+  "extension/media/aegis-totem-icon.png",
   "extension/readme.md",
   "extension/LICENSE.txt"
 ]);
@@ -60,6 +61,7 @@ const manifest = JSON.parse(manifestText);
 if (manifest.name !== "aegis-totem-vscode") fail(`unexpected extension name ${manifest.name}`);
 if (manifest.publisher !== "thelight1122") fail(`unexpected publisher ${manifest.publisher}`);
 if (manifest.main !== "./extension.js") fail(`unexpected main ${manifest.main}`);
+if (manifest.icon !== "media/aegis-totem-icon.png") fail(`unexpected extension icon ${manifest.icon}`);
 
 const views = manifest.contributes?.views?.explorer ?? [];
 if (!views.some((view) => view.id === "aegisTotemView")) {
@@ -68,6 +70,8 @@ if (!views.some((view) => view.id === "aegisTotemView")) {
 
 requireCommands(manifest, [
   "aegisTotem.refresh",
+  "aegisTotem.start",
+  "aegisTotem.initialize",
   "aegisTotem.openRoot",
   "aegisTotem.status",
   "aegisTotem.list",
@@ -81,6 +85,11 @@ requireCommands(manifest, [
 const source = readFileSync(extensionSourcePath, "utf8");
 requireSourceContains(source, [
   "aegis-totem",
+  "createFileSystemWatcher",
+  "totem",
+  "aegisTotem.start",
+  "aegisTotem.initialize",
+  '"start"',
   "Folder Totems",
   "Agent Lanes",
   "AEGIS Totem List",

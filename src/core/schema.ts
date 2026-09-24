@@ -1,10 +1,7 @@
 import { z } from "zod";
 
 export const TotemConfigSchema = z.object({
-  version: z.literal(1),
-  rootTotem: z.string().default("ROOT_TOTEM.md"),
-  folderTotem: z.string().default("TOTEM.md"),
-  aegisDir: z.string().default(".aegis")
+  version: z.literal(1)
 });
 
 export type TotemConfig = z.infer<typeof TotemConfigSchema>;
