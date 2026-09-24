@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { spawnSync } from "node:child_process";
+import yauzl from "yauzl";
 
 const root = process.cwd();
 const vsixPath = join(root, "dist", "aegis-totem-vscode-0.1.0.vsix");
@@ -11,16 +11,42 @@ function fail(message) {
   process.exit(1);
 }
 
-function run(command, args, options = {}) {
-  const result = spawnSync(command, args, {
-    cwd: options.cwd ?? root,
-    encoding: "utf8",
-    shell: false
+function openZip(path) {
+  return new Promise((resolve, reject) => {
+    yauzl.open(path, { lazyEntries: true }, (error, zip) => {
+      if (error) reject(error);
+      else resolve(zip);
+    });
   });
+}
 
-  if (result.error) fail(result.error.message);
-  if (result.status !== 0) fail(result.stderr || result.stdout || `${command} exited with ${result.status}`);
-  return result.stdout;
+async function readZip(path) {
+  const zip = await openZip(path);
+  const files = [];
+  const contents = new Map();
+
+  return new Promise((resolve, reject) => {
+    zip.readEntry();
+    zip.on("entry", (entry) => {
+      files.push(entry.fileName);
+      if (entry.fileName === "extension/package.json") {
+        zip.openReadStream(entry, (error, stream) => {
+          if (error) return reject(error);
+          const chunks = [];
+          stream.on("data", (chunk) => chunks.push(chunk));
+          stream.on("error", reject);
+          stream.on("end", () => {
+            contents.set(entry.fileName, Buffer.concat(chunks).toString("utf8"));
+            zip.readEntry();
+          });
+        });
+      } else {
+        zip.readEntry();
+      }
+    });
+    zip.on("error", reject);
+    zip.on("end", () => resolve({ files, contents }));
+  });
 }
 
 function requireIncluded(files, expected) {
@@ -46,7 +72,7 @@ if (!existsSync(vsixPath)) {
   fail(`expected package at ${vsixPath}`);
 }
 
-const files = run("tar", ["-tf", vsixPath]).trim().split(/\r?\n/).filter(Boolean);
+const { files, contents } = await readZip(vsixPath);
 requireIncluded(files, [
   "extension/package.json",
   "extension/extension.js",
@@ -55,7 +81,8 @@ requireIncluded(files, [
   "extension/LICENSE.txt"
 ]);
 
-const manifestText = run("tar", ["-xOf", vsixPath, "extension/package.json"]);
+const manifestText = contents.get("extension/package.json");
+if (!manifestText) fail("missing extension/package.json content from VSIX package");
 const manifest = JSON.parse(manifestText);
 
 if (manifest.name !== "aegis-totem-vscode") fail(`unexpected extension name ${manifest.name}`);

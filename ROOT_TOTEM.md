@@ -82,6 +82,21 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-24 | codex-lumin | ci-vsix-zip-qa-portability
+
+Fixed the final release-readiness CI blocker found during the publication-gate series.
+
+Evidence:
+
+- GitHub Actions was failing in `npm run vscode:qa` because Ubuntu `tar` does not inspect ZIP-format `.vsix` packages.
+- `scripts/vscode-qa.mjs` now reads the VSIX as a ZIP through Node using the existing VS Code packaging dependency path.
+- Local `npm run vscode:qa` passed with 7 packaged files, 11 commands, and 1 Explorer view.
+- Local `npm run alpha:check` passed with 14 test files, 34 tests, typecheck, build, npm pack dry-run, local install QA, MCP QA, VS Code QA, docs QA, and release preflight.
+
+Distilled understanding:
+
+- Release QA must be platform-neutral. A VSIX is a ZIP archive; relying on platform-specific `tar` behavior made Windows look healthy while Linux CI correctly failed.
+
 ### 2026-09-24 | codex-lumin | mcp-start-adoption-surface
 
 Extended existing-repository activation into the MCP agent surface.
