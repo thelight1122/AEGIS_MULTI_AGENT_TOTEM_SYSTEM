@@ -58,6 +58,8 @@ try {
   runCli(["totem", "create", "src"]);
   runCli(["lane", "message", "codex", "--to", "claude", "-m", "Local install QA lane message."]);
   runCli(["totem", "append", "src", "--actor", "codex", "--kind", "local-install-qa", "-m", "Verified local install QA append path."]);
+  run(process.execPath, ["-e", "require('fs').mkdirSync('.git')"], { cwd: targetRepo });
+  runCli(["hooks", "install"]);
 
   const status = runCli(["status"]);
   const analytics = runCli(["analytics"]);
@@ -68,6 +70,7 @@ try {
   assertExists(join(targetRepo, ".aegis", "lanes", "codex.md"));
   assertExists(join(targetRepo, ".aegis", "lanes", "claude.md"));
   assertExists(join(targetRepo, "src", "TOTEM.md"));
+  assertExists(join(targetRepo, ".git", "hooks", "pre-commit"));
 
   const codexLane = readFileSync(join(targetRepo, ".aegis", "lanes", "codex.md"), "utf8");
   const folderTotem = readFileSync(join(targetRepo, "src", "TOTEM.md"), "utf8");
@@ -78,6 +81,10 @@ try {
 
   if (!folderTotem.includes("Verified local install QA append path.")) {
     throw new Error("Expected Folder Totem append was not written.");
+  }
+
+  if (!readFileSync(join(targetRepo, ".git", "hooks", "pre-commit"), "utf8").includes("aegis-totem validate")) {
+    throw new Error("Expected pre-commit hook to run aegis-totem validate.");
   }
 
   if (!status.includes("Folder Totems: 1") || !status.includes("Agent lanes: 2")) {

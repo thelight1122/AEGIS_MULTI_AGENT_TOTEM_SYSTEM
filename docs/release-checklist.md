@@ -35,6 +35,7 @@ npm run alpha:check
 - [ ] Confirm `aegis-totem status` reports the expected counts.
 - [ ] Confirm `aegis-totem analytics` reports append activity without editing Totems or lanes.
 - [ ] Confirm `aegis-totem validate` passes.
+- [ ] Confirm `aegis-totem hooks install` creates `.git/hooks/pre-commit` without overwriting existing hooks.
 
 Shortcut:
 
@@ -107,3 +108,4 @@ npm run release:preflight
 - [ ] Add more MCP client examples.
 - [ ] Add JetBrains or other IDE adapters if demand appears.
 - [ ] Add optional analytics over append logs without changing append-only storage.
+- [ ] Add optional local Git hook installation for validation.

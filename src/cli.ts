@@ -7,6 +7,7 @@ import { appendFolderTotem, createFolderTotem } from "./core/totems.js";
 import { formatStatus, getStatus } from "./core/status.js";
 import { formatValidation, validateRepo } from "./core/validate.js";
 import { formatAnalytics, getAnalytics } from "./core/analytics.js";
+import { installPreCommitHook } from "./core/hooks.js";
 
 export function buildProgram(): Command {
   const program = new Command()
@@ -43,6 +44,10 @@ export function buildProgram(): Command {
       console.log(formatValidation(result));
       if (!result.ok) process.exitCode = 1;
     });
+
+  const hooks = program.command("hooks").description("Install optional local Git hooks.");
+  hooks.command("install").description("Install a local pre-commit hook that runs AEGIS validation.")
+    .action(async () => console.log(`Installed AEGIS pre-commit hook: ${await installPreCommitHook(process.cwd())}`));
 
   return program;
 }

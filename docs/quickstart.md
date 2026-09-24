@@ -94,6 +94,14 @@ aegis-totem validate
 
 `status` and `analytics` are read-only. `validate` checks the required Root Totem and append-log structure.
 
+To make validation part of local commits, install the optional Git hook:
+
+```bash
+aegis-totem hooks install
+```
+
+The hook lives at `.git/hooks/pre-commit`, runs `aegis-totem validate`, and is local to the repository.
+
 ## 8. Use VS Code
 
 Build and install the local VS Code extension package:

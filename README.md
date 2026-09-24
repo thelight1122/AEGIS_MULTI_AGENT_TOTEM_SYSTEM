@@ -34,6 +34,7 @@ aegis-totem totem append src --actor codex --kind verified-change -m "Added pars
 aegis-totem status
 aegis-totem analytics
 aegis-totem validate
+aegis-totem hooks install
 ```
 
 ## Generated Structure
@@ -59,6 +60,7 @@ Read the relevant Totem before editing a folder. Use a lane for coordination, un
 | `status` | Show a read-only inventory. |
 | `analytics` | Show read-only append activity counts for Totems and lanes. |
 | `validate` | Check required Totem and append-log structure. |
+| `hooks install` | Install an optional local pre-commit hook that runs validation. |
 
 ## Development
 

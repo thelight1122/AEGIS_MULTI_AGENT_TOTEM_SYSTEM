@@ -82,6 +82,24 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-23 | codex-lumin | opt-in-validation-hooks-package
+
+Implemented the next local build stage: optional Git pre-commit validation hooks.
+
+Evidence:
+
+- Added `aegis-totem hooks install`.
+- The command writes `.git/hooks/pre-commit` as a local-only hook that runs `aegis-totem validate`.
+- The installer uses non-overwrite behavior so existing hooks are not silently replaced.
+- Added focused hook tests and local install QA coverage.
+- Updated README, quickstart, changelog, and release checklist.
+- `npm run alpha:check` passes with 17 tests and all package, MCP, VS Code, and release preflight checks.
+
+Distilled understanding:
+
+- Hook support should be opt-in and local because Git hooks mutate developer workflow.
+- Validation hooks extend continuity discipline without changing repo storage, remote state, or publication posture.
+
 ### 2026-09-23 | codex-lumin | read-only-analytics-package
 
 Implemented the next post-alpha improvement: read-only analytics over append activity.
