@@ -57,6 +57,10 @@ function latestChainHash(content: string): string {
   return matches.at(-1)?.[1]?.toLowerCase() ?? "GENESIS";
 }
 
+function normalizeEntryBody(body: string): string {
+  return `${body.replace(/(\r?\n)+$/, "")}\n`;
+}
+
 export async function appendChained(target: string, heading: string, body: string): Promise<void> {
   const existing = await readFile(target, "utf8");
   if (!existing.includes("## Append Log")) throw new Error(`${target} is missing an Append Log. Create the Totem or lane before appending.`);
@@ -70,6 +74,7 @@ export function validateChainedEntries(content: string): string[] {
   const errors: string[] = [];
   const starts = [...content.matchAll(/^### .+$/gm)].map((match) => ({ index: match.index ?? 0, heading: match[0] }));
   let previousHash = "GENESIS";
+  let chainStarted = false;
 
   for (let index = 0; index < starts.length; index += 1) {
     const start = starts[index];
@@ -79,14 +84,18 @@ export function validateChainedEntries(content: string): string[] {
     const previousLine = lines[1]?.match(/^Chain-Prev:\s+(.+)$/i);
     const hashLine = lines[2]?.match(/^Chain-Hash:\s+([a-f0-9]{64})$/i);
 
-    if (!previousLine && !hashLine) continue;
+    if (!previousLine && !hashLine) {
+      if (chainStarted) errors.push(`entry "${start.heading}" is missing chain metadata after the chain started`);
+      continue;
+    }
+    chainStarted = true;
     if (!previousLine || !hashLine) {
       errors.push(`entry "${start.heading}" has incomplete chain metadata`);
       continue;
     }
     const declaredPrevious = previousLine[1].trim();
     const declaredHash = hashLine[1].toLowerCase();
-    const body = lines.slice(3).join("\n").replace(/\r?\n$/, "\n");
+    const body = normalizeEntryBody(lines.slice(3).join("\n"));
     const expectedHash = hashEntry(declaredPrevious, start.heading, body);
     if (declaredPrevious !== previousHash) errors.push(`entry "${start.heading}" links to ${declaredPrevious} but expected ${previousHash}`);
     if (declaredHash !== expectedHash) errors.push(`entry "${start.heading}" hash mismatch`);
