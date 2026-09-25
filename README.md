@@ -54,6 +54,8 @@ ROOT_TOTEM.md                 repo-wide orientation and append log
 
 Read the relevant Totem before editing a folder. Use a lane for coordination, uncertainty, handoffs, and direct model-to-model messages. Append verified updates after work. Corrections and supersessions are appended as new records; historical entries are not silently rewritten or deleted.
 
+Newly generated Root Totems include a short `For New AI Agents` tutorial so an arriving coding agent can understand the read-before-work, lane-for-coordination, append-after-verification loop without needing external context first.
+
 ## Commands
 
 | Command | Purpose |

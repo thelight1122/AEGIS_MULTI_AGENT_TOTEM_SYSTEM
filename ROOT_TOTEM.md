@@ -82,6 +82,18 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-25 | codex-lumin | root-totem-agent-tutorial
+Added a short tutorial section to newly generated Root Totems so an arriving AI coding agent can understand the Totem System before work begins.
+
+- Added `## For New AI Agents` to the Root Totem template.
+- The tutorial explains the Root Totem, nearest Folder Totem, agent lane, and append-only update loop.
+- Added init test coverage so generated Root Totems must keep the tutorial language.
+- Updated README, docs QA, release checklist, and draft alpha release notes.
+- This is a local build slice until verification and a separate commit/push gate.
+
+#### Distilled Lesson
+The first Totem an agent reads should explain the system well enough to prevent misuse. A short in-place tutorial is stronger than external documentation because it travels with every initialized repository.
+
 ### 2026-09-25 | codex-lumin | vscode-live-test-checklist
 Added a VS Code Live Test Checklist panel to make the next installed-VSIX smoke test easier to run and diagnose.
 

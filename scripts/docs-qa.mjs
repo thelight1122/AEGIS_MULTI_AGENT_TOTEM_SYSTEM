@@ -27,6 +27,7 @@ requireIncludes(readme, "docs/mcp-clients.md", "README project records");
 requireIncludes(readme, "docs/first-repo-walkthrough.md", "README project records");
 requireIncludes(readme, "aegis-totem analytics --json", "README analytics JSON");
 requireIncludes(readme, "aegis-totem start --json", "README start JSON");
+requireIncludes(readme, "For New AI Agents", "README generated Root Totem tutorial");
 requireIncludes(readme, "aegis-totem list", "README list");
 requireIncludes(readme, "--lanes", "README list filters");
 requireIncludes(readme, "aegis-totem read root", "README read root");

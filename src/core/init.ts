@@ -1,7 +1,8 @@
-import { mkdir, readdir, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { join, relative } from "node:path";
+import { appendChained } from "../fs/append.js";
 import { TotemConfigSchema } from "./schema.js";
-import { agentInstructionsTemplate, folderTotemTemplate, rootTotemTemplate } from "./templates.js";
+import { agentInstructionsTemplate, folderTotemTemplate, rootTotemAgentTutorial, rootTotemTemplate } from "./templates.js";
 
 const ignoredSeedDirectories = new Set([
   ".aegis",
@@ -23,6 +24,20 @@ const ignoredSeedDirectories = new Set([
   "venv"
 ]);
 
+const rootTutorialHeading = "### Root Totem Tutorial For New AI Agents";
+
+async function ensureRootTotemTutorial(rootDir: string): Promise<void> {
+  const rootTotemPath = join(rootDir, "ROOT_TOTEM.md");
+  const content = await readFile(rootTotemPath, "utf8");
+  if (content.includes("## For New AI Agents") || content.includes(rootTutorialHeading)) return;
+  if (!content.includes("## Append Log")) return;
+  await appendChained(
+    rootTotemPath,
+    rootTutorialHeading,
+    `${rootTotemAgentTutorial}\n\nAdded append-only because this Root Totem already existed before the tutorial was added to the generator.`
+  );
+}
+
 export async function initTotemRepo(rootDir: string): Promise<void> {
   const aegisDir = join(rootDir, ".aegis");
   await mkdir(join(aegisDir, "lanes"), { recursive: true });
@@ -33,6 +48,7 @@ export async function initTotemRepo(rootDir: string): Promise<void> {
   await writeFile(join(rootDir, "ROOT_TOTEM.md"), rootTotemTemplate(new Date().toISOString()), { flag: "wx" }).catch((error: NodeJS.ErrnoException) => {
     if (error.code !== "EEXIST") throw error;
   });
+  await ensureRootTotemTutorial(rootDir);
   await writeFile(join(rootDir, "AGENTS.md"), agentInstructionsTemplate, { flag: "wx" }).catch((error: NodeJS.ErrnoException) => {
     if (error.code !== "EEXIST") throw error;
   });

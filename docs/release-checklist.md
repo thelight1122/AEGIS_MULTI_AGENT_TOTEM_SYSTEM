@@ -30,6 +30,7 @@ npm run alpha:check
 - [ ] Confirm the packed npm tarball installs into a temporary sandbox.
 - [ ] Confirm the installed `aegis-totem` binary runs in a temporary repository.
 - [ ] Confirm `aegis-totem init` creates the Root Totem and `.aegis` structure.
+- [ ] Confirm the generated Root Totem includes the `For New AI Agents` tutorial.
 - [ ] Confirm `aegis-totem start --json` returns repository readiness and the seeded Folder Totem count.
 - [ ] Confirm two lanes can be created.
 - [ ] Confirm at least one Folder Totem can be created.

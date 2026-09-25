@@ -1,5 +1,11 @@
+export const rootTotemAgentTutorial = `## For New AI Agents
+
+AEGIS Totem is the repository's shared memory and coordination layer. Start every task by reading this Root Totem for repo-wide orientation, then read the nearest folder \`TOTEM.md\` before editing inside that folder. If you need active handoffs, uncertainty, or model-to-model messages, use your own lane under \`.aegis/lanes/\` instead of treating chat history as the only source of truth.
+
+Write durable updates append-only. Use lanes for working notes and coordination, and append verified facts, decisions, risks, and completed changes to the relevant Root or Folder Totem after the work is checked. Do not rewrite or delete historical entries; corrections and supersessions are added as new records so future agents can see the lineage of what changed and why.`;
+
 export function rootTotemTemplate(timestamp: string): string {
-  return `# AEGIS Root Totem\n\nCreated: ${timestamp}\n\n## Purpose\n\nThis repository uses AEGIS Totem for append-only repo continuity and agent coordination.\n\n## Operating Rules\n\n- Read the relevant Totem before working.\n- Use an agent lane for working notes and messages.\n- Append verified updates after work.\n- Never rewrite or delete historical entries.\n\n## Append Log\n\n`;
+  return `# AEGIS Root Totem\n\nCreated: ${timestamp}\n\n${rootTotemAgentTutorial}\n\n## Purpose\n\nThis repository uses AEGIS Totem for append-only repo continuity and agent coordination.\n\n## Operating Rules\n\n- Read the relevant Totem before working.\n- Use an agent lane for working notes and messages.\n- Append verified updates after work.\n- Never rewrite or delete historical entries.\n\n## Append Log\n\n`;
 }
 
 export const agentInstructionsTemplate = `# AEGIS Totem Instructions

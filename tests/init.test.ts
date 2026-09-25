@@ -8,7 +8,12 @@ describe("initTotemRepo", () => {
   it("creates the Root Totem, config, and templates", async () => {
     const root = await createTempRepo();
     await initTotemRepo(root);
-    await expect(readFile(join(root, "ROOT_TOTEM.md"), "utf8")).resolves.toContain("AEGIS Root Totem");
+    const rootTotem = await readFile(join(root, "ROOT_TOTEM.md"), "utf8");
+    expect(rootTotem).toContain("AEGIS Root Totem");
+    expect(rootTotem).toContain("## For New AI Agents");
+    expect(rootTotem.indexOf("## For New AI Agents")).toBeLessThan(rootTotem.indexOf("## Purpose"));
+    expect(rootTotem).toContain("shared memory and coordination layer");
+    expect(rootTotem).toContain("corrections and supersessions are added as new records");
     await expect(readFile(join(root, ".aegis", "config.json"), "utf8")).resolves.toContain('"version": 1');
     await expect(readFile(join(root, ".aegis", "templates", "folder-totem.md"), "utf8")).resolves.toContain("Folder Totem");
     const agentInstructions = await readFile(join(root, "AGENTS.md"), "utf8");
@@ -28,6 +33,16 @@ describe("initTotemRepo", () => {
     await writeFile(join(root, "ROOT_TOTEM.md"), "User-authored Root Totem\n");
     await initTotemRepo(root);
     await expect(readFile(join(root, "ROOT_TOTEM.md"), "utf8")).resolves.toBe("User-authored Root Totem\n");
+  });
+  it("appends the tutorial to existing append-log Root Totems without rewriting history", async () => {
+    const root = await createTempRepo();
+    await writeFile(join(root, "ROOT_TOTEM.md"), "# AEGIS Root Totem\n\n## Append Log\n\n### Existing Entry\nOriginal history stays intact.\n");
+    await initTotemRepo(root);
+    const rootTotem = await readFile(join(root, "ROOT_TOTEM.md"), "utf8");
+    expect(rootTotem).toContain("### Existing Entry\nOriginal history stays intact.");
+    expect(rootTotem).toContain("### Root Totem Tutorial For New AI Agents");
+    expect(rootTotem).toContain("## For New AI Agents");
+    expect(rootTotem).toContain("Chain-Prev: GENESIS");
   });
   it("starts an existing repo by seeding branch Folder Totems and listing subfolders", async () => {
     const root = await createTempRepo();
