@@ -76,6 +76,10 @@ const { files, contents } = await readZip(vsixPath);
 requireIncluded(files, [
   "extension/package.json",
   "extension/extension.js",
+  "extension/cli-dist/package.json",
+  "extension/cli-dist/src/cli.js",
+  "extension/cli-dist/node_modules/commander/package.json",
+  "extension/cli-dist/node_modules/zod/package.json",
   "extension/media/aegis-totem-icon.png",
   "extension/readme.md",
   "extension/LICENSE.txt"
@@ -129,6 +133,14 @@ requireCommands(manifest, [
 const source = readFileSync(extensionSourcePath, "utf8");
 requireSourceContains(source, [
   "aegis-totem",
+  "cliInvocation",
+  "cli-dist",
+  "commandItem",
+  "Initialize System",
+  "Run Doctor",
+  "Show Status",
+  "Show List",
+  "Show Analytics",
   "createFileSystemWatcher",
   "totem",
   "aegisTotem.start",
@@ -148,7 +160,7 @@ requireSourceContains(source, [
   "doctor",
   "doctorHtml",
   "openDoctorPanel",
-  "await openDoctorPanel();",
+  "await openDoctorPanel(context);",
   "Readiness",
   "placeHolder",
   "lane",

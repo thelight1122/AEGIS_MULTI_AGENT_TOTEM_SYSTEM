@@ -4,11 +4,19 @@ const path = require("node:path");
 const cp = require("node:child_process");
 
 function repoRoot() { return vscode.workspace.workspaceFolders?.[0]?.uri.fsPath; }
-function run(command, args) {
+function cliInvocation(context) {
+  const bundledCli = path.join(context.extensionPath, "cli-dist", "src", "cli.js");
+  if (fs.existsSync(bundledCli)) {
+    return { command: process.execPath, argsPrefix: [bundledCli] };
+  }
+  return { command: "aegis-totem", argsPrefix: [] };
+}
+function run(context, args) {
   const root = repoRoot();
+  const cli = cliInvocation(context);
   return new Promise((resolve, reject) => {
     if (!root) return reject(new Error("Open a repository folder first."));
-    cp.execFile(command, args, { cwd: root }, (error, stdout, stderr) => error ? reject(new Error(stderr || error.message)) : resolve(stdout.trim()));
+    cp.execFile(cli.command, [...cli.argsPrefix, ...args], { cwd: root }, (error, stdout, stderr) => error ? reject(new Error(stderr || error.message)) : resolve(stdout.trim()));
   });
 }
 function escapeHtml(value) {
@@ -146,6 +154,13 @@ function groupItem(label, contextValue) {
   item.contextValue = contextValue;
   return item;
 }
+function commandItem(label, command, icon) {
+  const item = new vscode.TreeItem(label, vscode.TreeItemCollapsibleState.None);
+  item.command = { command, title: label };
+  item.iconPath = new vscode.ThemeIcon(icon);
+  item.contextValue = "aegisCommand";
+  return item;
+}
 class TotemProvider {
   constructor() { this.emitter = new vscode.EventEmitter(); this.onDidChangeTreeData = this.emitter.event; }
   refresh() { this.emitter.fire(); }
@@ -155,6 +170,11 @@ class TotemProvider {
     if (!root) return Promise.resolve([]);
     if (!item) {
       return Promise.resolve([
+        commandItem("Initialize System", "aegisTotem.initialize", "rocket"),
+        commandItem("Run Doctor", "aegisTotem.doctor", "pulse"),
+        commandItem("Show Status", "aegisTotem.status", "checklist"),
+        commandItem("Show List", "aegisTotem.list", "list-tree"),
+        commandItem("Show Analytics", "aegisTotem.analytics", "graph"),
         groupItem("Root", "aegisRootGroup"),
         groupItem("Folder Totems", "aegisFolderTotemsGroup"),
         groupItem("Agent Lanes", "aegisLanesGroup")
@@ -175,8 +195,8 @@ class TotemProvider {
   }
 }
 async function showError(action) { try { await action(); } catch (error) { vscode.window.showErrorMessage(`AEGIS: ${error.message}`); } }
-async function openDoctorPanel() {
-  const result = JSON.parse(await run("aegis-totem", ["doctor", "--json"]));
+async function openDoctorPanel(context) {
+  const result = JSON.parse(await run(context, ["doctor", "--json"]));
   const panel = vscode.window.createWebviewPanel("aegisTotemDoctor", "AEGIS Totem Doctor", vscode.ViewColumn.Beside, {});
   panel.webview.html = doctorHtml(result);
 }
@@ -192,7 +212,7 @@ async function createFolderTotemForPath(filePath, provider) {
     const totemPath = path.join(candidate, "TOTEM.md");
     if (fs.existsSync(totemPath)) continue;
     const relativeFolder = path.relative(root, candidate);
-    await run("aegis-totem", ["totem", "create", relativeFolder]);
+    await run(provider.context, ["totem", "create", relativeFolder]);
     provider.refresh();
     vscode.window.showInformationMessage(`AEGIS: Created Branch Folder Totem for ${relativeFolder}.`);
     return;
@@ -200,16 +220,17 @@ async function createFolderTotemForPath(filePath, provider) {
 }
 function activate(context) {
   const provider = new TotemProvider();
+  provider.context = context;
   context.subscriptions.push(vscode.window.registerTreeDataProvider("aegisTotemView", provider));
   const watcher = vscode.workspace.createFileSystemWatcher("**/*");
   context.subscriptions.push(watcher);
   context.subscriptions.push(watcher.onDidCreate((uri) => showError(async () => createFolderTotemForPath(uri.fsPath, provider))));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.refresh", () => provider.refresh()));
   const startTotem = () => showError(async () => {
-    const result = JSON.parse(await run("aegis-totem", ["start", "--json"]));
+    const result = JSON.parse(await run(context, ["start", "--json"]));
     provider.refresh();
     vscode.window.showInformationMessage(`AEGIS: Started Totem. Seeded ${result.seededFolderTotems} Folder Totem(s).`);
-    await openDoctorPanel();
+    await openDoctorPanel(context);
   });
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.start", startTotem));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.initialize", startTotem));
@@ -220,27 +241,27 @@ function activate(context) {
     if (!fs.existsSync(rootTotem)) throw new Error("ROOT_TOTEM.md was not found. Run AEGIS Totem: Start first.");
     await vscode.commands.executeCommand("vscode.open", vscode.Uri.file(rootTotem));
   })));
-  context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.status", () => showError(async () => vscode.window.showInformationMessage(await run("aegis-totem", ["status"])) )));
+  context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.status", () => showError(async () => vscode.window.showInformationMessage(await run(context, ["status"])) )));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.list", () => showError(async () => {
-    const inventory = JSON.parse(await run("aegis-totem", ["list", "--json"]));
+    const inventory = JSON.parse(await run(context, ["list", "--json"]));
     const panel = vscode.window.createWebviewPanel("aegisTotemList", "AEGIS Totem List", vscode.ViewColumn.Beside, {});
     panel.webview.html = inventoryHtml(inventory);
   })));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.analytics", () => showError(async () => {
-    const analytics = JSON.parse(await run("aegis-totem", ["analytics", "--json"]));
+    const analytics = JSON.parse(await run(context, ["analytics", "--json"]));
     const panel = vscode.window.createWebviewPanel("aegisTotemAnalytics", "AEGIS Totem Analytics", vscode.ViewColumn.Beside, {});
     panel.webview.html = analyticsHtml(analytics);
   })));
-  context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.validate", () => showError(async () => vscode.window.showInformationMessage(await run("aegis-totem", ["validate"])) )));
+  context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.validate", () => showError(async () => vscode.window.showInformationMessage(await run(context, ["validate"])) )));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.doctor", () => showError(async () => {
-    await openDoctorPanel();
+    await openDoctorPanel(context);
   })));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.sendMessage", () => showError(async () => {
     const lane = await vscode.window.showInputBox({ prompt: "Lane name", placeHolder: "codex" });
     const message = lane && await vscode.window.showInputBox({ prompt: "Message to append", placeHolder: "I am working in src/core. I will append when verification passes." });
     if (!lane || !message) return;
     const to = await vscode.window.showInputBox({ prompt: "Recipient lane (optional)", placeHolder: "claude" });
-    await run("aegis-totem", ["lane", "message", lane, "--message", message, ...(to ? ["--to", to] : [])]);
+    await run(context, ["lane", "message", lane, "--message", message, ...(to ? ["--to", to] : [])]);
     provider.refresh();
     vscode.window.showInformationMessage(`AEGIS: Appended message to ${lane}.`);
   })));
@@ -250,7 +271,7 @@ function activate(context) {
     const kind = await vscode.window.showInputBox({ prompt: "Update kind", placeHolder: "verified-change" });
     const message = await vscode.window.showInputBox({ prompt: "Update to append", placeHolder: "Changed status output. Verification: npm test passed." });
     if (!folder || !actor || !kind || !message) return;
-    await run("aegis-totem", ["totem", "append", folder, "--actor", actor, "--kind", kind, "--message", message]);
+    await run(context, ["totem", "append", folder, "--actor", actor, "--kind", kind, "--message", message]);
     provider.refresh();
     vscode.window.showInformationMessage(`AEGIS: Appended Folder Totem update for ${folder}.`);
   })));

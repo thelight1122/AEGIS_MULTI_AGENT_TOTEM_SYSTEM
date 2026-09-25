@@ -82,6 +82,25 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-25 | codex-lumin | vscode-visible-actions-bundled-cli
+
+Fixed the first live VS Code test shortfall where the sidebar existed but did not expose obvious command rows, and the local test repo could not run `aegis-totem` because the npm package is not yet published.
+
+Evidence:
+
+- The AEGIS Totem sidebar now shows visible action rows for Initialize System, Run Doctor, Show Status, Show List, and Show Analytics before the Root/Folder Totem/Lane groups.
+- The VS Code extension now prefers a bundled alpha CLI runtime inside the VSIX, falling back to global `aegis-totem` only when the bundle is absent.
+- The VSIX packaging script stages the compiled CLI, ESM package marker, and required runtime dependencies into the extension package, then removes the temporary staging folder after packaging.
+- VS Code QA now verifies the bundled CLI runtime and visible command rows.
+- Documentation now reflects that the local alpha VSIX can run before npm publication.
+- `npm run alpha:check` passed with 14 test files, 34 tests, typecheck, build, pack dry-run, local install QA, MCP QA, VS Code QA, docs QA, and release preflight.
+- The rebuilt VSIX installed successfully into VS Code.
+- A packaged VSIX smoke test extracted the VSIX, ran the bundled CLI, confirmed version `0.1.1`, and ran `start --json` successfully in a fresh temporary repo.
+
+Distilled understanding:
+
+- For live VS Code alpha testing, the first-run path must be visible inside the view itself, and the VSIX must carry enough runtime to work before public npm publication.
+
 ### 2026-09-24 | codex-lumin | bump-alpha-version-0.1.1
 
 Updated active package and release identity for the next alpha patch.

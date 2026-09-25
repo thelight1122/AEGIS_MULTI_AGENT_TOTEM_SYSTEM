@@ -144,7 +144,7 @@ code --install-extension dist/aegis-totem-vscode-0.1.1.vsix
 
 On Windows, do not double-click the `.vsix` file. That can open the Visual Studio VSIX Installer, which cannot install VS Code extensions. In VS Code, use `Extensions` -> `...` -> `Install from VSIX...`, or run the `code --install-extension` command above.
 
-Open any existing repository and click `Initialize System` in the AEGIS Totem Explorer view, or run `AEGIS Totem: Start` from the command palette. The extension calls `aegis-totem start --json`, builds the Root Totem structure, seeds Folder Totems only for existing branch folders, lists their immediate subfolder elements, creates `AGENTS.md` when absent, and opens Doctor readiness immediately after Start. The AEGIS Totem Explorer view then shows the Root Totem, Folder Totems, and lane files. Use the command palette for:
+Open any existing repository and click `Initialize System` in the AEGIS Totem sidebar, or run `AEGIS Totem: Start` from the command palette. For local alpha VSIX testing, the extension uses its bundled CLI runtime and does not require the npm package to be published first. The extension runs `start --json`, builds the Root Totem structure, seeds Folder Totems only for existing branch folders, lists their immediate subfolder elements, creates `AGENTS.md` when absent, and opens Doctor readiness immediately after Start. The AEGIS Totem sidebar then shows visible command rows, the Root Totem, Folder Totems, and lane files. Use the command palette for:
 
 - `AEGIS Totem: Start`
 - `AEGIS: Initialize System`

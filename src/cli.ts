@@ -17,7 +17,7 @@ export function buildProgram(): Command {
   const program = new Command()
     .name("aegis-totem")
     .description("Append-only repo memory and agent lanes for AI-assisted development.")
-    .version("0.1.0");
+    .version("0.1.1");
 
   program.command("init").description("Initialize AEGIS Totem files in the current repository.")
     .action(async () => { await initTotemRepo(process.cwd()); console.log("Initialized AEGIS Totem."); });

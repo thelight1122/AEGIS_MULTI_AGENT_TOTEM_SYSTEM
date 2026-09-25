@@ -13,7 +13,7 @@
   },
   "engines": { "vscode": "^1.85.0" },
   "main": "./extension.js",
-  "files": ["extension.js", "README.md", "LICENSE", "media/aegis-totem-icon.png"],
+  "files": ["extension.js", "README.md", "LICENSE", "media/aegis-totem-icon.png", "cli-dist"],
   "activationEvents": ["onStartupFinished"],
   "categories": ["Other"],
   "contributes": {

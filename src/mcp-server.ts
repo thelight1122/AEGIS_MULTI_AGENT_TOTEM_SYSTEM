@@ -13,7 +13,7 @@ import { readFolderTotem, readLane, readRootTotem } from "./core/read.js";
 
 const repoRoot = resolve(process.env.AEGIS_REPO_ROOT ?? process.cwd());
 const text = (value: string) => ({ content: [{ type: "text" as const, text: value }] });
-const server = new McpServer({ name: "aegis-totem", version: "0.1.0" });
+const server = new McpServer({ name: "aegis-totem", version: "0.1.1" });
 
 server.tool("aegis_start", "Initialize and seed AEGIS Totems in the configured repository.", {}, async () => text(JSON.stringify(await startTotemRepo(repoRoot), null, 2)));
 server.tool("aegis_read_root_totem", "Read the repository Root Totem.", {}, async () => text(await readRootTotem(repoRoot)));

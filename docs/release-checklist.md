@@ -81,16 +81,16 @@ npm run mcp:qa
 ## Package 4: VS Code Adapter QA
 
 - [ ] Run the automated VS Code package QA.
-- [ ] Confirm the `.vsix` contains the extension manifest, runtime file, README, and license.
-- [ ] Confirm the extension manifest declares the AEGIS Explorer view.
+- [ ] Confirm the `.vsix` contains the extension manifest, runtime file, README, license, and bundled alpha CLI runtime.
+- [ ] Confirm the extension manifest declares the AEGIS Totem Activity Bar view.
 - [ ] Confirm the extension manifest declares refresh, Root Totem, status, validation, lane-message, and Folder Totem append commands.
 - [ ] Confirm the extension manifest declares the list command.
-- [ ] Confirm `AEGIS: Show List` opens a read-only panel from `aegis-totem list --json`.
+- [ ] Confirm `AEGIS: Show List` opens a read-only panel from the bundled CLI `list --json`.
 - [ ] Confirm the extension manifest declares the analytics command.
-- [ ] Confirm `AEGIS: Show Analytics` opens a read-only panel from `aegis-totem analytics --json`.
-- [ ] Confirm `AEGIS: Run Doctor` opens a read-only readiness panel from `aegis-totem doctor --json`.
-- [ ] Confirm the AEGIS Totem Explorer view exposes an `Initialize System` action for first-run setup.
-- [ ] Confirm `AEGIS Totem: Start` calls `aegis-totem start --json`, reports the seeded Folder Totem count, and then opens Doctor readiness.
+- [ ] Confirm `AEGIS: Show Analytics` opens a read-only panel from the bundled CLI `analytics --json`.
+- [ ] Confirm `AEGIS: Run Doctor` opens a read-only readiness panel from the bundled CLI `doctor --json`.
+- [ ] Confirm the AEGIS Totem sidebar exposes visible rows for Initialize System, Doctor, Status, List, and Analytics.
+- [ ] Confirm `AEGIS Totem: Start` calls the bundled CLI `start --json`, reports the seeded Folder Totem count, and then opens Doctor readiness.
 - [ ] Install the VS Code `.vsix`.
 - [ ] Open a temporary repository in VS Code.
 - [ ] Confirm Root Totem, Folder Totem, and lanes appear in the AEGIS Totem view.
