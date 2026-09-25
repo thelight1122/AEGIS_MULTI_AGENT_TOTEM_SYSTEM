@@ -30,7 +30,7 @@ requireIncludes(readme, "aegis-totem start --json", "README start JSON");
 requireIncludes(readme, "aegis-totem list", "README list");
 requireIncludes(readme, "--lanes", "README list filters");
 requireIncludes(readme, "aegis-totem read root", "README read root");
-requireIncludes(readme, "List/Analytics/Doctor panel", "README VS Code panels");
+requireIncludes(readme, "List/Analytics/Doctor/Live Test Checklist panel", "README VS Code panels");
 requireIncludes(readme, "bundled CLI runtime", "README bundled VS Code runtime");
 requireIncludes(readme, "runs the bundled CLI in a fresh temporary repository", "README packaged VSIX smoke");
 requireIncludes(readme, "aegis-totem doctor", "README doctor");

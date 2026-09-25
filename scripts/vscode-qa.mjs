@@ -183,6 +183,7 @@ requireCommands(manifest, [
   "aegisTotem.analytics",
   "aegisTotem.validate",
   "aegisTotem.doctor",
+  "aegisTotem.liveTest",
   "aegisTotem.sendMessage",
   "aegisTotem.appendFolderUpdate"
 ]);
@@ -198,6 +199,7 @@ requireSourceContains(source, [
   "Show Status",
   "Show List",
   "Show Analytics",
+  "Live Test Checklist",
   "createFileSystemWatcher",
   "totem",
   "aegisTotem.start",
@@ -218,6 +220,9 @@ requireSourceContains(source, [
   "doctorHtml",
   "openDoctorPanel",
   "await openDoctorPanel(context);",
+  "liveTestHtml",
+  "AEGIS Totem Live Test Checklist",
+  "Bundled VSIX runtime",
   "Readiness",
   "placeHolder",
   "lane",

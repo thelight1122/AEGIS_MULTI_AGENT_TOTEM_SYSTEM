@@ -82,6 +82,18 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-25 | codex-lumin | vscode-live-test-checklist
+Added a VS Code Live Test Checklist panel to make the next installed-VSIX smoke test easier to run and diagnose.
+
+- Added `AEGIS: Live Test Checklist` to the VS Code extension manifest and AEGIS Totem sidebar command rows.
+- The panel reports the open workspace, whether the extension is using the bundled VSIX CLI runtime, the CLI version, and the manual smoke steps for the live install.
+- Updated VS Code QA to require the command, sidebar row, source wiring, and panel content.
+- Updated README, VS Code README, release checklist, and draft alpha release notes.
+- This remains a local build slice until verification and a separate commit/push gate.
+
+#### Distilled Lesson
+Manual extension testing needs an in-product orientation surface. A bundled runtime can be technically present, but a tester still needs quick evidence of which runtime is active before trusting the first-run flow.
+
 ### 2026-09-25 | codex-lumin | packaged-vsix-smoke-qa
 
 Added an automated packaged VSIX smoke gate so the live-test shortfall cannot silently return.

@@ -132,6 +132,59 @@ function doctorHtml(result) {
 </body>
 </html>`;
 }
+async function liveTestHtml(context) {
+  const root = repoRoot();
+  const cli = cliInvocation(context);
+  const bundledCli = path.join(context.extensionPath, "cli-dist", "src", "cli.js");
+  const usingBundledCli = fs.existsSync(bundledCli);
+  let cliVersion = "not checked";
+  try {
+    cliVersion = await new Promise((resolve, reject) => {
+      cp.execFile(cli.command, [...cli.argsPrefix, "--version"], { cwd: root || context.extensionPath }, (error, stdout, stderr) => {
+        if (error) reject(new Error(stderr || error.message));
+        else resolve(stdout.trim());
+      });
+    });
+  } catch (error) {
+    cliVersion = `shortfall: ${error.message}`;
+  }
+  const rows = [
+    ["Workspace folder", root || "Open a repository folder first."],
+    ["CLI runtime", usingBundledCli ? "Bundled VSIX runtime" : "Global aegis-totem command"],
+    ["CLI version", cliVersion],
+    ["Bundled CLI path", usingBundledCli ? bundledCli : "not packaged in this extension install"]
+  ];
+  const checks = [
+    "Open a temporary repository in VS Code.",
+    "Open the AEGIS Totem Activity Bar icon.",
+    "Click Initialize System.",
+    "Confirm Doctor opens after Initialize System.",
+    "Confirm Root, Folder Totems, and Agent Lanes appear in the sidebar.",
+    "Run Show List, Show Analytics, and Run Doctor from the sidebar rows."
+  ];
+  return `<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { color: var(--vscode-foreground); font-family: var(--vscode-font-family); padding: 20px; }
+    h1, h2 { font-weight: 600; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 24px; }
+    th, td { border-bottom: 1px solid var(--vscode-panel-border); padding: 7px 6px; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+    th { color: var(--vscode-descriptionForeground); font-weight: 600; }
+    ol { padding-left: 22px; }
+    li { margin: 7px 0; }
+  </style>
+</head>
+<body>
+  <h1>AEGIS Totem Live Test Checklist</h1>
+  <h2>Runtime</h2>
+  <table><tbody>${rows.map(([label, value]) => `<tr><th>${escapeHtml(label)}</th><td>${escapeHtml(value)}</td></tr>`).join("")}</tbody></table>
+  <h2>Manual Smoke</h2>
+  <ol>${checks.map((check) => `<li>${escapeHtml(check)}</li>`).join("")}</ol>
+</body>
+</html>`;
+}
 function findFiles(root, filename, relative = "", options = {}) {
   const skipAegis = options.skipAegis !== false;
   const directory = path.join(root, relative);
@@ -175,6 +228,7 @@ class TotemProvider {
         commandItem("Show Status", "aegisTotem.status", "checklist"),
         commandItem("Show List", "aegisTotem.list", "list-tree"),
         commandItem("Show Analytics", "aegisTotem.analytics", "graph"),
+        commandItem("Live Test Checklist", "aegisTotem.liveTest", "beaker"),
         groupItem("Root", "aegisRootGroup"),
         groupItem("Folder Totems", "aegisFolderTotemsGroup"),
         groupItem("Agent Lanes", "aegisLanesGroup")
@@ -255,6 +309,10 @@ function activate(context) {
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.validate", () => showError(async () => vscode.window.showInformationMessage(await run(context, ["validate"])) )));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.doctor", () => showError(async () => {
     await openDoctorPanel(context);
+  })));
+  context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.liveTest", () => showError(async () => {
+    const panel = vscode.window.createWebviewPanel("aegisTotemLiveTest", "AEGIS Totem Live Test", vscode.ViewColumn.Beside, {});
+    panel.webview.html = await liveTestHtml(context);
   })));
   context.subscriptions.push(vscode.commands.registerCommand("aegisTotem.sendMessage", () => showError(async () => {
     const lane = await vscode.window.showInputBox({ prompt: "Lane name", placeHolder: "codex" });

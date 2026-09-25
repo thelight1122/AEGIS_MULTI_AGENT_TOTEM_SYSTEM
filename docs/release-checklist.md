@@ -89,8 +89,9 @@ npm run mcp:qa
 - [ ] Confirm the extension manifest declares the analytics command.
 - [ ] Confirm `AEGIS: Show Analytics` opens a read-only panel from the bundled CLI `analytics --json`.
 - [ ] Confirm `AEGIS: Run Doctor` opens a read-only readiness panel from the bundled CLI `doctor --json`.
-- [ ] Confirm the AEGIS Totem sidebar exposes visible rows for Initialize System, Doctor, Status, List, and Analytics.
+- [ ] Confirm the AEGIS Totem sidebar exposes visible rows for Initialize System, Doctor, Status, List, Analytics, and Live Test Checklist.
 - [ ] Confirm `AEGIS Totem: Start` calls the bundled CLI `start --json`, reports the seeded Folder Totem count, and then opens Doctor readiness.
+- [ ] Confirm `AEGIS: Live Test Checklist` opens with workspace, runtime, CLI version, and manual smoke-test steps.
 - [ ] Confirm `npm run vscode:qa` extracts the packaged VSIX and runs the bundled CLI smoke test in a fresh temporary repository.
 - [ ] Install the VS Code `.vsix`.
 - [ ] Open a temporary repository in VS Code.
@@ -132,6 +133,7 @@ npm run release:preflight
 - [x] Open Doctor readiness automatically after `AEGIS Totem: Start`.
 - [x] Add a visible `Initialize System` action to the VS Code AEGIS Totem view.
 - [x] Add structured Start JSON for VS Code, agents, and scripts.
+- [x] Add a VS Code Live Test Checklist panel for local VSIX smoke testing.
 - [x] Re-run `npm run vscode:qa`.
 - [x] Re-run `npm run alpha:check`.
 - [x] Add read-only list command for discovered lanes and Folder Totems.

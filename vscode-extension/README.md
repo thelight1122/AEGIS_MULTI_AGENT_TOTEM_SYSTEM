@@ -12,6 +12,8 @@ Start preserves existing `AGENTS.md`, `ROOT_TOTEM.md`, and `TOTEM.md` files. The
 
 `AEGIS: Run Doctor` opens a read-only readiness report before parallel agent work begins.
 
+`AEGIS: Live Test Checklist` opens a read-only panel with the active workspace, bundled CLI/runtime status, CLI version, and the manual smoke-test steps for the installed VSIX.
+
 For local alpha testing, the VSIX bundles the AEGIS Totem CLI runtime used by the extension. Package this extension from the repository root:
 
 ```bash
