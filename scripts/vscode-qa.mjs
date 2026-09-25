@@ -90,9 +90,18 @@ if (manifest.publisher !== "thelight1122") fail(`unexpected publisher ${manifest
 if (manifest.main !== "./extension.js") fail(`unexpected main ${manifest.main}`);
 if (manifest.icon !== "media/aegis-totem-icon.png") fail(`unexpected extension icon ${manifest.icon}`);
 
-const views = manifest.contributes?.views?.explorer ?? [];
+const activityBarContainers = manifest.contributes?.viewsContainers?.activitybar ?? [];
+if (!activityBarContainers.some((container) =>
+  container.id === "aegisTotem" &&
+  container.title === "AEGIS Totem" &&
+  container.icon === "media/aegis-totem-icon.png"
+)) {
+  fail("missing AEGIS Totem Activity Bar container icon");
+}
+
+const views = manifest.contributes?.views?.aegisTotem ?? [];
 if (!views.some((view) => view.id === "aegisTotemView")) {
-  fail("missing aegisTotemView Explorer view");
+  fail("missing aegisTotemView in AEGIS Totem Activity Bar container");
 }
 const viewsWelcome = manifest.contributes?.viewsWelcome ?? [];
 if (!viewsWelcome.some((welcome) => welcome.view === "aegisTotemView" && welcome.contents?.includes("Initialize System"))) {
@@ -149,4 +158,4 @@ requireSourceContains(source, [
   ".aegis/lanes"
 ]);
 
-console.log(`VS Code QA passed: ${files.length} packaged files, ${manifest.contributes.commands.length} commands, 1 Explorer view.`);
+console.log(`VS Code QA passed: ${files.length} packaged files, ${manifest.contributes.commands.length} commands, 1 Activity Bar view.`);

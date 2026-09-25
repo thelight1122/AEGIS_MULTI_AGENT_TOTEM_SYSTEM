@@ -30,7 +30,16 @@
       { "command": "aegisTotem.sendMessage", "title": "AEGIS: Send Lane Message" },
       { "command": "aegisTotem.appendFolderUpdate", "title": "AEGIS: Append Folder Update" }
     ],
-    "views": { "explorer": [{ "id": "aegisTotemView", "name": "AEGIS Totem" }] },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "aegisTotem",
+          "title": "AEGIS Totem",
+          "icon": "media/aegis-totem-icon.png"
+        }
+      ]
+    },
+    "views": { "aegisTotem": [{ "id": "aegisTotemView", "name": "AEGIS Totem" }] },
     "viewsWelcome": [
       {
         "view": "aegisTotemView",
