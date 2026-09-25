@@ -91,6 +91,7 @@ npm run mcp:qa
 - [ ] Confirm `AEGIS: Run Doctor` opens a read-only readiness panel from the bundled CLI `doctor --json`.
 - [ ] Confirm the AEGIS Totem sidebar exposes visible rows for Initialize System, Doctor, Status, List, and Analytics.
 - [ ] Confirm `AEGIS Totem: Start` calls the bundled CLI `start --json`, reports the seeded Folder Totem count, and then opens Doctor readiness.
+- [ ] Confirm `npm run vscode:qa` extracts the packaged VSIX and runs the bundled CLI smoke test in a fresh temporary repository.
 - [ ] Install the VS Code `.vsix`.
 - [ ] Open a temporary repository in VS Code.
 - [ ] Confirm Root Totem, Folder Totem, and lanes appear in the AEGIS Totem view.

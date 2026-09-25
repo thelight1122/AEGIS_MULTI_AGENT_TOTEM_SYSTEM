@@ -1,5 +1,7 @@
-import { existsSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { createWriteStream, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { dirname, join, normalize } from "node:path";
+import { spawnSync } from "node:child_process";
+import { tmpdir } from "node:os";
 import yauzl from "yauzl";
 
 const root = process.cwd();
@@ -65,6 +67,61 @@ function requireCommands(manifest, expected) {
 function requireSourceContains(source, expected) {
   for (const text of expected) {
     if (!source.includes(text)) fail(`extension source missing ${text}`);
+  }
+}
+
+function extractZip(path, destination) {
+  return new Promise((resolve, reject) => {
+    yauzl.open(path, { lazyEntries: true }, (error, zip) => {
+      if (error) return reject(error);
+      zip.readEntry();
+      zip.on("entry", (entry) => {
+        const outputPath = normalize(join(destination, entry.fileName));
+        const safeRoot = normalize(destination + "/");
+        if (outputPath !== normalize(destination) && !outputPath.startsWith(safeRoot)) {
+          return reject(new Error(`unsafe ZIP path ${entry.fileName}`));
+        }
+        if (entry.fileName.endsWith("/")) {
+          mkdirSync(outputPath, { recursive: true });
+          zip.readEntry();
+          return;
+        }
+        mkdirSync(dirname(outputPath), { recursive: true });
+        zip.openReadStream(entry, (streamError, stream) => {
+          if (streamError) return reject(streamError);
+          const output = createWriteStream(outputPath);
+          stream.on("error", reject);
+          output.on("error", reject);
+          output.on("finish", () => zip.readEntry());
+          stream.pipe(output);
+        });
+      });
+      zip.on("error", reject);
+      zip.on("end", resolve);
+    });
+  });
+}
+
+async function requireBundledCliSmoke() {
+  const sandbox = mkdtempSync(join(tmpdir(), "aegis-vscode-qa-"));
+  try {
+    const extractDir = join(sandbox, "extract");
+    const repoDir = join(sandbox, "repo");
+    mkdirSync(extractDir, { recursive: true });
+    mkdirSync(join(repoDir, "src"), { recursive: true });
+    await extractZip(vsixPath, extractDir);
+    const cliPath = join(extractDir, "extension", "cli-dist", "src", "cli.js");
+    const version = spawnSync(process.execPath, [cliPath, "--version"], { cwd: repoDir, encoding: "utf8" });
+    if (version.status !== 0) fail(`bundled CLI version failed: ${version.stderr || version.stdout}`);
+    if (version.stdout.trim() !== "0.1.1") fail(`bundled CLI version mismatch: ${version.stdout.trim()}`);
+    const start = spawnSync(process.execPath, [cliPath, "start", "--json"], { cwd: repoDir, encoding: "utf8" });
+    if (start.status !== 0) fail(`bundled CLI start failed: ${start.stderr || start.stdout}`);
+    const result = JSON.parse(start.stdout);
+    if (!result.ready || !existsSync(join(repoDir, "ROOT_TOTEM.md"))) {
+      fail("bundled CLI start smoke did not initialize the temporary repository");
+    }
+  } finally {
+    rmSync(sandbox, { recursive: true, force: true });
   }
 }
 
@@ -169,5 +226,7 @@ requireSourceContains(source, [
   "append",
   ".aegis/lanes"
 ]);
+
+await requireBundledCliSmoke();
 
 console.log(`VS Code QA passed: ${files.length} packaged files, ${manifest.contributes.commands.length} commands, 1 Activity Bar view.`);

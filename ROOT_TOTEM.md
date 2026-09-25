@@ -82,6 +82,24 @@ The repo can dogfood AEGIS Totem inside itself: initialize Totem structure, crea
 
 ## Append Log
 
+### 2026-09-25 | codex-lumin | packaged-vsix-smoke-qa
+
+Added an automated packaged VSIX smoke gate so the live-test shortfall cannot silently return.
+
+Evidence:
+
+- `scripts/vscode-qa.mjs` now extracts the built VSIX into a temporary directory during QA.
+- The extracted bundled CLI is executed from inside the packaged VSIX, not from the source tree.
+- The smoke verifies the bundled CLI reports version `0.1.1`.
+- The smoke creates a fresh temporary repository and runs bundled `start --json`, then verifies the repository was initialized.
+- README, quickstart, release checklist, extension README, and alpha release notes now document the bundled alpha CLI runtime and packaged smoke behavior.
+- `npm run docs:qa` passed.
+- `npm run alpha:check` passed with 14 test files, 34 tests, typecheck, build, pack dry-run, local install QA, MCP QA, VS Code QA, docs QA, and release preflight.
+
+Distilled understanding:
+
+- VS Code packaging QA must prove the packaged artifact behaves in isolation, not only that source files and manifest declarations look correct.
+
 ### 2026-09-25 | codex-lumin | vscode-visible-actions-bundled-cli
 
 Fixed the first live VS Code test shortfall where the sidebar existed but did not expose obvious command rows, and the local test repo could not run `aegis-totem` because the npm package is not yet published.

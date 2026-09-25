@@ -114,7 +114,7 @@ To verify the packaged extension before sharing it, run:
 npm run vscode:qa
 ```
 
-The QA packages the extension, inspects the `.vsix`, confirms required files and bundled CLI runtime are present, and verifies the expected AEGIS commands, visible Initialize System action rows, List/Analytics/Doctor panel wiring, and Activity Bar view are declared.
+The QA packages the extension, inspects the `.vsix`, confirms required files and bundled CLI runtime are present, verifies the expected AEGIS commands, visible Initialize System action rows, List/Analytics/Doctor panel wiring, and Activity Bar view are declared, then extracts the packaged VSIX and runs the bundled CLI in a fresh temporary repository.
 
 ## MCP
 

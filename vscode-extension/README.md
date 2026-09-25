@@ -1,6 +1,6 @@
 # AEGIS Totem for VS Code
 
-This extension creates and seeds a repository's AEGIS Totem structure when it is absent, then exposes the Root Totem, discovered Folder Totems, and agent lanes in grouped Explorer sections. It invokes the installed `aegis-totem` CLI for Start, status, list, analytics, validation, doctor readiness, lane messages, and Folder Totem updates, so the extension does not create a second storage system.
+This extension creates and seeds a repository's AEGIS Totem structure when it is absent, then exposes the Root Totem, discovered Folder Totems, and agent lanes in grouped sidebar sections. For local alpha testing, it invokes the bundled AEGIS Totem CLI runtime for Start, status, list, analytics, validation, doctor readiness, lane messages, and Folder Totem updates, so the extension does not create a second storage system.
 
 The first step is the visible `Initialize System` row in the AEGIS Totem sidebar, or the command `AEGIS Totem: Start`. Both call the bundled AEGIS Totem CLI with `start --json`, create the Root Totem, local AEGIS configuration, assistant-facing `AGENTS.md` instructions, and Folder Totems only for existing branch folders, with immediate subfolder elements listed. They then open Doctor readiness so the first run shows whether the repository is prepared for coordinated agent work. After Start, models and developers can read the repository's Totems and append reference material, code snippets, audit requests, findings, and agent communications.
 
